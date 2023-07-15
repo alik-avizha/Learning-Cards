@@ -1,3 +1,11 @@
+import { Button } from './components/ui/button'
+
 export function App() {
-  return <div>Hello</div>
+  return (
+    <div>
+      <Button variant={'primary'} as={'a'} href={'/link'}>
+        Hello
+      </Button>
+    </div>
+  )
 }
