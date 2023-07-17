@@ -1,9 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { Logout } from '../../../assets/icons'
+
 import { Button } from './'
 
 const meta = {
-  title: 'Components/Button',
+  title: 'Components/Buttons',
   component: Button,
   tags: ['autodocs'],
   argTypes: {
@@ -24,6 +26,18 @@ export const Primary: Story = {
     disabled: false,
   },
 }
+export const PrimaryWithIcon: Story = {
+  args: {
+    variant: 'primary',
+    children: (
+      <>
+        <Logout />
+        Button primary
+      </>
+    ),
+    disabled: false,
+  },
+}
 
 export const Secondary: Story = {
   args: {
@@ -32,6 +46,19 @@ export const Secondary: Story = {
     disabled: false,
   },
 }
+export const SecondaryWithIcon: Story = {
+  args: {
+    variant: 'secondary',
+    children: (
+      <>
+        <Logout />
+        Button secondary
+      </>
+    ),
+    disabled: false,
+  },
+}
+
 export const Tertiary: Story = {
   args: {
     variant: 'tertiary',
