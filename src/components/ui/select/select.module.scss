@@ -1,0 +1,78 @@
+/* reset */
+button {
+  all: unset;
+}
+
+.selectWrapper {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  width: 13.125rem;
+
+  border: 1px solid red;
+
+  .selectTrigger {
+    display: inline-flex;
+    gap: 7.69rem;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0.38rem 0.75rem;
+
+    border: 1px solid var(--color-dark-100);
+    border-radius: 0.125rem;
+
+    &:hover {
+      background: var(--color-dark-500);
+    }
+
+    .selectIcon {
+      color: var(--color-light-100);
+    }
+  }
+
+  .selectContent {
+    width: inherit;
+    height: 500px;
+
+    background-color: yellow;
+    border: 1px solid var(--color-dark-100);
+    border-top: none;
+    border-radius: 0 0 0.125rem 0.125rem;
+
+    .selectViewport {
+      width: 500px;
+      height: 500px;
+      padding: 0.44rem 0.75rem;
+      background-color: yellow;
+
+      .SelectItem {
+        position: relative;
+
+        display: flex;
+        align-items: center;
+
+        width: 500px;
+        height: 500px;
+        padding: 0 35px 0 25px;
+
+        background-color: yellow;
+        border-radius: 3px;
+      }
+    }
+
+    .selectScrollButton {
+      cursor: default;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      height: 25px;
+
+      color: var(--violet-11);
+    }
+  }
+}
