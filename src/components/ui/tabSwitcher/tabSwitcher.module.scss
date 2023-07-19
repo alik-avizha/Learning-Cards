@@ -8,13 +8,12 @@ input {
 .tabsRoot {
   display: flex;
   flex-direction: column;
-  width: 300px;
+  width: 250px;
   box-shadow: 0 2px 10px black;
 
   .tabsList {
     display: flex;
     flex-shrink: 0;
-    border-bottom: 1px orange;
 
     .tabsTrigger {
       user-select: none;
@@ -24,54 +23,40 @@ input {
       align-items: center;
       justify-content: center;
 
-      height: 45px;
-      padding: 0 20px;
+      padding: 0.38rem 1.5rem;
 
-      font-family: inherit;
-      font-size: 15px;
-      line-height: 1;
-      color: blue;
+      border: 1px solid var(--dark-300, #4c4c4c);
+      border-radius: 0.125rem 0 0 0.125rem;
 
-      background-color: white;
-
-      &:first-child {
-        border-top-left-radius: 6px;
-      }
-
-      &:last-child {
-        border-top-right-radius: 6px;
+      &:focus {
+        border: 2px solid var(--color-info-900);
       }
 
       &:hover {
-        color: violet;
+        background-color: var(--color-dark-300);
+        border: 1px solid var(--color-dark-100);
+
+        p {
+          color: var(--color-light-900);
+        }
       }
 
-      &[data-state='active'] {
-        color: violet;
-        box-shadow:
-          inset 0 -1px 0 0 currentcolor,
-          0 1px 0 0 currentcolor;
+      &:active {
+        background-color: var(--color-accent-500);
+        border: 1px solid var(--color-accent-500);
+
+        p {
+          color: var(--color-light-100);
+        }
       }
 
-      &:focus {
-        position: relative;
-        box-shadow: 0 0 0 2px black;
+      &:first-child {
+        border-radius: 0.125rem 0 0 0.125rem;
       }
-    }
-  }
 
-  .tabsContent {
-    flex-grow: 1;
-
-    padding: 20px;
-
-    background-color: white;
-    border-bottom-right-radius: 6px;
-    border-bottom-left-radius: 6px;
-    outline: none;
-
-    &:focus {
-      box-shadow: 0 0 0 2px black;
+      &:last-child {
+        border-radius: 0 0.125rem 0.125rem 0;
+      }
     }
   }
 }

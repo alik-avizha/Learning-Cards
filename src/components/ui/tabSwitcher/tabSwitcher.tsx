@@ -1,10 +1,12 @@
 import * as Tabs from '@radix-ui/react-tabs'
 
+import { Typography } from '../typography'
+
 import s from './tabSwitcher.module.scss'
 export const TabSwitcher = () => {
   const tabsName = [
-    { name: 'My cards', value: 'Button1' },
-    { name: 'All cards', value: 'Button2' },
+    { name: 'Switcher', value: 'Button1' },
+    { name: 'Switcher', value: 'Button2' },
   ]
 
   return (
@@ -13,13 +15,13 @@ export const TabSwitcher = () => {
         {tabsName.map((tab, index) => {
           return (
             <Tabs.Trigger className={s.tabsTrigger} value={tab.value} key={index}>
-              {tab.name}
+              <Typography className={'body1'}>{tab.name}</Typography>
             </Tabs.Trigger>
           )
         })}
       </Tabs.List>
-      <Tabs.Content className={s.tabsContent} value="tab1"></Tabs.Content>
-      <Tabs.Content className={s.tabsContent} value="tab2"></Tabs.Content>
+      {/*<Tabs.Content className={s.tabsContent} value={tab.value}></Tabs.Content>
+      <Tabs.Content className={s.tabsContent} value={tab.value}></Tabs.Content>*/}
     </Tabs.Root>
   )
 }
