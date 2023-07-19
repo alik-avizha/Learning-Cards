@@ -32,16 +32,16 @@
   background-color: var(--color-accent-500);
   box-shadow: 0 4px 18px 0 rgb(140 97 255 / 35%);
 
-  &:active {
-    background-color: var(--color-accent-700);
-  }
-
   &:hover {
     background-color: var(--color-accent-300);
   }
 
   &:focus {
     background-color: var(--color-accent-500);
+  }
+
+  &:active {
+    background-color: var(--color-accent-700);
   }
 
   &:disabled {
@@ -55,10 +55,6 @@
   background-color: var(--color-dark-300);
   box-shadow: 0 4px 4px 0 rgb(77 86 96 / 13%);
 
-  &:active {
-    background-color: var(--color-dark-500);
-  }
-
   &:hover {
     background-color: var(--color-dark-100);
   }
@@ -68,40 +64,61 @@
     border: 2px solid var(--info-700, #2f68cc);
   }
 
+  &:active {
+    background-color: var(--color-dark-500);
+  }
+
   &:disabled {
     background-color: var(--color-dark-300);
   }
 }
 
-/* Доработать */
 .tertiary {
   @include button;
 
   color: var(--color-accent-500);
   border: 1px solid var(--color-accent-500);
 
-  &:active {
-    background-color: var(--color-accent-900);
-    border: 1px solid var(--color-accent-700);
-  }
-
-  &:hover {
-    background-color: var(--color-dark-700);
-    border: 1px solid var(--color-accent-900);
-  }
-
-  &:focus {
-    font-size: var(--font-size-m);
-    background-color: var(--color-accent-900);
-  }
-
   &:disabled {
+    color: var(--color-accent-900);
     border: 1px solid var(--color-accent-900);
+  }
+
+  &:not(:disabled):hover {
+    background-color: var(--color-dark-700);
+  }
+
+  &:not(:disabled):focus {
+    font-size: var(--font-size-m);
+  }
+
+  &:not(:disabled):active {
+    color: var(--color-accent-500);
+    background-color: var(--color-accent-900);
   }
 }
 
 .link {
-  background-color: yellow;
+  @include button;
+
+  font-size: var(--font-size-m);
+  color: var(--color-accent-500);
+
+  &:hover {
+    color: var(--color-accent-300);
+  }
+
+  &:focus {
+    border-radius: 8.125rem;
+  }
+
+  &:active {
+    color: var(--color-accent-700);
+  }
+
+  &:disabled {
+    color: var(--color-accent-900);
+  }
 }
 
 .fullWidth {
