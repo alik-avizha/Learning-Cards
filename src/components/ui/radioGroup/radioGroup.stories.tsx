@@ -11,4 +11,10 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const ShowRadioGroup: Story = {}
+export const ShowRadioGroupActive: Story = {}
+
+export const ShowRadioGroupNotActive: Story = {
+  args: {
+    isDisabled: true,
+  },
+}
