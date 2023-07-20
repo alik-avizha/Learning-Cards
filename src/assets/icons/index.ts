@@ -1,3 +1,6 @@
 export * from './logout.tsx'
 export * from './avatar.tsx'
 export * from './logo.tsx'
+export * from './search.tsx'
+export * from './eye.tsx'
+export * from './notEye.tsx'
