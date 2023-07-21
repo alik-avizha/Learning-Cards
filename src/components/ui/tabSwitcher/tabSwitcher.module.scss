@@ -9,15 +9,15 @@ input {
   display: flex;
   flex-direction: column;
   width: 250px;
-  box-shadow: 0 2px 10px black;
 
   .tabsList {
     display: flex;
     flex-shrink: 0;
 
     .tabsTrigger {
-      user-select: none;
       cursor: pointer;
+      user-select: none;
+
       display: flex;
       flex: 1;
       align-items: center;

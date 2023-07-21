@@ -13,7 +13,13 @@ export type TextFieldProps = {
 } & ComponentPropsWithoutRef<'input'>
 
 export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
-  ({ errorMessage, placeholder = 'TextField', type, disableValue = false, ...restProps }) => {
+  ({
+    errorMessage,
+    placeholder = 'TextField',
+    type = 'default',
+    disableValue = false,
+    ...restProps
+  }) => {
     const [showPassword, setShowPassword] = useState(true)
 
     const finalType = getType(type, showPassword)

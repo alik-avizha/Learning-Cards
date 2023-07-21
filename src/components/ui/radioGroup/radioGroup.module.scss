@@ -21,7 +21,7 @@ button {
       height: 1rem;
 
       border: 2px solid var(--color-accent-500);
-      border-radius: 100%;
+      border-radius: 50%;
 
       &:disabled {
         border: 2px solid var(--color-accent-900);
@@ -60,6 +60,8 @@ button {
 
           background-color: var(--color-dark-700);
           border-radius: 50%;
+
+          transition: all 0.2s ease-in-out 0s;
         }
       }
 

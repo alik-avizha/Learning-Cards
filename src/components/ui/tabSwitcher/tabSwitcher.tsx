@@ -6,7 +6,7 @@ import s from './tabSwitcher.module.scss'
 export const TabSwitcher = () => {
   const tabsName = [
     { name: 'Switcher', value: 'Button1', isDisabled: false },
-    { name: 'Switcher', value: 'Button2', isDisabled: true },
+    { name: 'Switcher', value: 'Button2', isDisabled: false },
     { name: 'Switcher', value: 'Button3', isDisabled: false },
   ]
 
