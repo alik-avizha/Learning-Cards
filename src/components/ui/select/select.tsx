@@ -1,55 +1,52 @@
-import { FC, forwardRef } from 'react'
+import { FC, useState } from 'react'
 
-import { ChevronDownIcon } from '@radix-ui/react-icons'
-import * as Select from '@radix-ui/react-select'
+import { Listbox } from '@headlessui/react'
 
+import { SelectArrow } from '../../../assets/icons'
 import { Typography } from '../typography'
 
 import s from './select.module.scss'
 
-export const SelectDemo = () => {
+const people = [
+  { id: 1, name: 'Durward Reynolds', unavailable: false },
+  { id: 2, name: 'Kenton Towne', unavailable: false },
+  { id: 3, name: 'Therese Wunsch', unavailable: false },
+  { id: 4, name: 'Benedict Kessler', unavailable: true },
+  { id: 5, name: 'Katelyn Rohan', unavailable: false },
+]
+
+type PropsType = {
+  isDisabled: boolean
+}
+
+export const SelectDemo: FC<PropsType> = ({ isDisabled }) => {
+  const [selectedPerson, setSelectedPerson] = useState(people[0])
+
   return (
-    <Select.Root>
-      <Select.Trigger className={s.selectTrigger}>
-        <Select.Value placeholder="Select-box" />
-        <Select.Icon className={s.selectIcon}>
-          <ChevronDownIcon />
-        </Select.Icon>
-      </Select.Trigger>
-      <Select.Portal className={s.selectPortal}>
-        <Select.Content className={s.selectContent}>
-          {/*<Select.ScrollUpButton className={s.selectScrollButton}>
-            <ChevronUpIcon />
-          </Select.ScrollUpButton>*/}
-          <Select.Viewport className={s.selectViewport}>
-            <SelectItem value="apple">Apple</SelectItem>
-            <SelectItem value="banana">Banana</SelectItem>
-            <SelectItem value="blueberry">Blueberry</SelectItem>
-            <SelectItem value="grapes">Grapes</SelectItem>
-            <SelectItem value="pineapple">Pineapple</SelectItem>
-          </Select.Viewport>
-          <Select.ScrollDownButton className={s.selectScrollButton}>
-            <ChevronDownIcon />
-          </Select.ScrollDownButton>
-        </Select.Content>
-      </Select.Portal>
-    </Select.Root>
+    <Listbox disabled={isDisabled} value={selectedPerson} onChange={setSelectedPerson}>
+      <div className={s.listBox}>
+        <Listbox.Button className={isDisabled ? s.disabledTrigger : s.trigger}>
+          <Typography variant={'body1'}>{selectedPerson.name}</Typography>
+          <SelectArrow className={isDisabled ? s.disabledArrow : s.arrow} />
+        </Listbox.Button>
+
+        <Listbox.Options className={s.optionList}>
+          {people.map(person => (
+            <Listbox.Option
+              className={s.list}
+              key={person.id}
+              value={person}
+              disabled={person.unavailable}
+            >
+              {({ disabled }) => (
+                <Typography className={`${disabled ? s.listItemDisabled : s.listItem}`}>
+                  {person.name}
+                </Typography>
+              )}
+            </Listbox.Option>
+          ))}
+        </Listbox.Options>
+      </div>
+    </Listbox>
   )
 }
-
-type SelectItemProps = {
-  children: React.ReactNode
-  value: string
-}
-
-const SelectItem: FC<SelectItemProps> = forwardRef<HTMLDivElement | null, SelectItemProps>(
-  ({ children, ...props }, forwardedRef) => {
-    return (
-      <Select.Item className={s.selectItem} {...props} ref={forwardedRef}>
-        <Select.ItemText>
-          <Typography variant={'body1'}>{children}</Typography>
-        </Select.ItemText>
-      </Select.Item>
-    )
-  }
-)

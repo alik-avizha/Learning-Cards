@@ -11,4 +11,14 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const SelectStory: Story = {}
+export const SelectStory: Story = {
+  args: {
+    isDisabled: false,
+  },
+}
+
+export const SelectStoryDisabled: Story = {
+  args: {
+    isDisabled: true,
+  },
+}
