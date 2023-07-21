@@ -1,24 +1,24 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Input } from './input.tsx'
+import { TextField } from './textfield.tsx'
 
 const meta = {
-  title: 'Components/Input',
-  component: Input,
+  title: 'Components/TextField',
+  component: TextField,
   tags: ['autodocs'],
-} satisfies Meta<typeof Input>
+} satisfies Meta<typeof TextField>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const InputDefault: Story = {
+export const TextFieldDefault: Story = {
   args: {
     placeholder: 'Default',
     type: 'default',
     disableValue: false,
   },
 }
-export const InputDefaultError: Story = {
+export const TextFieldDefaultError: Story = {
   args: {
     placeholder: 'Default',
     type: 'default',
@@ -26,14 +26,14 @@ export const InputDefaultError: Story = {
     errorMessage: 'Error!',
   },
 }
-export const InputPassword: Story = {
+export const TextFieldPassword: Story = {
   args: {
     placeholder: 'Password',
     type: 'password',
     disableValue: false,
   },
 }
-export const InputPasswordError: Story = {
+export const TextFieldPasswordError: Story = {
   args: {
     placeholder: 'Password',
     type: 'password',
@@ -41,14 +41,14 @@ export const InputPasswordError: Story = {
     errorMessage: 'Error!',
   },
 }
-export const InputSearch: Story = {
+export const TextFieldSearch: Story = {
   args: {
     placeholder: 'Search',
     type: 'search',
     disableValue: false,
   },
 }
-export const InputSearchError: Story = {
+export const TextFieldSearchError: Story = {
   args: {
     placeholder: 'Search',
     type: 'search',

@@ -3,7 +3,7 @@ import { ComponentPropsWithoutRef, forwardRef, useState } from 'react'
 import { Eye, NotEye, Search } from '../../../assets/icons'
 import { Typography } from '../typography'
 
-import s from './input.module.scss'
+import s from './textfield.module.scss'
 
 export type TextFieldProps = {
   type: 'default' | 'password' | 'search'
@@ -12,14 +12,8 @@ export type TextFieldProps = {
   disableValue?: boolean
 } & ComponentPropsWithoutRef<'input'>
 
-export const Input = forwardRef<HTMLInputElement, TextFieldProps>(
-  ({
-    errorMessage,
-    placeholder = 'Input',
-    type = 'password',
-    disableValue = false,
-    ...restProps
-  }) => {
+export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
+  ({ errorMessage, placeholder = 'TextField', type, disableValue = false, ...restProps }) => {
     const [showPassword, setShowPassword] = useState(true)
 
     const finalType = getType(type, showPassword)
