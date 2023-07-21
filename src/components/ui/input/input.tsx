@@ -57,7 +57,11 @@ export const Input = forwardRef<HTMLInputElement, TextFieldProps>(
               disabled={disableValue}
               onClick={() => setShowPassword(prev => !prev)}
             >
-              {showPassword ? <Eye fill={disableValue ? '#4c4c4c' : '#fff'} /> : <NotEye />}
+              {showPassword ? (
+                <Eye fill={disableValue ? '#4c4c4c' : '#fff'} />
+              ) : (
+                <NotEye fill={disableValue ? '#4c4c4c' : '#fff'} />
+              )}
             </button>
           )}
         </div>
