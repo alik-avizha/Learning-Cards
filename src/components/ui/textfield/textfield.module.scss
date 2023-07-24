@@ -1,6 +1,5 @@
 .fieldContainer {
   position: relative;
-  width: 17.75rem;
 
   .search {
     position: absolute;
@@ -58,7 +57,7 @@
     }
   }
 
-  .showPassword {
+  .buttonAction {
     cursor: pointer;
 
     position: absolute;
@@ -66,6 +65,10 @@
     right: 0.75rem;
     bottom: 50%;
     transform: translateY(-50%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     width: 24px;
     height: 24px;

@@ -1,10 +1,10 @@
-button {
-  all: unset;
-}
-
 .checkBoxBlock {
   display: flex;
   align-items: center;
+
+  button {
+    all: unset;
+  }
 
   .checkboxRoot {
     position: relative;

@@ -44,14 +44,14 @@ export const TextFieldPasswordError: Story = {
 export const TextFieldSearch: Story = {
   args: {
     placeholder: 'Search',
-    type: 'search',
+    type: 'searchType',
     disableValue: false,
   },
 }
 export const TextFieldSearchError: Story = {
   args: {
     placeholder: 'Search',
-    type: 'search',
+    type: 'searchType',
     disableValue: false,
     errorMessage: 'Error!',
   },

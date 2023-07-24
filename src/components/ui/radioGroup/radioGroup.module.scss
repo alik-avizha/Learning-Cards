@@ -1,11 +1,11 @@
-button {
-  all: unset;
-}
-
 .radioGroupRoot {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+
+  button {
+    all: unset;
+  }
 
   .itemGroup {
     display: flex;

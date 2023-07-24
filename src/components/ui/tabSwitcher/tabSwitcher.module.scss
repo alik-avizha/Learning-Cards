@@ -1,14 +1,13 @@
-/* reset */
-button,
-fieldset,
-input {
-  all: unset;
-}
-
 .tabsRoot {
   display: flex;
   flex-direction: column;
   width: 250px;
+
+  button,
+  fieldset,
+  input {
+    all: unset;
+  }
 
   .tabsList {
     display: flex;
