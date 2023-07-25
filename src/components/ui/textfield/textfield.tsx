@@ -15,7 +15,7 @@ export type TextFieldProps = {
 export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
   ({
     errorMessage,
-    placeholder = 'TextField',
+    placeholder = 'Some text',
     type = 'default',
     disableValue = false,
     ...restProps

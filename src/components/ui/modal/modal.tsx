@@ -1,20 +1,58 @@
-import { FC, ReactNode, useState } from 'react'
+import { ComponentProps, FC } from 'react'
 
-import { Dialog } from '@headlessui/react'
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogOverlay,
+  DialogPortal,
+  DialogTitle,
+} from '@radix-ui/react-dialog'
+
+import { Close } from '../../../assets/icons'
+import { Typography } from '../typography'
 
 import s from './modal.module.scss'
 
 type PropsType = {
-  isOpenModal: boolean
-  children: ReactNode
-}
+  open: boolean
+  onClose?: () => void
+  showCloseButton?: boolean
+  title?: string
+} & ComponentProps<'div'>
 
-export const Modal: FC<PropsType> = ({ isOpenModal, children }) => {
-  let [isOpen, setIsOpen] = useState(isOpenModal)
+export const Modal: FC<PropsType> = ({
+  open = false,
+  title,
+  onClose,
+  children,
+  showCloseButton = true,
+}) => {
+  function handleModalClosed() {
+    onClose?.()
+  }
 
   return (
-    <Dialog open={isOpen} onClose={() => setIsOpen(false)} className={s.modalWrapper}>
-      <Dialog.Panel className={s.dialog}>{children}</Dialog.Panel>
+    <Dialog open={open} onOpenChange={handleModalClosed}>
+      {open && (
+        <DialogPortal>
+          <DialogOverlay className={s.overlay} />
+          <DialogContent className={s.content}>
+            <header className={s.header}>
+              <DialogTitle asChild>
+                <Typography variant={'h2'}>{title}</Typography>
+              </DialogTitle>
+
+              {showCloseButton && (
+                <DialogClose className={s.closeButton}>
+                  <Close />
+                </DialogClose>
+              )}
+            </header>
+            <div className={s.contentBox}>{children}</div>
+          </DialogContent>
+        </DialogPortal>
+      )}
     </Dialog>
   )
 }

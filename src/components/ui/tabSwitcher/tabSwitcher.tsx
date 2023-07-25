@@ -26,8 +26,6 @@ export const TabSwitcher = () => {
           )
         })}
       </Tabs.List>
-      {/*<Tabs.Content className={s.tabsContent} value={tab.value}></Tabs.Content>
-      <Tabs.Content className={s.tabsContent} value={tab.value}></Tabs.Content>*/}
     </Tabs.Root>
   )
 }
