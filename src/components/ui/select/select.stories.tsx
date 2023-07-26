@@ -6,7 +6,7 @@ const meta = {
   title: 'Components/Select',
   component: SelectDemo,
   tags: ['autodocs'],
-  argTypes: { onChangeOption: { action: 'checked changes' } },
+  argTypes: { onChangeOption: { action: 'select changes' } },
 } satisfies Meta<typeof SelectDemo>
 
 export default meta
