@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { CheckIcon } from '@radix-ui/react-icons'
@@ -8,34 +8,34 @@ import { Typography } from '../typography'
 import s from './checkbox.module.scss'
 
 type CheckBoxProps = {
-  isDisabled?: boolean
-  isChecked?: boolean
+  onChange?: (checked: boolean) => void
+  disabled?: boolean
+  checked?: boolean
   variant: 'default' | 'withText'
   checkBoxText?: string
 }
 
 export const CheckboxDemo: FC<CheckBoxProps> = ({
-  isDisabled = false,
-  isChecked,
+  disabled = false,
+  onChange,
+  checked,
   checkBoxText,
 }) => {
-  const [check, setCheck] = useState<boolean | undefined>(isChecked)
-
   return (
     <div className={s.checkBoxBlock}>
       <Checkbox.Root
-        onClick={() => setCheck(!check)}
-        className={`${s.checkboxRoot} ${check ? s.active : s.unActive}`}
+        className={`${s.checkboxRoot} ${checked ? s.active : s.unActive}`}
         id="c1"
-        checked={check}
-        disabled={isDisabled}
+        checked={checked}
+        onCheckedChange={onChange}
+        disabled={disabled}
       >
         <Checkbox.Indicator className={s.checkboxIndicator}>
           <CheckIcon />
         </Checkbox.Indicator>
       </Checkbox.Root>
       {checkBoxText && (
-        <label className={`${s.label} ${isDisabled ? s.labelDisabled : ''}`} htmlFor="c1">
+        <label className={`${s.label} ${disabled ? s.labelDisabled : ''}`} htmlFor="c1">
           <Typography variant={'body2'}>{checkBoxText}</Typography>
         </label>
       )}
