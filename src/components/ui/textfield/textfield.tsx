@@ -10,6 +10,7 @@ export type TextFieldProps = {
   errorMessage?: string
   placeholder?: string
   disableValue?: boolean
+  onSearchClear?: () => void
 } & ComponentPropsWithoutRef<'input'>
 
 export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
@@ -18,6 +19,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     placeholder = 'Some text',
     type = 'default',
     disableValue = false,
+    onSearchClear,
     ...restProps
   }) => {
     const [showPassword, setShowPassword] = useState(true)
@@ -37,6 +39,11 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
       setValue(e.currentTarget.value)
+    }
+    const onSearchHandler = () => {
+      if (onSearchClear) {
+        onSearchClear()
+      }
     }
 
     return (
@@ -76,7 +83,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
               className={s.buttonAction}
               type={'button'}
               disabled={disableValue}
-              onClick={() => setValue('')}
+              onClick={onSearchHandler}
             >
               <DeleteIcon fill={disableValue ? '#4c4c4c' : '#808080'} />
             </button>

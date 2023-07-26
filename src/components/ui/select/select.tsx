@@ -16,6 +16,8 @@ const people = [
 ]
 
 type PropsType = {
+  className?: string
+  disabled?: boolean
   isDisabled: boolean
 }
 
