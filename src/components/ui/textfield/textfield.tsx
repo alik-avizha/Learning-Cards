@@ -1,4 +1,4 @@
-import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useState } from 'react'
+import { ChangeEvent, KeyboardEvent, ComponentPropsWithoutRef, forwardRef, useState } from 'react'
 
 import { DeleteIcon, Eye, NotEye, Search } from '../../../assets/icons'
 import { Typography } from '../typography'
@@ -10,6 +10,9 @@ export type TextFieldProps = {
   errorMessage?: string
   placeholder?: string
   disableValue?: boolean
+  value: string
+  onChangeText?: (value: string) => void
+  onEnter?: () => void
   onSearchClear?: () => void
 } & ComponentPropsWithoutRef<'input'>
 
@@ -19,11 +22,13 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     placeholder = 'Some text',
     type = 'default',
     disableValue = false,
+    value,
+    onEnter,
     onSearchClear,
+    onChangeText,
     ...restProps
   }) => {
     const [showPassword, setShowPassword] = useState(true)
-    const [value, setValue] = useState('')
 
     const finalType = getType(type, showPassword)
 
@@ -38,9 +43,13 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     }
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-      setValue(e.currentTarget.value)
+      onChangeText?.(e.currentTarget.value)
     }
-    const onSearchHandler = () => {
+
+    const onKeyPressCallback = (e: KeyboardEvent<HTMLInputElement>) => {
+      onEnter && e.key === 'Enter' && onEnter()
+    }
+    const onSearchClearHandler = () => {
       if (onSearchClear) {
         onSearchClear()
       }
@@ -60,6 +69,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
             type={finalType}
             disabled={disableValue}
             onChange={onChangeHandler}
+            onKeyPress={onKeyPressCallback}
             style={inputStyle(type)}
             value={value}
             {...restProps}
@@ -83,7 +93,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
               className={s.buttonAction}
               type={'button'}
               disabled={disableValue}
-              onClick={onSearchHandler}
+              onClick={onSearchClearHandler}
             >
               <DeleteIcon fill={disableValue ? '#4c4c4c' : '#808080'} />
             </button>
