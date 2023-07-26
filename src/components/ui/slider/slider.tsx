@@ -13,9 +13,6 @@ type SliderPropsType = {
 
 export const SliderDemo: FC<SliderPropsType> = ({ minValue = 0, maxValue = 100 }) => {
   const [value, setValue] = useState<number[]>([minValue, maxValue])
-  const onChangeValueHandler = (valueNew: number[]) => {
-    setValue(valueNew)
-  }
 
   return (
     <div className={s.sliderBlock}>
@@ -24,7 +21,7 @@ export const SliderDemo: FC<SliderPropsType> = ({ minValue = 0, maxValue = 100 }
       </div>
       <Slider.Root
         className={s.sliderRoot}
-        onValueChange={onChangeValueHandler}
+        onValueChange={setValue}
         defaultValue={value}
         max={maxValue}
         step={1}
