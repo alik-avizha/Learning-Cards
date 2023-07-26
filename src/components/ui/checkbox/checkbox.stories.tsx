@@ -11,6 +11,7 @@ const meta = {
       options: ['default', 'withText'],
       control: { type: 'radio' },
     },
+    onChange: { action: 'checked changes' },
   },
 } satisfies Meta<typeof CheckboxDemo>
 
