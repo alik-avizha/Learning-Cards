@@ -13,6 +13,7 @@ const meta = {
       options: ['primary', 'secondary', 'tertiary', 'link'],
       control: { type: 'radio' },
     },
+    onClick: { action: 'button clicked' },
   },
 } satisfies Meta<typeof Button>
 
