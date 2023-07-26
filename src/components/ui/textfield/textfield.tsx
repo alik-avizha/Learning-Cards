@@ -10,7 +10,7 @@ export type TextFieldProps = {
   errorMessage?: string
   placeholder?: string
   disableValue?: boolean
-  value: string
+  value?: string
   onChangeText?: (value: string) => void
   onEnter?: () => void
   onSearchClear?: () => void
