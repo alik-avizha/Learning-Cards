@@ -31,7 +31,7 @@ export const CheckboxDemo: FC<CheckBoxProps> = ({
         disabled={disabled}
       >
         <Checkbox.Indicator className={s.checkboxIndicator}>
-          <CheckIcon />
+          <CheckIcon className={s.icon} />
         </Checkbox.Indicator>
       </Checkbox.Root>
       {checkBoxText && (
