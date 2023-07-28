@@ -1,0 +1,21 @@
+@import 'src/components/ui/typography/typography.module';
+
+.label {
+  @include typography(var(--font-size-s), var(--line-height-m), var(--font-weight-regular));
+
+  cursor: pointer;
+  display: inline-block;
+  margin-bottom: 1px;
+}
+
+.primary {
+  color: var(--color-light-100);
+}
+
+.secondary {
+  color: var(--color-dark-100);
+}
+
+.disabled {
+  color: var(--color-dark-300);
+}

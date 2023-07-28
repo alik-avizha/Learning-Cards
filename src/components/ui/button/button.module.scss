@@ -22,7 +22,7 @@
   border-radius: 0.25rem;
 
   &:focus {
-    border: 2px solid var(--info-700, #2f68cc);
+    box-shadow: 0 0 0 2px var(--color-info-700);
   }
 }
 
