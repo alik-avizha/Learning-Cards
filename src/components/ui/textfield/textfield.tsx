@@ -19,18 +19,21 @@ export type TextFieldProps = {
 } & ComponentPropsWithoutRef<'input'>
 
 export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
-  ({
-    errorMessage,
-    label,
-    placeholder = 'Some text',
-    type = 'default',
-    disableValue = false,
-    value,
-    onEnter,
-    onSearchClear,
-    onChangeText,
-    ...restProps
-  }) => {
+  (
+    {
+      errorMessage,
+      label,
+      placeholder = 'Some text',
+      type = 'default',
+      disableValue = false,
+      value,
+      onEnter,
+      onSearchClear,
+      onChangeText,
+      ...restProps
+    },
+    ref
+  ) => {
     const [showPassword, setShowPassword] = useState(true)
 
     const finalType = getType(type, showPassword)
@@ -75,6 +78,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
             onKeyPress={onKeyPressCallback}
             style={inputStyle(type)}
             value={value}
+            ref={ref}
             {...restProps}
           />
           {type === 'password' && (
