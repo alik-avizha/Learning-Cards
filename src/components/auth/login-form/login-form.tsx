@@ -33,6 +33,7 @@ export const LoginForm = () => {
     defaultValue: true,
   })
 
+  console.log('test')
   const onSubmit = (data: FormValues) => {
     console.log(data)
   }
