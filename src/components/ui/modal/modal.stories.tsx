@@ -36,7 +36,7 @@ export const ModalDemo = () => {
       <Modal title={'hello'} showCloseButton={true} open={open} onClose={handleClose}>
         <TextField type={'searchType'} />
         <TextField type={'default'} />
-        <CheckboxDemo variant={'default'} />
+        <CheckboxDemo variant={'default'} onChange={() => {}} checked={true} />
         <Typography variant={'body1'}> Hello There!</Typography>
         <RadioGroupDemo />
       </Modal>

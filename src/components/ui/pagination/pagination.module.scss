@@ -17,8 +17,8 @@
   align-items: center;
   justify-content: center;
 
-  width: 24px;
-  height: 24px;
+  width: 1.5rem;
+  height: 1.5rem;
 
   color: var(--color-light-100);
 
@@ -72,5 +72,6 @@
 
 .select {
   flex-shrink: 0;
-  width: 50px;
+  width: 4.5rem;
+  margin-right: 10px;
 }

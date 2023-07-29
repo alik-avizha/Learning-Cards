@@ -90,6 +90,7 @@
 
   &:not(:disabled):focus {
     font-size: var(--font-size-m);
+    border: none;
   }
 
   &:not(:disabled):active {

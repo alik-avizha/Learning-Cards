@@ -15,10 +15,16 @@ type PropsType = {
   value: any
 }
 
-export const SelectDemo: FC<PropsType> = ({ isDisabled, onChangeOption, options, value }) => {
+export const SelectDemo: FC<PropsType> = ({
+  className,
+  isDisabled,
+  onChangeOption,
+  options,
+  value,
+}) => {
   return (
     <Listbox disabled={isDisabled} value={value} onChange={onChangeOption}>
-      <div className={s.listBox}>
+      <div className={`${s.listBox} ${className}`}>
         <Listbox.Button className={isDisabled ? s.disabledTrigger : s.trigger}>
           <Typography variant={'body1'}>{value.value}</Typography>
           <SelectArrow className={isDisabled ? s.disabledArrow : s.arrow} />
