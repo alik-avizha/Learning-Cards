@@ -1,1 +1,1 @@
-export * from './login-form/index.ts'
+export * from './login-form'
