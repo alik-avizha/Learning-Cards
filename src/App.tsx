@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
-import { RadioGroupDemo } from './components/ui/radioGroup'
-import { SelectDemo } from './components/ui/select'
+import { RadioGroupDemo, SelectDemo } from './components/ui'
 
 export function App() {
   const people = [
