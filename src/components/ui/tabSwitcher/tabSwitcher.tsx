@@ -11,7 +11,7 @@ type PropsType = {
   options?: any[]
   onChangeCallback: (value: any) => void
 }
-export const TabSwitcher: FC<PropsType> = ({ options, onChangeCallback }) => {
+export const TabSwitcher: FC<PropsType> = ({ options, onChangeCallback, classname }) => {
   return (
     <Tabs.Root className={s.tabsRoot} onValueChange={onChangeCallback}>
       <Tabs.List className={s.tabsList}>
@@ -19,11 +19,11 @@ export const TabSwitcher: FC<PropsType> = ({ options, onChangeCallback }) => {
           return (
             <Tabs.Trigger
               disabled={tab.isDisabled}
-              className={s.tabsTrigger}
+              className={`${s.tabsTrigger} ${classname}`}
               value={tab.value}
               key={index}
             >
-              <Typography className={'body1'}>{tab.name}</Typography>
+              <Typography className={'body1'}>{tab.value}</Typography>
             </Tabs.Trigger>
           )
         })}

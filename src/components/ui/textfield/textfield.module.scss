@@ -40,8 +40,10 @@
       border-color: var(--color-dark-300);
     }
 
+    &:not(:disabled):focus-visible,
     &:not(:disabled):focus {
-      border: 2px solid var(--color-info-700);
+      border-color: transparent;
+      outline: 2px solid var(--color-info-700);
     }
 
     &:not(:disabled):active {

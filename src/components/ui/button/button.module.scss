@@ -21,8 +21,9 @@
   border: none;
   border-radius: 0.25rem;
 
+  &:focus-visible,
   &:focus {
-    box-shadow: 0 0 0 2px var(--color-info-700);
+    outline: 2px solid var(--color-info-700);
   }
 }
 
