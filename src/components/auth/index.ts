@@ -1,3 +1,7 @@
 export * from './login-form'
 export * from './sign-in'
 export * from './sign-up'
+export * from './check-email'
+export * from './create-new-password'
+export * from './forgot-password'
+export * from './personal-information'
