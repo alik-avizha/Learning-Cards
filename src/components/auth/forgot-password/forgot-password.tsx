@@ -5,21 +5,14 @@ import { z } from 'zod'
 
 import { Button, Card, ControlledTextField, Typography } from '../../ui'
 
-import s from './sign-up.module.scss'
+import s from './forgot-password.module.scss'
 
-const sigInSchema = z
-  .object({
-    email: z.string().email(),
-    password: z.string().min(3),
-    confirmPassword: z.string().min(3),
-  })
-  .refine(data => data.password === data.confirmPassword, {
-    path: ['confirmPassword'],
-    message: "Password don't match",
-  })
+const sigInSchema = z.object({
+  email: z.string().email(),
+})
 
 type SignInFormShem = z.infer<typeof sigInSchema>
-export const SignUp = () => {
+export const ForgotPassword = () => {
   const { control, handleSubmit } = useForm<SignInFormShem>({
     resolver: zodResolver(sigInSchema),
   })
@@ -29,9 +22,9 @@ export const SignUp = () => {
   }
 
   return (
-    <Card className={s.signBlock}>
+    <Card className={s.forgotPasswordBlock}>
       <Typography className={s.title} variant={'large'}>
-        Sign Up
+        Forgot your password?
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <DevTool control={control} />
@@ -43,31 +36,18 @@ export const SignUp = () => {
           control={control}
           className={s.email}
         />
-        <ControlledTextField
-          name={'password'}
-          label={'Password'}
-          type={'password'}
-          placeholder={'enter your password'}
-          control={control}
-          className={s.password}
-        />
-        <ControlledTextField
-          name={'confirmPassword'}
-          label={'Confirm password'}
-          type={'password'}
-          placeholder={'enter your password'}
-          control={control}
-          className={s.confirmPassword}
-        />
+        <Typography variant={'body2'} className={s.description}>
+          Enter your email address and we will send you further instructions
+        </Typography>
         <Button fullWidth={true} className={s.submit} type="submit">
-          Sign Up
+          Send Instructions
         </Button>
       </form>
       <Typography variant={'body2'} className={s.question}>
-        Already have an account?
+        Did you remember your password?
       </Typography>
-      <Button as={'a'} variant={'link'} className={s.signIn}>
-        Sign In
+      <Button as={'a'} variant={'link'} className={s.signUp}>
+        Try logging in
       </Button>
     </Card>
   )
