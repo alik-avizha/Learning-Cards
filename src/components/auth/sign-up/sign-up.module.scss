@@ -14,17 +14,15 @@
   }
 
   .password {
-    margin-bottom: 0.75rem;
+    margin-bottom: 1.5rem;
   }
 
-  .forgotWrapper {
-    display: flex;
-    justify-content: right;
-    margin-bottom: 4.12rem;
+  .confirmPassword {
+    margin-bottom: 3.75rem;
+  }
 
-    & a {
-      padding: 0.375rem 0;
-    }
+  .submit {
+    padding: 0.375rem 0;
   }
 
   .question {
@@ -39,9 +37,5 @@
     & p {
       color: var(--color-accent-500);
     }
-  }
-
-  .submit {
-    padding: 0.375rem 0;
   }
 }
