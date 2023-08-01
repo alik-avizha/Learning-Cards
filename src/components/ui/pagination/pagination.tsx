@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { clsx } from 'clsx'
 
-import { ArrowLeft, ArrowRight } from '../../../assets/icons'
+import { ArrowLeft, ArrowRight } from '../../../assets'
 import { SelectDemo } from '../select'
 
 import s from './pagination.module.scss'
