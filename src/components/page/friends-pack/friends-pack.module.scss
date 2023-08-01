@@ -1,0 +1,36 @@
+.packListBlock {
+  width: 80rem;
+  margin: 0 auto;
+  padding-top: 2.06rem;
+
+  .backButton {
+    margin-bottom: 2.25rem;
+    padding: 0;
+    color: var(--color-light-100);
+
+    &:focus,
+    &:active,
+    &:hover {
+      color: var(--color-light-100);
+      outline: none;
+    }
+  }
+
+  .headBlock {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+
+  .titleMenu {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    text-align: center;
+  }
+
+  .textField {
+    margin-bottom: 1.5rem;
+  }
+}
