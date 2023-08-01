@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+import { Star } from './assets'
 import { RadioGroupDemo, SelectDemo } from './components/ui'
 
 export function App() {
@@ -17,6 +18,7 @@ export function App() {
     <div>
       <RadioGroupDemo options={people} />
       <SelectDemo options={people} value={perso} onChangeOption={setPersot} />
+      <Star active={true} />
     </div>
   )
 }

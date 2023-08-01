@@ -2,7 +2,7 @@ import { FC, ReactNode } from 'react'
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
-import { Avatar, Logout, Profile } from '../../../assets/icons'
+import { Avatar, Logout, Profile } from '../../../assets'
 import { Typography } from '../typography'
 
 import s from './dropDownMenu.module.scss'
