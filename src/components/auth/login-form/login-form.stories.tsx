@@ -1,11 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { BrowserRouterDecorator } from '../../../common/utils/decorators.tsx'
+
 import { LoginForm } from './login-form'
 
 const meta = {
   title: 'Auth/LoginForm',
   component: LoginForm,
   tags: ['autodocs'],
+  decorators: [BrowserRouterDecorator],
 } satisfies Meta<typeof LoginForm>
 
 export default meta

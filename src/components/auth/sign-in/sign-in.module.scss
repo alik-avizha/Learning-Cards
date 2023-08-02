@@ -1,7 +1,9 @@
 .signBlock {
   display: flex;
   flex-direction: column;
+
   width: 26.5rem;
+  margin: 2.25rem auto 0;
   padding: 2.06rem 2.25rem;
 
   .title {
@@ -27,6 +29,18 @@
     }
   }
 
+  .forgotPassword {
+    padding: 0;
+    color: var(--color-light-100);
+
+    &:focus,
+    &:active,
+    &:hover {
+      color: var(--color-light-100);
+      outline: none;
+    }
+  }
+
   .submit {
     padding: 0.375rem 0;
   }
@@ -39,11 +53,6 @@
   }
 
   .signUp {
-    padding: 0;
     text-decoration: underline;
-
-    & p {
-      color: var(--color-accent-500);
-    }
   }
 }

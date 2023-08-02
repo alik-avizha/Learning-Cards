@@ -1,6 +1,7 @@
 import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 import { z } from 'zod'
 
 import { Button, Card, ControlledCheckbox, ControlledTextField, Typography } from '../../ui'
@@ -52,7 +53,7 @@ export const SignIn = () => {
           checkBoxText={'Remember me'}
         />
         <div className={s.forgotWrapper}>
-          <Button as={'a'} variant={'link'}>
+          <Button as={Link} to="/forgot-password" variant={'link'} className={s.forgotPassword}>
             <Typography variant={'body2'}>Forgot Password?</Typography>
           </Button>
         </div>
@@ -63,7 +64,7 @@ export const SignIn = () => {
       <Typography variant={'body2'} className={s.question}>
         Don&apos;t have an account?
       </Typography>
-      <Button as={'a'} variant={'link'} className={s.signUp}>
+      <Button as={Link} to="/sign-up" variant={'link'} className={s.signUp}>
         Sign Up
       </Button>
     </Card>

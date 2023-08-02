@@ -1,11 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { BrowserRouterDecorator } from '../../../common/utils/decorators.tsx'
+
 import { CreateNewPassword } from './create-new-password.tsx'
 
 const meta = {
   title: 'Auth/CreateNewPassword',
   component: CreateNewPassword,
   tags: ['autodocs'],
+  decorators: [BrowserRouterDecorator],
 } satisfies Meta<typeof CreateNewPassword>
 
 export default meta
