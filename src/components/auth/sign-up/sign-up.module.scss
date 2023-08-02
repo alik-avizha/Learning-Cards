@@ -1,7 +1,9 @@
 .signBlock {
   display: flex;
   flex-direction: column;
+
   width: 26.5rem;
+  margin: 2.25rem auto 0;
   padding: 2.06rem 2.25rem;
 
   .title {
@@ -33,7 +35,6 @@
   }
 
   .signIn {
-    padding: 0;
     text-decoration: underline;
 
     & p {

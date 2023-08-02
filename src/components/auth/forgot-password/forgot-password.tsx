@@ -1,6 +1,7 @@
 import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 import { z } from 'zod'
 
 import { Button, Card, ControlledTextField, Typography } from '../../ui'
@@ -39,14 +40,14 @@ export const ForgotPassword = () => {
         <Typography variant={'body2'} className={s.description}>
           Enter your email address and we will send you further instructions
         </Typography>
-        <Button fullWidth={true} className={s.submit} type="submit">
+        <Button as={Link} to="/check-email" fullWidth={true} className={s.submit} type="submit">
           Send Instructions
         </Button>
       </form>
       <Typography variant={'body2'} className={s.question}>
         Did you remember your password?
       </Typography>
-      <Button as={'a'} variant={'link'} className={s.signUp}>
+      <Button as={Link} to="/sign-in" variant={'link'} className={s.signUp}>
         Try logging in
       </Button>
     </Card>

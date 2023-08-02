@@ -2,6 +2,7 @@ import { FC, useState } from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 import { z } from 'zod'
 
 import { AvatarInCard, Edit, Logout } from '../../../assets'
@@ -76,7 +77,7 @@ export const PersonalInformation: FC<PropsType> = ({ name, email }) => {
           <Typography variant={'body2'} as={'span'} className={s.email}>
             {email}
           </Typography>
-          <Button variant={'secondary'} className={s.logout}>
+          <Button as={Link} to="/sign-up" variant={'secondary'} className={s.logout}>
             <Logout />
             <Typography variant={'subtitle2'}>Logout</Typography>
           </Button>

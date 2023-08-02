@@ -1,5 +1,7 @@
 import { FC } from 'react'
 
+import { Link } from 'react-router-dom'
+
 import { Email } from '../../../assets'
 import { Button, Card, Typography } from '../../ui'
 
@@ -10,7 +12,7 @@ type PropsType = {
 }
 export const CheckEmail: FC<PropsType> = ({ email }) => {
   return (
-    <Card className={s.forgotPasswordBlock}>
+    <Card className={s.checkEmailBlock}>
       <Typography className={s.title} variant={'large'}>
         Check Email
       </Typography>
@@ -18,7 +20,7 @@ export const CheckEmail: FC<PropsType> = ({ email }) => {
       <Typography variant={'body2'} className={s.description}>
         We’ve sent an Email with instructions to {email}
       </Typography>
-      <Button fullWidth={true} className={s.backToSignIn}>
+      <Button as={Link} to="/sign-in" fullWidth={true} className={s.backToSignIn}>
         Back to Sign In
       </Button>
     </Card>
