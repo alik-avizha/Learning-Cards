@@ -4,7 +4,7 @@ import { ArrowDown, ArrowUp, Back, Edit, Play, SubMenu, Trash } from '../../../a
 import { Button, DropDownMenuDemo, TableElement, TextField, Typography } from '../../ui'
 import { Grade } from '../../ui/grade'
 
-import s from './friends-pack.module.scss'
+import s from './my-pack.module.scss'
 
 type TestDataType = {
   id: number
@@ -13,7 +13,7 @@ type TestDataType = {
   lastDate: string
   grade: JSX.Element
 }
-export const FriendsPack = () => {
+export const MyPack = () => {
   const dropDownMenu = [
     {
       id: 1,
@@ -43,6 +43,7 @@ export const FriendsPack = () => {
       ),
     },
   ]
+
   const [sortTable, setSortTable] = useState(false)
   const changeSort = (status: boolean) => setSortTable(status)
 
@@ -127,10 +128,10 @@ export const FriendsPack = () => {
       </Button>
       <div className={s.headBlock}>
         <div className={s.titleMenu}>
-          <Typography variant={'large'}>Friend&apos;s Pack</Typography>
+          <Typography variant={'large'}>Packs list</Typography>
           <DropDownMenuDemo items={dropDownMenu} trigger={<SubMenu />} />
         </div>
-        <Button variant={'primary'}>Learn to Pack</Button>
+        <Button variant={'primary'}>Add New Card</Button>
       </div>
       <TextField type={'searchType'} className={s.textField} />
       <TableElement.Root>

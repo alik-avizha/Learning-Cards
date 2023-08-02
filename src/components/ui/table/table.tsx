@@ -2,7 +2,7 @@ import { ComponentProps, FC, useState } from 'react'
 
 import { clsx } from 'clsx'
 
-import { ArrowDown, ArrowUp, Edit, Trash, Play } from '../../../assets/icons'
+import { ArrowDown, ArrowUp, Edit, Trash, Play } from '../../../assets'
 import { Typography } from '../typography'
 
 import s from './table.module.scss'
@@ -133,4 +133,14 @@ export const Table = () => {
       </Body>
     </Root>
   )
+}
+
+export const TableElement = {
+  Root,
+  Head,
+  Body,
+  Row,
+  HeadCell,
+  Cell,
+  Empty,
 }
