@@ -33,6 +33,12 @@
   .textField {
     margin-bottom: 1.5rem;
   }
+
+  .icons {
+    display: flex;
+    gap: 0.62rem;
+    justify-content: end;
+  }
 }
 
 .buttonDrop {

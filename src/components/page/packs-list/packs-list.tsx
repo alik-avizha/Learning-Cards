@@ -1,7 +1,16 @@
 import { useState } from 'react'
 
 import { ArrowDown, ArrowUp, Edit, Play, Trash } from '../../../assets'
-import { Button, SliderDemo, TableElement, TabSwitcher, TextField, Typography } from '../../ui'
+import {
+  Button,
+  CheckboxDemo,
+  Modal,
+  SliderDemo,
+  TableElement,
+  TabSwitcher,
+  TextField,
+  Typography,
+} from '../../ui'
 
 import s from './packs-list.module.scss'
 
@@ -29,13 +38,24 @@ export const PacksList = () => {
   ]
 
   const [sortTable, setSortTable] = useState(false)
+  const [open, setOpen] = useState(false)
+  const [privatePack, setPrivatePack] = useState(false)
   const changeSort = (status: boolean) => setSortTable(status)
+
+  const handleOpen = () => {
+    setOpen(true)
+  }
+  const handleClose = () => {
+    setOpen(false)
+  }
 
   return (
     <div className={s.packListBlock}>
       <div className={s.headBlock}>
         <Typography variant={'large'}>Packs list</Typography>
-        <Button variant={'primary'}>Add New Pack</Button>
+        <Button variant={'primary'} onClick={handleOpen}>
+          Add New Pack
+        </Button>
       </div>
       <div className={s.settingsBlock}>
         <TextField type={'searchType'} className={s.textField} />
@@ -96,6 +116,21 @@ export const PacksList = () => {
           })}
         </TableElement.Body>
       </TableElement.Root>
+      <Modal
+        title={'Add New Pack'}
+        showCloseButton={true}
+        open={open}
+        onClose={handleClose}
+        titleButton={'Add New Pack'}
+      >
+        <TextField type={'default'} label={'Name Pack'} placeholder={'name'} />
+        <CheckboxDemo
+          variant={'withText'}
+          checkBoxText={'Private pack'}
+          checked={privatePack}
+          onChange={() => setPrivatePack(!privatePack)}
+        />
+      </Modal>
     </div>
   )
 }
