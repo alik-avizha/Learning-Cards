@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
-import { ArrowDown, ArrowUp, Back, Edit, Play, SubMenu, Trash } from '../../../assets'
-import { Button, DropDownMenuDemo, TableElement, TextField, Typography } from '../../ui'
+import { ArrowDown, ArrowUp, Back } from '../../../assets'
+import { Button, TableElement, TextField, Typography } from '../../ui'
 import { Grade } from '../../ui/grade'
 
 import s from './friends-pack.module.scss'
@@ -14,35 +14,6 @@ type TestDataType = {
   grade: JSX.Element
 }
 export const FriendsPack = () => {
-  const dropDownMenu = [
-    {
-      id: 1,
-      component: (
-        <Button variant={'link'} className={s.buttonDrop}>
-          <Play />
-          <Typography variant={'caption'}>Learn</Typography>
-        </Button>
-      ),
-    },
-    {
-      id: 2,
-      component: (
-        <Button variant={'link'} className={s.buttonDrop}>
-          <Edit />
-          <Typography variant={'caption'}>Edit</Typography>
-        </Button>
-      ),
-    },
-    {
-      id: 3,
-      component: (
-        <Button variant={'link'} className={s.buttonDrop}>
-          <Trash />
-          <Typography variant={'caption'}>Delete</Typography>
-        </Button>
-      ),
-    },
-  ]
   const [sortTable, setSortTable] = useState(false)
   const changeSort = (status: boolean) => setSortTable(status)
 
@@ -128,7 +99,6 @@ export const FriendsPack = () => {
       <div className={s.headBlock}>
         <div className={s.titleMenu}>
           <Typography variant={'large'}>Friend&apos;s Pack</Typography>
-          <DropDownMenuDemo items={dropDownMenu} trigger={<SubMenu />} />
         </div>
         <Button variant={'primary'}>Learn to Pack</Button>
       </div>
