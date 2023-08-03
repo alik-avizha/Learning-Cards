@@ -8,11 +8,19 @@
 .content {
   position: fixed;
   z-index: 101;
-  top: 50%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
 
+  width: 33.875rem;
+
   background-color: var(--color-dark-700);
+
+  .buttonBottom {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 1.5rem 2.25rem;
+  }
 }
 
 .header {
@@ -20,7 +28,7 @@
   align-items: center;
   justify-content: space-between;
 
-  padding: 1.2rem 1.5rem;
+  padding: 1.12rem 1.5rem;
 
   border-bottom: 1px solid var(--color-dark-500);
 }
