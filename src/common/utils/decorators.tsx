@@ -1,5 +1,5 @@
-import { BrowserRouter } from 'react-router-dom'
+import { MemoryRouter } from 'react-router-dom'
 
 export const BrowserRouterDecorator = (storyFn: () => React.ReactNode) => {
-  return <BrowserRouter>{storyFn()}</BrowserRouter>
+  return <MemoryRouter>{storyFn()}</MemoryRouter>
 }
