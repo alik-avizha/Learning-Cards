@@ -22,14 +22,21 @@ type TestDataType = {
   grade: JSX.Element
 }
 export const MyPack = () => {
-  const [open, setOpen] = useState(false)
+  const [openEdit, setOpenEdit] = useState(false)
+  const [openDelete, setOpenDelete] = useState(false)
   const [privatePack, setPrivatePack] = useState(false)
 
-  const handleOpen = () => {
-    setOpen(true)
+  const handleOpenEdit = () => {
+    setOpenEdit(true)
   }
-  const handleClose = () => {
-    setOpen(false)
+  const handleCloseEdit = () => {
+    setOpenEdit(false)
+  }
+  const handleOpenDelete = () => {
+    setOpenDelete(true)
+  }
+  const handleCloseDelete = () => {
+    setOpenDelete(false)
   }
 
   const dropDownMenu = [
@@ -45,7 +52,7 @@ export const MyPack = () => {
     {
       id: 2,
       component: (
-        <Button variant={'link'} className={s.buttonDrop} onClick={handleOpen}>
+        <Button variant={'link'} className={s.buttonDrop} onClick={handleOpenEdit}>
           <Edit />
           <Typography variant={'caption'}>Edit</Typography>
         </Button>
@@ -54,7 +61,7 @@ export const MyPack = () => {
     {
       id: 3,
       component: (
-        <Button variant={'link'} className={s.buttonDrop}>
+        <Button variant={'link'} className={s.buttonDrop} onClick={handleOpenDelete}>
           <Trash />
           <Typography variant={'caption'}>Delete</Typography>
         </Button>
@@ -190,8 +197,8 @@ export const MyPack = () => {
       <Modal
         title={'Edite Pack'}
         showCloseButton={true}
-        open={open}
-        onClose={handleClose}
+        open={openEdit}
+        onClose={handleCloseEdit}
         titleButton={'Save Changes'}
       >
         <TextField type={'default'} label={'Name Pack'} placeholder={'name'} />
@@ -205,17 +212,13 @@ export const MyPack = () => {
       <Modal
         title={'Delete Pack'}
         showCloseButton={true}
-        open={open}
-        onClose={handleClose}
+        open={openDelete}
+        onClose={handleCloseDelete}
         titleButton={'Save Changes'}
       >
-        <TextField type={'default'} label={'Name Pack'} placeholder={'name'} />
-        <CheckboxDemo
-          variant={'withText'}
-          checkBoxText={'Private pack'}
-          checked={privatePack}
-          onChange={() => setPrivatePack(!privatePack)}
-        />
+        <Typography variant={'body1'}>
+          Do you really want to remove Pack Name? All cards will be deleted.
+        </Typography>
       </Modal>
     </div>
   )
