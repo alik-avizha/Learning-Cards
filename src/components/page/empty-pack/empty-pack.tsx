@@ -1,9 +1,9 @@
 import { Back } from '../../../assets'
 import { Button, Typography } from '../../ui'
 
-import s from './page-pack.module.scss'
+import s from './empty-pack.module.scss'
 
-export const PagePack = () => {
+export const EmptyPack = () => {
   return (
     <div className={s.packListBlock}>
       <Button variant={'link'} className={s.backButton}>
