@@ -1,11 +1,12 @@
-import { Routing } from './components/routing/routing.tsx'
-import { Button } from './components/ui'
+import { Provider } from 'react-redux'
+
+import { Router } from './router.tsx'
+import { store } from './services/store.ts'
 
 export function App() {
   return (
-    <div>
-      <Button variant={'link'}>To</Button>
-      <Routing />
-    </div>
+    <Provider store={store}>
+      <Router />
+    </Provider>
   )
 }
