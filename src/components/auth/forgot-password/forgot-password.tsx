@@ -40,7 +40,7 @@ export const ForgotPassword = () => {
         <Typography variant={'body2'} className={s.description}>
           Enter your email address and we will send you further instructions
         </Typography>
-        <Button as={Link} to="/check-email" fullWidth={true} className={s.submit} type="submit">
+        <Button fullWidth={true} className={s.submit} type="submit">
           Send Instructions
         </Button>
       </form>

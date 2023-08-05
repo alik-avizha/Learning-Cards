@@ -217,7 +217,12 @@ export const MyPack = () => {
         titleButton={'Save Changes'}
       >
         <Typography variant={'body1'}>
-          Do you really want to remove Pack Name? All cards will be deleted.
+          Do you really want to remove{' '}
+          <Typography variant={'subtitle1'} className={s.packName}>
+            Pack Name?
+          </Typography>{' '}
+          <br />
+          All cards will be deleted.
         </Typography>
       </Modal>
     </div>
