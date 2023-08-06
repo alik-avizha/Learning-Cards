@@ -8,6 +8,7 @@ import {
 
 import { SignIn } from './components/auth'
 import { PacksList } from './components/page'
+import { MyPack } from './components/page/my-pack'
 
 const publicRoutes: RouteObject[] = [
   {
@@ -20,6 +21,10 @@ const privateRoutes: RouteObject[] = [
   {
     path: '/',
     element: <PacksList />,
+  },
+  {
+    path: '/my-pack',
+    element: <MyPack />,
   },
 ]
 
@@ -48,5 +53,7 @@ function PrivateRoutes() {
 }
 
 export const Router = () => {
+  console.log(router)
+
   return <RouterProvider router={router} />
 }
