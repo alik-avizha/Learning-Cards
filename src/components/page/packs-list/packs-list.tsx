@@ -1,6 +1,10 @@
 import { useState } from 'react'
 
 import { ArrowDown, ArrowUp, Edit, Play, Trash } from '../../../assets'
+import useDebounce from '../../../common/hooks/use-debounce.ts'
+import { useGetDecksQuery } from '../../../services/decks'
+import { deckSlice } from '../../../services/decks/deck.slice.ts'
+import { useAppDispatch, useAppSelector } from '../../../services/store.ts'
 import {
   Button,
   CheckboxDemo,
@@ -14,34 +18,28 @@ import {
 
 import s from './packs-list.module.scss'
 
-type TypeTestData = {
-  id: number
-  name: string
-  cardsNumber: number
-  lastDate: string
-  createdBy: string
-}
 export const PacksList = () => {
   const tabSwitcherOptions = [
     { id: 1, value: 'My Cards' },
     { id: 2, value: 'All Cards' },
   ]
 
-  const testData: TypeTestData[] = [
-    { id: 1, name: 'Pack Name', cardsNumber: 4, lastDate: '24.07.2023', createdBy: 'Ivan Ivanov' },
-    { id: 2, name: 'Pack Name', cardsNumber: 4, lastDate: '25.07.2023', createdBy: 'Ivan Ivanov' },
-    { id: 3, name: 'Pack Name', cardsNumber: 4, lastDate: '26.07.2023', createdBy: 'Ivan Ivanov' },
-    { id: 4, name: 'Pack Name', cardsNumber: 4, lastDate: '27.07.2023', createdBy: 'Ivan Ivanov' },
-    { id: 5, name: 'Pack Name', cardsNumber: 4, lastDate: '28.07.2023', createdBy: 'Ivan Ivanov' },
-    { id: 6, name: 'Pack Name', cardsNumber: 4, lastDate: '29.07.2023', createdBy: 'Ivan Ivanov' },
-    { id: 7, name: 'Pack Name', cardsNumber: 4, lastDate: '30.07.2023', createdBy: 'Ivan Ivanov' },
-  ]
+  const initialName = useAppSelector(state => state.deckSlice.searchByName)
+  const dispatch = useAppDispatch()
 
   const [sortTable, setSortTable] = useState(false)
   const [open, setOpen] = useState(false)
   const [privatePack, setPrivatePack] = useState(false)
   const changeSort = (status: boolean) => setSortTable(status)
 
+  const newInitialName = useDebounce(initialName, 1000)
+
+  const { data } = useGetDecksQuery({
+    name: newInitialName,
+  })
+  const setSearchByName = (event: string) => {
+    dispatch(deckSlice.actions.setSearchByName(event))
+  }
   const handleOpen = () => {
     setOpen(true)
   }
@@ -58,7 +56,13 @@ export const PacksList = () => {
         </Button>
       </div>
       <div className={s.settingsBlock}>
-        <TextField type={'searchType'} className={s.textField} />
+        <TextField
+          value={initialName}
+          type={'searchType'}
+          className={s.textField}
+          onChangeText={event => setSearchByName(event)}
+          onSearchClear={() => setSearchByName('')}
+        />
         <div>
           <Typography variant={'body2'} className={s.titleSettings}>
             Show packs cards
@@ -97,13 +101,15 @@ export const PacksList = () => {
           </TableElement.Row>
         </TableElement.Head>
         <TableElement.Body>
-          {testData.map(el => {
+          {data?.items.map(el => {
             return (
               <TableElement.Row key={el.id}>
                 <TableElement.Cell>{el.name}</TableElement.Cell>
-                <TableElement.Cell>{el.cardsNumber}</TableElement.Cell>
-                <TableElement.Cell>{el.lastDate}</TableElement.Cell>
-                <TableElement.Cell>{el.createdBy}</TableElement.Cell>
+                <TableElement.Cell>{el.cardsCount}</TableElement.Cell>
+                <TableElement.Cell>
+                  {new Date(el.updated).toLocaleDateString('ru-RU')}
+                </TableElement.Cell>
+                <TableElement.Cell>{el.author.name}</TableElement.Cell>
                 <TableElement.Cell>
                   <div className={s.icons}>
                     <Play />
