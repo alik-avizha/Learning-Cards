@@ -6,26 +6,25 @@ import {
   RouterProvider,
 } from 'react-router-dom'
 
-import { Typography } from './components/ui'
-import { Decks } from './pages/decks.tsx'
+import { SignIn } from './components/auth'
+import { PacksList } from './components/page'
 
 const publicRoutes: RouteObject[] = [
   {
     path: '/login',
-    element: <Typography variant={'body1'}>login</Typography>,
+    element: <SignIn />,
   },
 ]
 
 const privateRoutes: RouteObject[] = [
   {
     path: '/',
-    element: <Decks />,
+    element: <PacksList />,
   },
 ]
 
-/*const router = createBrowserRouter([
+const router = createBrowserRouter([
   {
-    element: <Layout />,тут Header например
     children: [
       {
         element: <PrivateRoutes />,
@@ -34,22 +33,20 @@ const privateRoutes: RouteObject[] = [
       ...publicRoutes,
     ],
   },
-])*/
-
-const router = createBrowserRouter([
-  {
-    element: <PrivateRoutes />,
-    children: privateRoutes,
-  },
-  ...publicRoutes,
 ])
-
-export const Router = () => {
-  return <RouterProvider router={router} />
-}
 
 function PrivateRoutes() {
   const isAuthenticated = true
 
-  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />
+  return isAuthenticated ? (
+    <>
+      <Outlet />
+    </>
+  ) : (
+    <Navigate to="/login" />
+  )
+}
+
+export const Router = () => {
+  return <RouterProvider router={router} />
 }
