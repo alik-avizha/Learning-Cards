@@ -1,6 +1,10 @@
 import { useState } from 'react'
 
+import { Link } from 'react-router-dom'
+
 import { ArrowDown, ArrowUp, Back, Edit, Play, SubMenu, Trash } from '../../../assets'
+import { useGetCardsQuery, useGetDeckQuery } from '../../../services/cards/cards.ts'
+import { useAppSelector } from '../../../services/store.ts'
 import {
   Button,
   CheckboxDemo,
@@ -14,17 +18,12 @@ import { Grade } from '../../ui/grade'
 
 import s from './my-pack.module.scss'
 
-type TestDataType = {
-  id: number
-  question: string
-  answer: string
-  lastDate: string
-  grade: JSX.Element
-}
 export const MyPack = () => {
   const [openEdit, setOpenEdit] = useState(false)
   const [openDelete, setOpenDelete] = useState(false)
   const [privatePack, setPrivatePack] = useState(false)
+  const [question, setQuestion] = useState('')
+  const currentSelectorId = useAppSelector(state => state.cardsSlice.id)
 
   const handleOpenEdit = () => {
     setOpenEdit(true)
@@ -69,96 +68,41 @@ export const MyPack = () => {
     },
   ]
 
+  const { data } = useGetDeckQuery({
+    id: currentSelectorId,
+  })
+
+  const { data: dataCards } = useGetCardsQuery({
+    id: currentSelectorId,
+    question,
+  })
+
   const [sortTable, setSortTable] = useState(false)
   const changeSort = (status: boolean) => setSortTable(status)
 
-  const testData: TestDataType[] = [
-    {
-      id: 1,
-      question: 'How "This" works in JavaScript?',
-      answer: 'This is how "This" works in JavaScript',
-      lastDate: '24.07.2023',
-      grade: <Grade rating={4} />,
-    },
-    {
-      id: 2,
-      question: 'How "This" works in JavaScript?',
-      answer: 'This is how "This" works in JavaScript',
-      lastDate: '24.07.2023',
-      grade: <Grade rating={4} />,
-    },
-    {
-      id: 3,
-      question: 'How "This" works in JavaScript?',
-      answer: 'This is how "This" works in JavaScript',
-      lastDate: '24.07.2023',
-      grade: <Grade rating={4} />,
-    },
-    {
-      id: 4,
-      question: 'How "This" works in JavaScript?',
-      answer: 'This is how "This" works in JavaScript',
-      lastDate: '24.07.2023',
-      grade: <Grade rating={4} />,
-    },
-    {
-      id: 5,
-      question: 'How "This" works in JavaScript?',
-      answer: 'This is how "This" works in JavaScript',
-      lastDate: '24.07.2023',
-      grade: <Grade rating={4} />,
-    },
-    {
-      id: 6,
-      question: 'How "This" works in JavaScript?',
-      answer: 'This is how "This" works in JavaScript',
-      lastDate: '24.07.2023',
-      grade: <Grade rating={4} />,
-    },
-    {
-      id: 7,
-      question: 'How "This" works in JavaScript?',
-      answer: 'This is how "This" works in JavaScript',
-      lastDate: '24.07.2023',
-      grade: <Grade rating={4} />,
-    },
-    {
-      id: 8,
-      question: 'How "This" works in JavaScript?',
-      answer: 'This is how "This" works in JavaScript',
-      lastDate: '24.07.2023',
-      grade: <Grade rating={4} />,
-    },
-    {
-      id: 9,
-      question: 'How "This" works in JavaScript?',
-      answer: 'This is how "This" works in JavaScript',
-      lastDate: '24.07.2023',
-      grade: <Grade rating={4} />,
-    },
-    {
-      id: 10,
-      question: 'How "This" works in JavaScript?',
-      answer: 'This is how "This" works in JavaScript',
-      lastDate: '24.07.2023',
-      grade: <Grade rating={4} />,
-    },
-  ]
+  const setSearchByName = (event: string) => {
+    setQuestion(event)
+  }
 
   return (
     <div className={s.packListBlock}>
-      <Button variant={'link'} className={s.backButton}>
+      <Button as={Link} to="/" variant={'link'} className={s.backButton}>
         <Back />
         Back to Packs List
       </Button>
       <div className={s.headBlock}>
         <div className={s.titleMenu}>
-          <Typography variant={'large'}>My Pack</Typography>
+          <Typography variant={'large'}>{data?.name}</Typography>
           <DropDownMenuDemo items={dropDownMenu} trigger={<SubMenu />} />
         </div>
         <Button variant={'primary'}>Add New Card</Button>
       </div>
-      <TextField type={'searchType'} className={s.textField} />
+      <TextField
+        value={question}
+        onChangeText={event => setSearchByName(event)}
+        type={'searchType'}
+        className={s.textField}
+      />
       <TableElement.Root>
         <TableElement.Head>
           <TableElement.Row>
@@ -176,13 +120,17 @@ export const MyPack = () => {
           </TableElement.Row>
         </TableElement.Head>
         <TableElement.Body>
-          {testData.map(el => {
+          {dataCards?.items.map(el => {
             return (
               <TableElement.Row key={el.id}>
                 <TableElement.Cell>{el.question}</TableElement.Cell>
                 <TableElement.Cell>{el.answer}</TableElement.Cell>
-                <TableElement.Cell>{el.lastDate}</TableElement.Cell>
-                <TableElement.Cell>{el.grade}</TableElement.Cell>
+                <TableElement.Cell>
+                  {new Date(el.updated).toLocaleDateString('ru-RU')}
+                </TableElement.Cell>
+                <TableElement.Cell>
+                  <Grade rating={el.rating} />
+                </TableElement.Cell>
                 <TableElement.Cell>
                   <div className={s.icons}>
                     <Edit />
