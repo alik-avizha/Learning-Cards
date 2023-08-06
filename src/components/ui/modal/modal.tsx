@@ -21,6 +21,7 @@ type PropsType = {
   showCloseButton?: boolean
   title?: string
   titleButton: string
+  callBack: () => void
 } & ComponentProps<'div'>
 
 export const Modal: FC<PropsType> = ({
@@ -30,6 +31,7 @@ export const Modal: FC<PropsType> = ({
   children,
   titleButton,
   showCloseButton = true,
+  callBack,
 }) => {
   function handleModalClosed() {
     onClose?.()
@@ -57,7 +59,9 @@ export const Modal: FC<PropsType> = ({
               <Button onClick={() => onClose?.()} variant={'secondary'}>
                 Cancel
               </Button>
-              <Button variant={'primary'}>{titleButton}</Button>
+              <Button variant={'primary'} onClick={callBack}>
+                {titleButton}
+              </Button>
             </div>
           </DialogContent>
         </DialogPortal>
