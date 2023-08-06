@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { ArrowDown, ArrowUp, Edit, Play, Trash } from '../../../assets'
 import useDebounce from '../../../common/hooks/use-debounce.ts'
-import { useGetDecksQuery } from '../../../services/decks'
+import { useCreateDeckMutation, useGetDecksQuery } from '../../../services/decks'
 import { deckSlice } from '../../../services/decks/deck.slice.ts'
 import { useAppDispatch, useAppSelector } from '../../../services/store.ts'
 import {
@@ -24,6 +24,8 @@ export const PacksList = () => {
     { id: 2, value: 'All Cards' },
   ]
 
+  const [packName, setPackName] = useState('')
+
   const initialName = useAppSelector(state => state.deckSlice.searchByName)
   const dispatch = useAppDispatch()
 
@@ -36,9 +38,15 @@ export const PacksList = () => {
 
   const { data } = useGetDecksQuery({
     name: newInitialName,
+    orderBy: 'created-desc',
   })
+  const [createDeck] = useCreateDeckMutation()
   const setSearchByName = (event: string) => {
     dispatch(deckSlice.actions.setSearchByName(event))
+  }
+  const handleCreateClicked = () => {
+    createDeck({ name: packName })
+    setOpen(false)
   }
   const handleOpen = () => {
     setOpen(true)
@@ -128,8 +136,15 @@ export const PacksList = () => {
         open={open}
         onClose={handleClose}
         titleButton={'Add New Pack'}
+        callBack={handleCreateClicked}
       >
-        <TextField type={'default'} label={'Name Pack'} placeholder={'name'} />
+        <TextField
+          type={'default'}
+          value={packName}
+          label={'Name Pack'}
+          placeholder={'name'}
+          onChangeText={e => setPackName(e)}
+        />
         <CheckboxDemo
           variant={'withText'}
           checkBoxText={'Private pack'}
