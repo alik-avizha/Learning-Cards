@@ -6,15 +6,16 @@ import {
   RouterProvider,
 } from 'react-router-dom'
 
-import { SignIn } from './components/auth'
-import { Layout } from './components/layout/layout.tsx'
+import { Layout } from './components/layout'
 import { PacksList } from './components/page'
+import { Login } from './components/page/login/login.tsx'
 import { MyPack } from './components/page/my-pack'
+import { useMeQuery } from './services/auth'
 
 const publicRoutes: RouteObject[] = [
   {
     path: '/login',
-    element: <SignIn />,
+    element: <Login />,
   },
 ]
 
@@ -43,15 +44,11 @@ const router = createBrowserRouter([
 ])
 
 function PrivateRoutes() {
-  const isAuthenticated = true
+  const { data, isLoading } = useMeQuery()
 
-  return isAuthenticated ? (
-    <>
-      <Outlet />
-    </>
-  ) : (
-    <Navigate to="/login" />
-  )
+  if (isLoading) return <div>...Loading</div>
+
+  return data ? <Outlet /> : <Navigate to="/login" />
 }
 
 export const Router = () => {
