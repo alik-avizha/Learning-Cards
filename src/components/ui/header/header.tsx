@@ -36,16 +36,18 @@ export const Header: FC<HeaderProps> = ({ isAuth }) => {
 
   return (
     <div className={s.headerBlock}>
-      <Logo />
-      {!isAuth && <Button variant={'primary'}>Sign In</Button>}
-      {isAuth && (
-        <div className={s.avatar_menu}>
-          <Typography variant={'subtitle1'} className={s.menu_name}>
-            Name
-          </Typography>
-          <DropDownMenuDemo items={dropDownMenu} trigger={<Avatar />} />
-        </div>
-      )}
+      <div className={s.contentHeader}>
+        <Logo />
+        {!isAuth && <Button variant={'primary'}>Sign In</Button>}
+        {isAuth && (
+          <div className={s.avatar_menu}>
+            <Typography variant={'subtitle1'} className={s.menu_name}>
+              Name
+            </Typography>
+            <DropDownMenuDemo items={dropDownMenu} trigger={<Avatar />} />
+          </div>
+        )}
+      </div>
     </div>
   )
 }

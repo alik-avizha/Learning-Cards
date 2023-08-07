@@ -85,7 +85,7 @@ export const MyPack = () => {
   }
 
   return (
-    <div className={s.packListBlock}>
+    <div className={s.myPackBlock}>
       <Button as={Link} to="/" variant={'link'} className={s.backButton}>
         <Back />
         Back to Packs List
