@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom'
 
 import { SignIn } from './components/auth'
+import { Layout } from './components/layout/layout.tsx'
 import { PacksList } from './components/page'
 import { MyPack } from './components/page/my-pack'
 
@@ -30,6 +31,7 @@ const privateRoutes: RouteObject[] = [
 
 const router = createBrowserRouter([
   {
+    element: <Layout />,
     children: [
       {
         element: <PrivateRoutes />,
@@ -53,7 +55,5 @@ function PrivateRoutes() {
 }
 
 export const Router = () => {
-  console.log(router)
-
   return <RouterProvider router={router} />
 }

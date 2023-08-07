@@ -1,5 +1,7 @@
 import { FC } from 'react'
 
+import { Link } from 'react-router-dom'
+
 import { Avatar, Logo, Logout, Profile } from '../../../assets'
 import { Button } from '../button'
 import { DropDownMenuDemo } from '../dropDownMenu'
@@ -37,7 +39,9 @@ export const Header: FC<HeaderProps> = ({ isAuth }) => {
   return (
     <div className={s.headerBlock}>
       <div className={s.contentHeader}>
-        <Logo />
+        <Button as={Link} to="/" variant={'link'} className={s.logo}>
+          <Logo />
+        </Button>
         {!isAuth && <Button variant={'primary'}>Sign In</Button>}
         {isAuth && (
           <div className={s.avatar_menu}>

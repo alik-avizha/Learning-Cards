@@ -12,9 +12,19 @@
     width: 80rem;
     margin: 0 auto;
 
-    & svg {
-      width: 9.75rem;
-      height: 2.25rem;
+    .logo {
+      padding: 0;
+
+      &:focus,
+      &:active,
+      &:hover {
+        outline: none;
+      }
+
+      & svg {
+        width: 9.75rem;
+        height: 2.25rem;
+      }
     }
 
     .avatar_menu {
