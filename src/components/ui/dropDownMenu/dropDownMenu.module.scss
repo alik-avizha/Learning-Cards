@@ -1,7 +1,4 @@
 .dropDownBlock {
-  display: flex;
-  justify-content: end;
-
   button {
     all: unset;
     cursor: pointer;
@@ -10,9 +7,9 @@
 
 .iconButton {
   cursor: pointer;
-  display: flex;
   background-color: transparent;
   border: none;
+  outline: none;
 }
 
 .dropdownMenuContent {
