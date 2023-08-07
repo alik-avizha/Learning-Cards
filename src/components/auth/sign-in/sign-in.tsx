@@ -1,3 +1,5 @@
+import { FC } from 'react'
+
 import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -15,20 +17,22 @@ const sigInSchema = z.object({
 })
 
 type SignInFormShem = z.infer<typeof sigInSchema>
-export const SignIn = () => {
+
+type PropsType = {
+  onSubmit: (data: SignInFormShem) => void
+}
+export const SignIn: FC<PropsType> = ({ onSubmit }) => {
   const { control, handleSubmit } = useForm<SignInFormShem>({
     resolver: zodResolver(sigInSchema),
   })
-  const onSubmit = (data: SignInFormShem) => {
-    console.log(data)
-  }
+  const handleSubmitForm = handleSubmit(onSubmit)
 
   return (
     <Card className={s.signBlock}>
       <Typography className={s.title} variant={'large'}>
         Sign In
       </Typography>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmitForm}>
         <DevTool control={control} />
         <ControlledTextField
           name={'email'}

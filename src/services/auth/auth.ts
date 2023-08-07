@@ -1,5 +1,6 @@
-/*
 import { baseApi } from '../base-api.ts'
+
+import { ResponseUserType } from './types.ts'
 
 const authApi = baseApi.injectEndpoints({
   endpoints: builder => {
@@ -10,19 +11,22 @@ const authApi = baseApi.injectEndpoints({
           method: 'GET',
         }),
       }),
+      login: builder.mutation<void, { email: string; password: string; rememberMe: boolean }>({
+        query: body => ({
+          url: 'v1/auth/login',
+          method: 'POST',
+          body: body,
+        }),
+      }),
+      logout: builder.mutation<void, void>({
+        query: body => ({
+          url: 'v1/auth/logout',
+          method: 'POST',
+          body: body,
+        }),
+      }),
     }
   },
 })
 
-export const { useMeQuery } = authApi
-export type ResponseUserType = {
-  avatar: string
-  id: string
-  email: string
-  isEmailVerified: boolean
-  name: string
-  created: string
-  updated: string
-}
-*/
-export {}
+export const { useMeQuery, useLoginMutation, useLogoutMutation } = authApi
