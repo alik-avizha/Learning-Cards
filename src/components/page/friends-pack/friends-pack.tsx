@@ -91,7 +91,7 @@ export const FriendsPack = () => {
   ]
 
   return (
-    <div className={s.packListBlock}>
+    <div className={s.friendsPackBlock}>
       <Button variant={'link'} className={s.backButton}>
         <Back />
         Back to Packs List

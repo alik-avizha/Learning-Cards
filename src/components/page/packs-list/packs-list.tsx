@@ -42,7 +42,7 @@ export const PacksList = () => {
   const { data } = useGetDecksQuery({
     name: newInitialName,
     orderBy: sortTable ? 'created-desc' : 'created-asc',
-    itemsPerPage: 50,
+    itemsPerPage: 20,
   })
 
   const [createDeck] = useCreateDeckMutation()
