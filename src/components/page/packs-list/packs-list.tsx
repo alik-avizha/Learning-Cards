@@ -47,7 +47,7 @@ export const PacksList = () => {
   const { data } = useGetDecksQuery({
     name: newInitialName,
     orderBy: sortTable ? 'created-desc' : 'created-asc',
-    itemsPerPage: 20,
+    itemsPerPage: 10,
   })
 
   const { data: meData } = useMeQuery()

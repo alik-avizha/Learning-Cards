@@ -1,11 +1,14 @@
 import { Outlet } from 'react-router-dom'
 
+import { useMeQuery } from '../../services/auth'
 import { Header } from '../ui'
 
 export const Layout = () => {
+  const { data } = useMeQuery()
+
   return (
     <>
-      <Header isAuth={true} />
+      <Header data={data} />
       <Outlet />
     </>
   )

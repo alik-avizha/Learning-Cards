@@ -17,5 +17,15 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const HeaderIsAuth: Story = { args: { isAuth: true } }
-export const HeaderInNotAuth: Story = { args: { isAuth: false } }
+const data = {
+  avatar: 'string',
+  id: 'string',
+  email: 'string',
+  isEmailVerified: true,
+  name: 'string',
+  created: '2023-08-08T12:12:18.493Z',
+  updated: '2023-08-08T12:12:18.493Z',
+}
+
+export const HeaderIsAuth: Story = { args: { data: data } }
+export const HeaderInNotAuth: Story = { args: { data: data } }

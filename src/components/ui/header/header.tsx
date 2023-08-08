@@ -2,8 +2,9 @@ import { FC } from 'react'
 
 import { Link } from 'react-router-dom'
 
-import { Avatar, Logo, Logout, Profile } from '../../../assets'
-import { useLogoutMutation } from '../../../services/auth'
+import { Logo, Logout, Profile } from '../../../assets'
+import { ResponseUserType, useLogoutMutation } from '../../../services/auth'
+import { Avatar } from '../avatar'
 import { Button } from '../button'
 import { DropDownMenuDemo } from '../dropDownMenu'
 import { Typography } from '../typography'
@@ -12,13 +13,13 @@ import s from './header.module.scss'
 import { ProfileBlock } from './profile-block'
 
 type HeaderProps = {
-  isAuth: boolean
+  data?: ResponseUserType
 }
-export const Header: FC<HeaderProps> = ({ isAuth }) => {
+export const Header: FC<HeaderProps> = ({ data }) => {
   const [logout] = useLogoutMutation()
 
   const dropDownMenu = [
-    { id: 1, component: <ProfileBlock /> },
+    { id: 1, component: <ProfileBlock data={data} /> },
     {
       id: 2,
       component: (
@@ -45,13 +46,13 @@ export const Header: FC<HeaderProps> = ({ isAuth }) => {
         <Button as={Link} to="/" variant={'link'} className={s.logo}>
           <Logo />
         </Button>
-        {!isAuth && <Button variant={'primary'}>Sign In</Button>}
-        {isAuth && (
+        {!data && <Button variant={'primary'}>Sign In</Button>}
+        {data && (
           <div className={s.avatar_menu}>
             <Typography variant={'subtitle1'} className={s.menu_name}>
-              Name
+              {data.name}
             </Typography>
-            <DropDownMenuDemo items={dropDownMenu} trigger={<Avatar />} />
+            <DropDownMenuDemo items={dropDownMenu} trigger={<Avatar src={data.avatar} />} />
           </div>
         )}
       </div>
