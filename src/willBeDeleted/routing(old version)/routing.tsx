@@ -1,8 +1,8 @@
 import { Route, Routes } from 'react-router-dom'
 
-import { CheckEmail, CreateNewPassword, ForgotPassword, SignUp } from '../auth'
-import { Login } from '../page/login/login.tsx'
-import { Typography } from '../ui'
+import { CheckEmail, CreateNewPassword, ForgotPassword, SignUp } from '../../components/auth'
+import { Login } from '../../components/page/login/login.tsx'
+import { Typography } from '../../components/ui'
 
 export const Routing = () => {
   return (

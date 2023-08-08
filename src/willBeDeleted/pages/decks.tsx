@@ -1,9 +1,9 @@
 import { useState } from 'react'
 
-import { Button, TableElement, TextField } from '../components/ui'
-import { useCreateDeckMutation, useGetDecksQuery } from '../services/decks'
-import { deckSlice } from '../services/decks/deck.slice.ts'
-import { useAppDispatch, useAppSelector } from '../services/store.ts'
+import { Button, TableElement, TextField } from '../../components/ui'
+import { useCreateDeckMutation, useGetDecksQuery } from '../../services/decks'
+import { deckSlice } from '../../services/decks/deck.slice.ts'
+import { useAppDispatch, useAppSelector } from '../../services/store.ts'
 
 export const Decks = () => {
   const [cardName, setCardName] = useState('')
