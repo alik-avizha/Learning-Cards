@@ -5,8 +5,9 @@ import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { z } from 'zod'
 
-import { AvatarInCard, Edit, Logout } from '../../../assets'
+import { Edit, Logout } from '../../../assets'
 import { Button, Card, ControlledTextField, Typography } from '../../ui'
+import { Avatar } from '../../ui/avatar'
 
 import s from './personalInformation.module.scss'
 
@@ -38,7 +39,7 @@ export const PersonalInformation: FC<PropsType> = ({ name, email }) => {
       </Typography>
       <div className={s.avatarBlock}>
         <div className={s.avatar}>
-          <AvatarInCard />
+          <Avatar size={'96px'} />
           {!editMode && (
             <div className={s.avatarEdit}>
               <Edit />
