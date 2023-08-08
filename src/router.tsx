@@ -25,7 +25,7 @@ const privateRoutes: RouteObject[] = [
     element: <PacksList />,
   },
   {
-    path: '/my-pack',
+    path: '/my-pack/:id',
     element: <MyPack />,
   },
 ]
