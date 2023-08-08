@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 
 import { ArrowDown, ArrowUp, Back, Edit, Play, SubMenu, Trash } from '../../../assets'
 import { useGetCardsQuery, useGetDeckQuery } from '../../../services/cards'
+import { useAppSelector } from '../../../services/store.ts'
 import {
   Button,
   CheckboxDemo,
@@ -24,6 +25,7 @@ export const MyPack = () => {
   const [openDelete, setOpenDelete] = useState(false)
   const [privatePack, setPrivatePack] = useState(false)
   const [question, setQuestion] = useState('')
+  const isMyPack = useAppSelector(state => state.cardsSlice.isMyPack)
 
   const handleOpenEdit = () => {
     setOpenEdit(true)
@@ -95,9 +97,13 @@ export const MyPack = () => {
           <div className={s.headBlock}>
             <div className={s.titleMenu}>
               <Typography variant={'large'}>{data?.name}</Typography>
-              <DropDownMenuDemo items={dropDownMenu} trigger={<SubMenu />} />
+              {isMyPack && <DropDownMenuDemo items={dropDownMenu} trigger={<SubMenu />} />}
             </div>
-            <Button variant={'primary'}>Add New Card</Button>
+            {isMyPack ? (
+              <Button variant={'primary'}>Add New Card</Button>
+            ) : (
+              <Button variant={'primary'}>Learn to Pack</Button>
+            )}
           </div>
           <TextField
             value={question}
@@ -118,7 +124,7 @@ export const MyPack = () => {
                   Last Updated {sortTable ? <ArrowDown /> : <ArrowUp />}
                 </TableElement.HeadCell>
                 <TableElement.HeadCell>Grade</TableElement.HeadCell>
-                <TableElement.HeadCell></TableElement.HeadCell>
+                {isMyPack && <TableElement.HeadCell></TableElement.HeadCell>}
               </TableElement.Row>
             </TableElement.Head>
             <TableElement.Body>
@@ -133,12 +139,14 @@ export const MyPack = () => {
                     <TableElement.Cell>
                       <Grade rating={el.rating} />
                     </TableElement.Cell>
-                    <TableElement.Cell>
-                      <div className={s.icons}>
-                        <Edit />
-                        <Trash />
-                      </div>
-                    </TableElement.Cell>
+                    {isMyPack && (
+                      <TableElement.Cell>
+                        <div className={s.icons}>
+                          <Edit />
+                          <Trash />
+                        </div>
+                      </TableElement.Cell>
+                    )}
                   </TableElement.Row>
                 )
               })}

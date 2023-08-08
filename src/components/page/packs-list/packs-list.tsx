@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { ArrowDown, ArrowUp, Edit, Play, Trash } from '../../../assets'
 import useDebounce from '../../../common/hooks/use-debounce.ts'
 import { useMeQuery } from '../../../services/auth'
+import { cardsSlice } from '../../../services/cards'
 import {
   useCreateDeckMutation,
   useDeletedDeckMutation,
@@ -66,6 +67,9 @@ export const PacksList = () => {
     setOpen(false)
   }
 
+  const setIsMyPackHandler = (value: boolean) => {
+    dispatch(cardsSlice.actions.setIsMyPack({ isMyPack: value }))
+  }
   const handleDeleteCard = (id: string) => deleteDeck({ id })
 
   return (
@@ -126,7 +130,12 @@ export const PacksList = () => {
             return (
               <TableElement.Row key={el.id}>
                 <TableElement.Cell>
-                  <Button as={Link} to={`/my-pack/${el.id}`} variant={'link'}>
+                  <Button
+                    as={Link}
+                    to={`/my-pack/${el.id}`}
+                    variant={'link'}
+                    onClick={() => setIsMyPackHandler(el.author.id === meData?.id)}
+                  >
                     {el.name}
                   </Button>
                 </TableElement.Cell>
