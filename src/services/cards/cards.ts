@@ -5,7 +5,7 @@ import { CardsResponse, DeckResponse, GetRequestType } from './types.ts'
 const cardsApi = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
-      getDeck: builder.query<DeckResponse, { id: string }>({
+      getDeck: builder.query<DeckResponse, { id: string | undefined }>({
         query: ({ id }) => ({
           url: `v1/decks/${id}`,
           method: 'GET',
