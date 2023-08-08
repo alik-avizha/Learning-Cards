@@ -1,15 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const initialState = {
-  id: '',
+  isMyPack: false,
 }
 
 export const cardsSlice = createSlice({
   name: 'cardsSlice',
   initialState,
   reducers: {
-    setCurrentPackId: (state, action: PayloadAction<{ id: string }>) => {
-      state.id = action.payload.id
+    setIsMyPack: (state, action: PayloadAction<{ isMyPack: boolean }>) => {
+      state.isMyPack = action.payload.isMyPack
     },
   },
 })
