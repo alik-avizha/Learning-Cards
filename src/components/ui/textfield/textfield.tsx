@@ -1,6 +1,6 @@
 import { ChangeEvent, KeyboardEvent, ComponentPropsWithoutRef, forwardRef, useState } from 'react'
 
-import { DeleteIcon, Eye, NotEye, Search } from '../../../assets/icons'
+import { DeleteIcon, Eye, NotEye, Search } from '../../../assets'
 import { LabelDemo } from '../label'
 import { Typography } from '../typography'
 
@@ -94,7 +94,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
                 )}
               </button>
             )}
-            {type === 'searchType' && (
+            {type === 'searchType' && !!value && (
               <button
                 className={s.buttonAction}
                 type={'button'}

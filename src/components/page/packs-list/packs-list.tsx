@@ -47,7 +47,7 @@ export const PacksList = () => {
   const { data: meData } = useMeQuery()
   const { data } = useGetDecksQuery({
     name: newInitialName,
-    orderBy: sortTable ? 'created-desc' : 'created-asc',
+    orderBy: sortTable ? 'created-asc' : 'created-desc',
     itemsPerPage: 10,
     authorId: userId,
   })
@@ -59,10 +59,12 @@ export const PacksList = () => {
   const setSearchByName = (event: string) => {
     dispatch(deckSlice.actions.setSearchByName(event))
   }
-  const handleCreateClicked = () => {
-    open.addNewPack ? createDeck({ name: packName }) : editDeck({ id: cardId, name: packName })
+  const onHandlerActionClicked = () => {
+    ;(open.addNewPack && createDeck({ name: packName })) ||
+      (open.editPack && editDeck({ id: cardId, name: packName })) ||
+      (open.deletePack && deleteDeck({ id: cardId }))
 
-    setOpen({ ...open, addNewPack: false, editPack: false })
+    setOpen({ ...open, addNewPack: false, editPack: false, deletePack: false })
     setPackName('')
   }
   const handleOpen = (value: string) => {
@@ -81,7 +83,6 @@ export const PacksList = () => {
   const setIsMyPackHandler = (value: boolean) => {
     dispatch(cardsSlice.actions.setIsMyPack({ isMyPack: value }))
   }
-  const handleDeleteCard = (id: string) => deleteDeck({ id })
   const handleTabSort = (value: string) => {
     if (value === 'My Cards') {
       setUserId(meData!.id)
@@ -114,6 +115,7 @@ export const PacksList = () => {
             onChangeCallback={value => handleTabSort(value)}
             options={tabSwitcherOptions}
             classname={s.switcher}
+            defaultValue={tabSwitcherOptions[1].value}
           />
         </div>
         <div>
@@ -172,7 +174,13 @@ export const PacksList = () => {
                             setCardId(el.id)
                           }}
                         />
-                        <Trash className={s.icon} onClick={() => handleDeleteCard(el.id)} />
+                        <Trash
+                          className={s.icon}
+                          onClick={() => {
+                            setOpen({ ...open, deletePack: true })
+                            setCardId(el.id)
+                          }}
+                        />
                       </>
                     )}
                   </div>
@@ -186,7 +194,7 @@ export const PacksList = () => {
         open={open}
         packName={packName}
         handleClose={handleClose}
-        handleCreateClicked={handleCreateClicked}
+        onHandlerActionClicked={onHandlerActionClicked}
         setPackName={setPackName}
         privatePack={privatePack}
         setPrivatePack={setPrivatePack}

@@ -10,10 +10,16 @@ type PropsType = {
   classname?: string
   options?: any[]
   onChangeCallback?: (value: string) => void
+  defaultValue?: string
 }
-export const TabSwitcher: FC<PropsType> = ({ options, onChangeCallback, classname }) => {
+export const TabSwitcher: FC<PropsType> = ({
+  options,
+  onChangeCallback,
+  classname,
+  defaultValue,
+}) => {
   return (
-    <Tabs.Root className={s.tabsRoot} onValueChange={onChangeCallback}>
+    <Tabs.Root className={s.tabsRoot} onValueChange={onChangeCallback} defaultValue={defaultValue}>
       <Tabs.List className={s.tabsList}>
         {options?.map((tab, index) => {
           return (
