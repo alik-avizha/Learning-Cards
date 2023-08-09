@@ -36,3 +36,21 @@ export type Deck = {
   cardsCount: number
   author: Author
 }
+
+export type DeckResponse = {
+  author: DeckResponseAuthor
+  id: string
+  userId: string
+  name: string
+  isPrivate: boolean
+  shots: number
+  cover: string
+  rating: number
+  created: string
+  updated: string
+  cardsCount: number
+}
+export type DeckResponseAuthor = {
+  id: string
+  name: string
+}

@@ -1,6 +1,6 @@
 import { baseApi } from '../base-api.ts'
 
-import { CreateGetDeckArgs, Deck, DecksResponse, GetDecksArgs } from './types.ts'
+import { CreateGetDeckArgs, Deck, DeckResponse, DecksResponse, GetDecksArgs } from './types.ts'
 
 const decksApi = baseApi.injectEndpoints({
   endpoints: builder => {
@@ -15,6 +15,13 @@ const decksApi = baseApi.injectEndpoints({
         },
         providesTags: ['Decks'],
       }),
+      getDeck: builder.query<DeckResponse, { id: string | undefined }>({
+        query: ({ id }) => ({
+          url: `v1/decks/${id}`,
+          method: 'GET',
+        }),
+        providesTags: ['Decks'],
+      }),
       createDeck: builder.mutation<Deck, CreateGetDeckArgs>({
         query: ({ name }) => {
           return {
@@ -23,6 +30,14 @@ const decksApi = baseApi.injectEndpoints({
             body: { name },
           }
         },
+        invalidatesTags: ['Decks'],
+      }),
+      updateDeck: builder.mutation<any, { id: string; name: string }>({
+        query: ({ id, name }) => ({
+          url: `v1/decks/${id}`,
+          method: 'PATCH',
+          body: { name },
+        }),
         invalidatesTags: ['Decks'],
       }),
       deletedDeck: builder.mutation<any, any>({
@@ -38,7 +53,9 @@ const decksApi = baseApi.injectEndpoints({
 
 export const {
   useGetDecksQuery,
+  useGetDeckQuery,
   useLazyGetDecksQuery,
   useCreateDeckMutation,
   useDeletedDeckMutation,
+  useUpdateDeckMutation,
 } = decksApi
