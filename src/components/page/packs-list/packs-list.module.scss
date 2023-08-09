@@ -38,4 +38,12 @@
     gap: 0.62rem;
     justify-content: end;
   }
+
+  .nameOfDeckButton {
+    padding: 0;
+
+    &:focus {
+      outline: none;
+    }
+  }
 }

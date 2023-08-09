@@ -40,6 +40,7 @@ export const PacksList = () => {
   const [sortTable, setSortTable] = useState(false)
   const [open, setOpen] = useState(false)
   const [privatePack, setPrivatePack] = useState(false)
+  const [userId, setUserId] = useState('')
   const changeSort = (status: boolean) => setSortTable(status)
 
   const newInitialName = useDebounce(initialName, 1000)
@@ -48,6 +49,7 @@ export const PacksList = () => {
     name: newInitialName,
     orderBy: sortTable ? 'created-desc' : 'created-asc',
     itemsPerPage: 10,
+    authorId: userId,
   })
 
   const { data: meData } = useMeQuery()
@@ -72,6 +74,14 @@ export const PacksList = () => {
   }
   const handleDeleteCard = (id: string) => deleteDeck({ id })
 
+  const handleTabSort = (value: string) => {
+    if (value === 'My Cards') {
+      setUserId(meData!.id)
+    } else {
+      setUserId('')
+    }
+  }
+
   return (
     <div className={s.packListBlock}>
       <div className={s.headBlock}>
@@ -93,14 +103,14 @@ export const PacksList = () => {
             Show packs cards
           </Typography>
           <TabSwitcher
-            onChangeCallback={() => {}}
+            onChangeCallback={value => handleTabSort(value)}
             options={tabSwitcherOptions}
             classname={s.switcher}
           />
         </div>
         <div>
           <Typography variant={'body2'} className={s.titleSettings}>
-            Show packs cards
+            Number of cards
           </Typography>
           <SliderDemo minValue={0} maxValue={10} />
         </div>
@@ -135,6 +145,7 @@ export const PacksList = () => {
                     to={`/my-pack/${el.id}`}
                     variant={'link'}
                     onClick={() => setIsMyPackHandler(el.author.id === meData?.id)}
+                    className={s.nameOfDeckButton}
                   >
                     {el.name}
                   </Button>
