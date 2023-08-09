@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import { Link } from 'react-router-dom'
 
 import { ArrowDown, ArrowUp, Edit, Play, Trash } from '../../../assets'
@@ -16,28 +14,35 @@ import { deckSlice } from '../../../services/decks/deck.slice.ts'
 import { useAppDispatch, useAppSelector } from '../../../services/store.ts'
 import { Button, SliderDemo, TableElement, TabSwitcher, TextField, Typography } from '../../ui'
 
+import { usePackDeckState } from './hook'
 import { PackModal } from './pack-modal'
 import s from './packs-list.module.scss'
 
 export const PacksList = () => {
   const initialName = useAppSelector(state => state.deckSlice.searchByName)
+
   const dispatch = useAppDispatch()
 
   const tabSwitcherOptions = [
     { id: 1, value: 'My Cards' },
     { id: 2, value: 'All Cards' },
   ]
-  const [packName, setPackName] = useState('')
-  const [sortTable, setSortTable] = useState(false)
-
-  const [open, setOpen] = useState({
-    addNewPack: false,
-    editPack: false,
-  })
-  const [cardId, setCardId] = useState('')
-  const [privatePack, setPrivatePack] = useState(false)
-  const [userId, setUserId] = useState('')
   const newInitialName = useDebounce(initialName, 1000)
+
+  const {
+    packName,
+    setPackName,
+    sortTable,
+    setSortTable,
+    open,
+    setOpen,
+    cardId,
+    setCardId,
+    privatePack,
+    setPrivatePack,
+    userId,
+    setUserId,
+  } = usePackDeckState('', false)
 
   const { data: meData } = useMeQuery()
   const { data } = useGetDecksQuery({
