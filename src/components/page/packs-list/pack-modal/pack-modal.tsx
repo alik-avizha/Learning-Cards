@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { CheckboxDemo, Modal, TextField } from '../../../ui'
 
-export type ModalType = { addNewPack: boolean; editPack: boolean }
+import { ModalType } from './types.ts'
 
 type PropsType = {
   open: ModalType
