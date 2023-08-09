@@ -143,8 +143,8 @@ export const MyPack = () => {
                     {isMyPack && (
                       <TableElement.Cell>
                         <div className={s.icons}>
-                          <Edit />
-                          <Trash />
+                          <Edit className={s.icon} />
+                          <Trash className={s.icon} />
                         </div>
                       </TableElement.Cell>
                     )}

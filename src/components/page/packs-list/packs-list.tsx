@@ -161,17 +161,18 @@ export const PacksList = () => {
                 <TableElement.Cell>{el.author.name}</TableElement.Cell>
                 <TableElement.Cell>
                   <div className={s.icons}>
-                    <Play />
+                    <Play className={s.icon} />
                     {el.author.id === meData?.id && (
                       <>
                         <Edit
+                          className={s.icon}
                           onClick={() => {
                             handleOpen('editPack')
                             setPackName(el.name)
                             setCardId(el.id)
                           }}
                         />
-                        <Trash onClick={() => handleDeleteCard(el.id)} />
+                        <Trash className={s.icon} onClick={() => handleDeleteCard(el.id)} />
                       </>
                     )}
                   </div>
