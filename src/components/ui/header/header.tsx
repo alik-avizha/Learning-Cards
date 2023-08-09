@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { Logo, Logout, Profile } from '../../../assets'
 import { ResponseUserType, useLogoutMutation } from '../../../services/auth'
@@ -18,6 +18,15 @@ type HeaderProps = {
 export const Header: FC<HeaderProps> = ({ data }) => {
   const [logout] = useLogoutMutation()
 
+  const navigate = useNavigate()
+  const logoutHandler = () => {
+    logout()
+      .unwrap()
+      .then(() => {
+        navigate('/login')
+      })
+  }
+
   const dropDownMenu = [
     { id: 1, component: <ProfileBlock data={data} /> },
     {
@@ -32,7 +41,7 @@ export const Header: FC<HeaderProps> = ({ data }) => {
     {
       id: 3,
       component: (
-        <Button variant={'link'} className={s.buttonDrop} onClick={() => logout()}>
+        <Button variant={'link'} className={s.buttonDrop} onClick={logoutHandler}>
           <Logout />
           <Typography variant={'caption'}>Sign Out</Typography>
         </Button>
