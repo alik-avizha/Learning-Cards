@@ -8,6 +8,7 @@ export const usePackDeckState = (initialPackName = '', initialSortTable = false)
   const [open, setOpen] = useState<ModalType>({
     addNewPack: false,
     editPack: false,
+    deletePack: false,
   })
   const [cardId, setCardId] = useState<string>('')
   const [privatePack, setPrivatePack] = useState<boolean>(false)
