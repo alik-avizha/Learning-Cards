@@ -10,70 +10,73 @@ import {
   useCreateDeckMutation,
   useDeletedDeckMutation,
   useGetDecksQuery,
+  useUpdateDeckMutation,
 } from '../../../services/decks'
 import { deckSlice } from '../../../services/decks/deck.slice.ts'
 import { useAppDispatch, useAppSelector } from '../../../services/store.ts'
-import {
-  Button,
-  CheckboxDemo,
-  Modal,
-  SliderDemo,
-  TableElement,
-  TabSwitcher,
-  TextField,
-  Typography,
-} from '../../ui'
+import { Button, SliderDemo, TableElement, TabSwitcher, TextField, Typography } from '../../ui'
 
+import { PackModal } from './pack-modal'
 import s from './packs-list.module.scss'
 
 export const PacksList = () => {
+  const initialName = useAppSelector(state => state.deckSlice.searchByName)
+  const dispatch = useAppDispatch()
+
   const tabSwitcherOptions = [
     { id: 1, value: 'My Cards' },
     { id: 2, value: 'All Cards' },
   ]
-
   const [packName, setPackName] = useState('')
-
-  const initialName = useAppSelector(state => state.deckSlice.searchByName)
-  const dispatch = useAppDispatch()
-
   const [sortTable, setSortTable] = useState(false)
-  const [open, setOpen] = useState(false)
+
+  const [open, setOpen] = useState({
+    addNewPack: false,
+    editPack: false,
+  })
+  const [cardId, setCardId] = useState('')
   const [privatePack, setPrivatePack] = useState(false)
   const [userId, setUserId] = useState('')
-  const changeSort = (status: boolean) => setSortTable(status)
-
   const newInitialName = useDebounce(initialName, 1000)
 
+  const { data: meData } = useMeQuery()
   const { data } = useGetDecksQuery({
     name: newInitialName,
     orderBy: sortTable ? 'created-desc' : 'created-asc',
     itemsPerPage: 10,
     authorId: userId,
   })
-
-  const { data: meData } = useMeQuery()
   const [createDeck] = useCreateDeckMutation()
   const [deleteDeck] = useDeletedDeckMutation()
+  const [editDeck] = useUpdateDeckMutation()
+
+  const changeSort = (status: boolean) => setSortTable(status)
   const setSearchByName = (event: string) => {
     dispatch(deckSlice.actions.setSearchByName(event))
   }
   const handleCreateClicked = () => {
-    createDeck({ name: packName })
-    setOpen(false)
-  }
-  const handleOpen = () => {
-    setOpen(true)
-  }
-  const handleClose = () => {
-    setOpen(false)
-  }
+    open.addNewPack ? createDeck({ name: packName }) : editDeck({ id: cardId, name: packName })
 
+    setOpen({ ...open, addNewPack: false, editPack: false })
+    setPackName('')
+  }
+  const handleOpen = (value: string) => {
+    setOpen(prevOpen => ({
+      ...prevOpen,
+      [value]: true,
+    }))
+  }
+  const handleClose = (value: string) => {
+    setOpen(prevOpen => ({
+      ...prevOpen,
+      [value]: false,
+    }))
+    setPackName('')
+  }
   const setIsMyPackHandler = (value: boolean) => {
     dispatch(cardsSlice.actions.setIsMyPack({ isMyPack: value }))
   }
   const handleDeleteCard = (id: string) => deleteDeck({ id })
-
   const handleTabSort = (value: string) => {
     if (value === 'My Cards') {
       setUserId(meData!.id)
@@ -86,7 +89,7 @@ export const PacksList = () => {
     <div className={s.packListBlock}>
       <div className={s.headBlock}>
         <Typography variant={'large'}>Packs list</Typography>
-        <Button variant={'primary'} onClick={handleOpen}>
+        <Button variant={'primary'} onClick={() => handleOpen('addNewPack')}>
           Add New Pack
         </Button>
       </div>
@@ -124,11 +127,7 @@ export const PacksList = () => {
           <TableElement.Row>
             <TableElement.HeadCell>Name</TableElement.HeadCell>
             <TableElement.HeadCell>Cards</TableElement.HeadCell>
-            <TableElement.HeadCell
-              onClick={() => {
-                changeSort(!sortTable)
-              }}
-            >
+            <TableElement.HeadCell onClick={() => changeSort(!sortTable)}>
               Last Updated {sortTable ? <ArrowDown /> : <ArrowUp />}
             </TableElement.HeadCell>
             <TableElement.HeadCell>Created by</TableElement.HeadCell>
@@ -160,7 +159,13 @@ export const PacksList = () => {
                     <Play />
                     {el.author.id === meData?.id && (
                       <>
-                        <Edit />
+                        <Edit
+                          onClick={() => {
+                            handleOpen('editPack')
+                            setPackName(el.name)
+                            setCardId(el.id)
+                          }}
+                        />
                         <Trash onClick={() => handleDeleteCard(el.id)} />
                       </>
                     )}
@@ -171,29 +176,15 @@ export const PacksList = () => {
           })}
         </TableElement.Body>
       </TableElement.Root>
-      <Modal
-        title={'Add New Pack'}
-        showCloseButton={true}
+      <PackModal
         open={open}
-        onClose={handleClose}
-        titleButton={'Add New Pack'}
-        disableButton={!packName}
-        callBack={handleCreateClicked}
-      >
-        <TextField
-          type={'default'}
-          value={packName}
-          label={'Name Pack'}
-          placeholder={'name'}
-          onChangeText={e => setPackName(e)}
-        />
-        <CheckboxDemo
-          variant={'withText'}
-          checkBoxText={'Private pack'}
-          checked={privatePack}
-          onChange={() => setPrivatePack(!privatePack)}
-        />
-      </Modal>
+        packName={packName}
+        handleClose={handleClose}
+        handleCreateClicked={handleCreateClicked}
+        setPackName={setPackName}
+        privatePack={privatePack}
+        setPrivatePack={setPrivatePack}
+      />
     </div>
   )
 }

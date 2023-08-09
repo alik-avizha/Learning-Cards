@@ -3,7 +3,8 @@ import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
 import { ArrowDown, ArrowUp, Back, Edit, Play, SubMenu, Trash } from '../../../assets'
-import { useGetCardsQuery, useGetDeckQuery } from '../../../services/cards'
+import { useGetCardsQuery } from '../../../services/cards'
+import { useGetDeckQuery } from '../../../services/decks'
 import { useAppSelector } from '../../../services/store.ts'
 import {
   Button,
@@ -185,7 +186,7 @@ export const MyPack = () => {
           </Modal>
         </div>
       ) : (
-        <EmptyPack name={data?.name} />
+        <EmptyPack name={data?.name} deckId={params.id} />
       )}
     </>
   )
