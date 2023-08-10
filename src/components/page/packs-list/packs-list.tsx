@@ -70,6 +70,7 @@ export const PacksList = () => {
     maxCardsCount: value[1],
     currentPage: page,
   })
+
   const [createDeck] = useCreateDeckMutation()
   const [deleteDeck] = useDeletedDeckMutation()
   const [editDeck] = useUpdateDeckMutation()
