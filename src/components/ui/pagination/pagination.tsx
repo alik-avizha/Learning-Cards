@@ -15,18 +15,18 @@ type PaginationConditionals =
       onPerPageChange?: never
     }
   | {
-      perPage: any
-      perPageOptions: any[]
+      perPage: number
+      perPageOptions: number[]
       onPerPageChange: (itemPerPage: number) => void
     }
 
 export type PaginationProps = {
-  count: number
+  count?: number
   page: number
   onChange: (page: number) => void
   siblings?: number
-  perPage?: any
-  perPageOptions?: any[]
+  perPage?: number
+  perPageOptions?: number[]
   onPerPageChange?: (itemPerPage: number) => void
 } & PaginationConditionals
 
@@ -45,7 +45,7 @@ const classNames = {
 
 export const Pagination: FC<PaginationProps> = ({
   onChange,
-  count,
+  count = 10,
   page = 1,
   perPage = null,
   perPageOptions,
@@ -163,18 +163,18 @@ const MainPaginationButtons: FC<MainPaginationButtonsProps> = ({
 
 export type PerPageSelectProps = {
   perPage: number
-  perPageOptions: any[]
+  perPageOptions: number[]
   onPerPageChange: (itemPerPage: number) => void
 }
 
 export const PerPageSelect: FC<PerPageSelectProps> = ({
   perPageOptions,
-  perPage,
+  /*perPage,*/
   onPerPageChange,
 }) => {
-  const selectOptions = perPageOptions.map(value => ({
-    label: value.value,
-    value: value.value,
+  const selectOptions = perPageOptions.map((value, index) => ({
+    id: index,
+    value,
   }))
 
   return (
@@ -182,7 +182,7 @@ export const PerPageSelect: FC<PerPageSelectProps> = ({
       Показать
       <SelectDemo
         className={classNames.select}
-        value={perPage}
+        value={selectOptions[0]}
         options={selectOptions}
         onChangeOption={onPerPageChange}
       />

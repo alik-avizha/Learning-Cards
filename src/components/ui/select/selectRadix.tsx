@@ -12,9 +12,9 @@ export type SelectPropsType = {
   label?: string
   placeholder?: ReactNode
   value?: string
-  onValueChange?: (value: string) => void
-  defaultValue?: string
-  options: { label: string; value: string }[]
+  onValueChange?: (value: any) => void
+  defaultValue?: any
+  options: any[]
   disabled?: boolean
   required?: boolean
   classname?: string
@@ -31,7 +31,7 @@ export const SelectRadix: FC<SelectPropsType> = ({
   required,
   classname,
 }) => (
-  <Label.Root className={`${classname}`}>
+  <Label.Root>
     <Typography
       variant={'body2'}
       as={'label'}
@@ -46,7 +46,11 @@ export const SelectRadix: FC<SelectPropsType> = ({
       disabled={disabled}
       required={required}
     >
-      <Select.Trigger className={disabled ? s.triggerDisabled : s.trigger} asChild tabIndex={1}>
+      <Select.Trigger
+        className={`${disabled ? s.triggerDisabled : s.trigger} ${classname}`}
+        asChild
+        tabIndex={1}
+      >
         <div>
           <Select.Value placeholder={placeholder} />
           <SelectArrow className={disabled ? s.iconDisabled : s.icon} />
@@ -57,7 +61,7 @@ export const SelectRadix: FC<SelectPropsType> = ({
           <Select.Viewport>
             {options.map(el => (
               <Select.Item key={el.value} value={el.value} className={s.item}>
-                <Select.ItemText>{el.label}</Select.ItemText>
+                <Select.ItemText>{el.value}</Select.ItemText>
               </Select.Item>
             ))}
           </Select.Viewport>

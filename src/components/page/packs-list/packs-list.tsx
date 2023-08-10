@@ -12,7 +12,8 @@ import {
 } from '../../../services/decks'
 import { deckSlice } from '../../../services/decks/deck.slice.ts'
 import { useAppDispatch, useAppSelector } from '../../../services/store.ts'
-import { Button, SliderDemo, TabSwitcher, TextField, Typography } from '../../ui'
+import { Button, Pagination, SliderDemo, TabSwitcher, TextField, Typography } from '../../ui'
+import { SelectRadix } from '../../ui/select/selectRadix.tsx'
 
 import { usePackDeckState } from './hook'
 import { PackModal } from './pack-modal'
@@ -25,6 +26,18 @@ export const PacksList = () => {
   const itemsPerPage = useAppSelector(state => state.deckSlice.itemsPerPage)
   const sliderValues = useAppSelector(state => state.deckSlice.slider)
   const [value, setValue] = useState<number[]>([sliderValues.minValue, sliderValues.maxValue])
+  const options = [
+    { id: 1, value: 7 },
+    { id: 2, value: 10 },
+    { id: 3, value: 20 },
+    { id: 4, value: 50 },
+    { id: 5, value: 100 },
+  ]
+  const [perPage, setPerPage] = useState({ id: 1, value: itemsPerPage })
+
+  const onSetPerPageHandler = (value: number) => {
+    setPerPage({ ...perPage, value })
+  }
 
   const dispatch = useAppDispatch()
 
@@ -45,14 +58,17 @@ export const PacksList = () => {
     setUserId,
   } = usePackDeckState('', false)
 
+  const [page, setPage] = useState(1)
+
   const { data: meData } = useMeQuery()
   const { data } = useGetDecksQuery({
     name: newInitialName,
     orderBy: sortTable ? 'created-asc' : 'created-desc',
-    itemsPerPage,
+    itemsPerPage: perPage.value,
     authorId: userId,
     minCardsCount: value[0],
     maxCardsCount: value[1],
+    currentPage: page,
   })
   const [createDeck] = useCreateDeckMutation()
   const [deleteDeck] = useDeletedDeckMutation()
@@ -144,6 +160,17 @@ export const PacksList = () => {
         setOpen={setOpen}
         open={open}
       />
+      <div className={s.pagination}>
+        <Pagination count={data?.pagination.totalPages} page={page} onChange={setPage} />
+        <Typography variant={'body2'}>Показать</Typography>
+        <SelectRadix
+          options={options}
+          defaultValue={perPage.value}
+          onValueChange={onSetPerPageHandler}
+          classname={s.selectPagination}
+        />
+        <Typography variant={'body2'}>На странице</Typography>
+      </div>
       <PackModal
         open={open}
         packName={packName}
