@@ -1,0 +1,21 @@
+.icons {
+  display: flex;
+  gap: 0.62rem;
+  justify-content: end;
+
+  .icon {
+    transition: transform 0.2s ease-in-out;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+}
+
+.nameOfDeckButton {
+  padding: 0;
+
+  &:focus {
+    outline: none;
+  }
+}

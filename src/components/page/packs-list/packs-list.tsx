@@ -1,6 +1,4 @@
-import { Link } from 'react-router-dom'
-
-import { ArrowDown, ArrowUp, Edit, Play, Trash } from '../../../assets'
+import { Trash } from '../../../assets'
 import useDebounce from '../../../common/hooks/use-debounce.ts'
 import { useMeQuery } from '../../../services/auth'
 import { cardsSlice } from '../../../services/cards'
@@ -12,11 +10,12 @@ import {
 } from '../../../services/decks'
 import { deckSlice } from '../../../services/decks/deck.slice.ts'
 import { useAppDispatch, useAppSelector } from '../../../services/store.ts'
-import { Button, SliderDemo, TableElement, TabSwitcher, TextField, Typography } from '../../ui'
+import { Button, SliderDemo, TabSwitcher, TextField, Typography } from '../../ui'
 
 import { usePackDeckState } from './hook'
 import { PackModal } from './pack-modal'
 import s from './packs-list.module.scss'
+import { TablePacksList } from './table-packs-list'
 
 export const PacksList = () => {
   const initialName = useAppSelector(state => state.deckSlice.searchByName)
@@ -129,67 +128,18 @@ export const PacksList = () => {
           Clear Filter
         </Button>
       </div>
-      <TableElement.Root>
-        <TableElement.Head>
-          <TableElement.Row>
-            <TableElement.HeadCell>Name</TableElement.HeadCell>
-            <TableElement.HeadCell>Cards</TableElement.HeadCell>
-            <TableElement.HeadCell onClick={() => changeSort(!sortTable)}>
-              Last Updated {sortTable ? <ArrowDown /> : <ArrowUp />}
-            </TableElement.HeadCell>
-            <TableElement.HeadCell>Created by</TableElement.HeadCell>
-            <TableElement.HeadCell></TableElement.HeadCell>
-          </TableElement.Row>
-        </TableElement.Head>
-        <TableElement.Body>
-          {data?.items.map(el => {
-            return (
-              <TableElement.Row key={el.id}>
-                <TableElement.Cell>
-                  <Button
-                    as={Link}
-                    to={`/my-pack/${el.id}`}
-                    variant={'link'}
-                    onClick={() => setIsMyPackHandler(el.author.id === meData?.id)}
-                    className={s.nameOfDeckButton}
-                  >
-                    {el.name}
-                  </Button>
-                </TableElement.Cell>
-                <TableElement.Cell>{el.cardsCount}</TableElement.Cell>
-                <TableElement.Cell>
-                  {new Date(el.created).toLocaleDateString('ru-RU')}
-                </TableElement.Cell>
-                <TableElement.Cell>{el.author.name}</TableElement.Cell>
-                <TableElement.Cell>
-                  <div className={s.icons}>
-                    <Play className={s.icon} />
-                    {el.author.id === meData?.id && (
-                      <>
-                        <Edit
-                          className={s.icon}
-                          onClick={() => {
-                            handleOpen('editPack')
-                            setPackName(el.name)
-                            setCardId(el.id)
-                          }}
-                        />
-                        <Trash
-                          className={s.icon}
-                          onClick={() => {
-                            setOpen({ ...open, deletePack: true })
-                            setCardId(el.id)
-                          }}
-                        />
-                      </>
-                    )}
-                  </div>
-                </TableElement.Cell>
-              </TableElement.Row>
-            )
-          })}
-        </TableElement.Body>
-      </TableElement.Root>
+      <TablePacksList
+        data={data}
+        sortTable={sortTable}
+        changeSort={changeSort}
+        authData={meData}
+        setIsMyPackHandler={setIsMyPackHandler}
+        handleOpen={handleOpen}
+        setPackName={setPackName}
+        setCardId={setCardId}
+        setOpen={setOpen}
+        open={open}
+      />
       <PackModal
         open={open}
         packName={packName}
