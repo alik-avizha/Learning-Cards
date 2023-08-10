@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { Trash } from '../../../assets'
 import useDebounce from '../../../common/hooks/use-debounce.ts'
 import { useMeQuery } from '../../../services/auth'
@@ -19,13 +21,13 @@ import { TablePacksList } from './table-packs-list'
 
 export const PacksList = () => {
   const initialName = useAppSelector(state => state.deckSlice.searchByName)
+  const tabSwitcherOptions = useAppSelector(state => state.deckSlice.tabSwitcherOptions)
+  const itemsPerPage = useAppSelector(state => state.deckSlice.itemsPerPage)
+  const sliderValues = useAppSelector(state => state.deckSlice.slider)
+  const [value, setValue] = useState<number[]>([sliderValues.minValue, sliderValues.maxValue])
 
   const dispatch = useAppDispatch()
 
-  const tabSwitcherOptions = [
-    { id: 1, value: 'My Cards' },
-    { id: 2, value: 'All Cards' },
-  ]
   const newInitialName = useDebounce(initialName, 1000)
 
   const {
@@ -47,8 +49,10 @@ export const PacksList = () => {
   const { data } = useGetDecksQuery({
     name: newInitialName,
     orderBy: sortTable ? 'created-asc' : 'created-desc',
-    itemsPerPage: 10,
+    itemsPerPage,
     authorId: userId,
+    minCardsCount: value[0],
+    maxCardsCount: value[1],
   })
   const [createDeck] = useCreateDeckMutation()
   const [deleteDeck] = useDeletedDeckMutation()
@@ -121,7 +125,7 @@ export const PacksList = () => {
           <Typography variant={'body2'} className={s.titleSettings}>
             Number of cards
           </Typography>
-          <SliderDemo minValue={0} maxValue={10} />
+          <SliderDemo value={value} setValue={setValue} maxValue={sliderValues.maxValue} />
         </div>
         <Button variant={'secondary'}>
           <Trash />
