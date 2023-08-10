@@ -38,7 +38,12 @@ export const PackModal: FC<PropsType> = props => {
 
   return (
     <Modal
-      title={open.addNewPack ? 'Add New Pack' : 'Edit Pack'}
+      title={
+        (open.addNewPack && 'Add New Pack') ||
+        (open.editPack && 'Edit Pack') ||
+        (open.deletePack && 'Delete Pack') ||
+        'Name Pack'
+      }
       showCloseButton={true}
       open={open.addNewPack || open.editPack || open.deletePack}
       onClose={onCloseHandler}
