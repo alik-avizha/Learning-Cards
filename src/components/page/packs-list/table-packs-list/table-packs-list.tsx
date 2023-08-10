@@ -68,12 +68,20 @@ export const TablePacksList: FC<PropsType> = ({
       </TableElement.Head>
       <TableElement.Body>
         {data?.items.map(el => {
+          const lastRoute = () => {
+            if (el.author.id === authData?.id) {
+              return el.cardsCount !== 0 ? `/my-pack/${el.id}` : `/empty-pack/${el.name}/${el.id}`
+            } else {
+              return `/friends-pack/${el.id}`
+            }
+          }
+
           return (
             <TableElement.Row key={el.id}>
               <TableElement.Cell>
                 <Button
                   as={Link}
-                  to={`/my-pack/${el.id}`}
+                  to={lastRoute()}
                   variant={'link'}
                   onClick={() => onClickNameDeckHandler(el.author.id)}
                   className={s.nameOfDeckButton}

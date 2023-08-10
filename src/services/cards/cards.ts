@@ -11,6 +11,7 @@ const cardsApi = baseApi.injectEndpoints({
           method: 'GET',
           params: { question, ...args },
         }),
+        providesTags: ['Cards'],
       }),
       createCard: builder.mutation<
         any,
@@ -21,7 +22,7 @@ const cardsApi = baseApi.injectEndpoints({
           method: 'POST',
           body: { ...args },
         }),
-        invalidatesTags: ['Decks'],
+        invalidatesTags: ['Cards'],
       }),
     }
   },

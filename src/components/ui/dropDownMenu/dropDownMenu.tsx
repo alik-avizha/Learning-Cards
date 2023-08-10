@@ -15,7 +15,7 @@ type DropDownMenuPropsType = {
 export const DropDownMenuDemo: FC<DropDownMenuPropsType> = ({ items, trigger }) => {
   const itemsForRender = items?.map((item, index) => {
     return (
-      <>
+      <div key={index}>
         {index === items?.length - 1 ? (
           <DropdownMenu.Item className={s.dropdownMenuItem}>{item.component}</DropdownMenu.Item>
         ) : (
@@ -24,7 +24,7 @@ export const DropDownMenuDemo: FC<DropDownMenuPropsType> = ({ items, trigger }) 
             <DropdownMenu.Separator className={s.dropdownMenuSeparator} />
           </>
         )}
-      </>
+      </div>
     )
   })
 
