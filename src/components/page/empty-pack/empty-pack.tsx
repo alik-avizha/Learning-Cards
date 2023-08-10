@@ -1,6 +1,6 @@
-import { FC, useState } from 'react'
+import { useState } from 'react'
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import { Back } from '../../../assets'
 import { useCreateCardMutation } from '../../../services/cards'
@@ -8,19 +8,17 @@ import { Button, Modal, TextField, Typography } from '../../ui'
 
 import s from './empty-pack.module.scss'
 
-type PropsType = {
-  name?: string
-  deckId?: string
-}
-export const EmptyPack: FC<PropsType> = ({ name, deckId }) => {
+export const EmptyPack = () => {
   const [question, setQuestion] = useState<string>('')
   const [answer, setAnswer] = useState<string>('')
   const [open, setOpen] = useState<boolean>(false)
   const [createCard] = useCreateCardMutation()
+  const navigate = useNavigate()
+  const params = useParams<{ id: string; name: string }>()
 
   const addCardHandler = () => {
-    createCard({ id: deckId, question, answer })
-    setOpen(false)
+    createCard({ id: params.id, question, answer })
+    navigate(`/my-pack/${params.id}`)
   }
 
   return (
@@ -30,7 +28,7 @@ export const EmptyPack: FC<PropsType> = ({ name, deckId }) => {
         Back to Packs List
       </Button>
       <Typography variant={'large'} className={s.title}>
-        {name}
+        {params.name}
       </Typography>
       <Typography variant={'body1'} className={s.description}>
         This pack is empty. Click add new card to fill this pack

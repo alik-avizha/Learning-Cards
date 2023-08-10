@@ -8,6 +8,8 @@ import {
 
 import { Layout } from './components/layout'
 import { PacksList } from './components/page'
+import { EmptyPack } from './components/page/empty-pack'
+import { FriendsPack } from './components/page/friends-pack'
 import { Login } from './components/page/login/login.tsx'
 import { MyPack } from './components/page/my-pack'
 import { useMeQuery } from './services/auth'
@@ -27,6 +29,14 @@ const privateRoutes: RouteObject[] = [
   {
     path: '/my-pack/:id',
     element: <MyPack />,
+  },
+  {
+    path: '/friends-pack/:id',
+    element: <FriendsPack />,
+  },
+  {
+    path: '/empty-pack/:name/:id',
+    element: <EmptyPack />,
   },
 ]
 
