@@ -9,7 +9,7 @@ export const Decks = () => {
   const [cardName, setCardName] = useState('')
 
   const itemsPerPage = useAppSelector(state => state.deckSlice.itemsPerPage)
-  const currentPage = useAppSelector(state => state.deckSlice.currentPAge)
+  const currentPage = useAppSelector(state => state.deckSlice.currentPage)
   const searchByName = useAppSelector(state => state.deckSlice.searchByName)
   const dispatch = useAppDispatch()
 
