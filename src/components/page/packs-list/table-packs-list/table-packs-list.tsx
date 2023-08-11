@@ -2,18 +2,51 @@ import { FC } from 'react'
 
 import { Link } from 'react-router-dom'
 
-import { ArrowDown, ArrowUp, Edit, Play, Trash } from '../../../../assets'
+import { Edit, Play, Trash } from '../../../../assets'
 import { ResponseUserType } from '../../../../services/auth'
 import { DecksResponse } from '../../../../services/decks/types.ts'
 import { Button, TableElement } from '../../../ui'
+import { HeaderTable } from '../../../ui/table/header-table.tsx'
+import { Sort } from '../../../ui/table/type.ts'
 import { ModalType } from '../pack-modal'
 
 import s from './table-packs-list.module.scss'
 
+export type Column = {
+  key: string
+  title: string
+  sortable?: boolean
+}
+
+const columns: Array<Column> = [
+  {
+    key: 'name',
+    title: 'Name',
+    sortable: true,
+  },
+  {
+    key: 'cardsCount',
+    title: 'Cards',
+    sortable: true,
+  },
+  {
+    key: 'updated',
+    title: 'Last Updated',
+    sortable: true,
+  },
+  {
+    key: 'created',
+    title: 'Created by',
+    sortable: true,
+  },
+  {
+    key: 'activity',
+    title: '',
+  },
+]
+
 type PropsType = {
   data: DecksResponse | undefined
-  sortTable: boolean
-  changeSort: (sort: boolean) => void
   authData: ResponseUserType | undefined
   setIsMyPackHandler: (isMyPack: boolean) => void
   handleOpen: (typeModal: string) => void
@@ -21,11 +54,11 @@ type PropsType = {
   setCardId: (cardId: string) => void
   setOpen: (modalType: ModalType) => void
   open: ModalType
+  sort: Sort
+  setSort: (value: Sort) => void
 }
 export const TablePacksList: FC<PropsType> = ({
   data,
-  sortTable,
-  changeSort,
   authData,
   setIsMyPackHandler,
   handleOpen,
@@ -33,11 +66,9 @@ export const TablePacksList: FC<PropsType> = ({
   setCardId,
   setOpen,
   open,
+  sort,
+  setSort,
 }) => {
-  const onSortHandler = () => {
-    changeSort(!sortTable)
-  }
-
   const onClickNameDeckHandler = (authorId: string) => {
     setIsMyPackHandler(authorId === authData?.id)
   }
@@ -55,17 +86,7 @@ export const TablePacksList: FC<PropsType> = ({
 
   return (
     <TableElement.Root>
-      <TableElement.Head>
-        <TableElement.Row>
-          <TableElement.HeadCell>Name</TableElement.HeadCell>
-          <TableElement.HeadCell>Cards</TableElement.HeadCell>
-          <TableElement.HeadCell onClick={onSortHandler}>
-            Last Updated {sortTable ? <ArrowDown /> : <ArrowUp />}
-          </TableElement.HeadCell>
-          <TableElement.HeadCell>Created by</TableElement.HeadCell>
-          <TableElement.HeadCell></TableElement.HeadCell>
-        </TableElement.Row>
-      </TableElement.Head>
+      <HeaderTable columns={columns} sort={sort} onSort={setSort} />
       <TableElement.Body>
         {data?.items.map(el => {
           const lastRoute = () => {
@@ -91,7 +112,7 @@ export const TablePacksList: FC<PropsType> = ({
               </TableElement.Cell>
               <TableElement.Cell>{el.cardsCount}</TableElement.Cell>
               <TableElement.Cell>
-                {new Date(el.created).toLocaleDateString('ru-RU')}
+                {new Date(el.updated).toLocaleDateString('ru-RU')}
               </TableElement.Cell>
               <TableElement.Cell>{el.author.name}</TableElement.Cell>
               <TableElement.Cell>

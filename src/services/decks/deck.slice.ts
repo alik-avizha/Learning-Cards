@@ -12,6 +12,13 @@ const initialState = {
     minValue: 0,
     maxValue: 10,
   },
+  paginationOptions: [
+    { id: 1, value: 7 },
+    { id: 2, value: 10 },
+    { id: 3, value: 20 },
+    { id: 4, value: 50 },
+    { id: 5, value: 100 },
+  ],
 }
 
 export const deckSlice = createSlice({

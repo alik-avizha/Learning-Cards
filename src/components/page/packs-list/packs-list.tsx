@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import { Trash } from '../../../assets'
 import useDebounce from '../../../common/hooks/use-debounce.ts'
 import { useMeQuery } from '../../../services/auth'
@@ -25,19 +23,8 @@ export const PacksList = () => {
   const tabSwitcherOptions = useAppSelector(state => state.deckSlice.tabSwitcherOptions)
   const itemsPerPage = useAppSelector(state => state.deckSlice.itemsPerPage)
   const sliderValues = useAppSelector(state => state.deckSlice.slider)
-  const [value, setValue] = useState<number[]>([sliderValues.minValue, sliderValues.maxValue])
-  const options = [
-    { id: 1, value: 7 },
-    { id: 2, value: 10 },
-    { id: 3, value: 20 },
-    { id: 4, value: 50 },
-    { id: 5, value: 100 },
-  ]
-  const [perPage, setPerPage] = useState({ id: 1, value: itemsPerPage })
-
-  const onSetPerPageHandler = (value: number) => {
-    setPerPage({ ...perPage, value })
-  }
+  const options = useAppSelector(state => state.deckSlice.paginationOptions)
+  const currentPage = useAppSelector(state => state.deckSlice.currentPage)
 
   const dispatch = useAppDispatch()
 
@@ -46,8 +33,6 @@ export const PacksList = () => {
   const {
     packName,
     setPackName,
-    sortTable,
-    setSortTable,
     open,
     setOpen,
     cardId,
@@ -56,26 +41,31 @@ export const PacksList = () => {
     setPrivatePack,
     userId,
     setUserId,
-  } = usePackDeckState('', false)
-
-  const [page, setPage] = useState(1)
+    sort,
+    setSort,
+    sortedString,
+    page,
+    setPage,
+    setValueSlider,
+    valueSlider,
+    perPage,
+    onSetPerPageHandler,
+  } = usePackDeckState('', sliderValues, currentPage, itemsPerPage)
 
   const { data: meData } = useMeQuery()
   const { data } = useGetDecksQuery({
     name: newInitialName,
-    orderBy: sortTable ? 'created-asc' : 'created-desc',
+    orderBy: sortedString,
     itemsPerPage: perPage.value,
     authorId: userId,
-    minCardsCount: value[0],
-    maxCardsCount: value[1],
+    minCardsCount: valueSlider[0],
+    maxCardsCount: valueSlider[1],
     currentPage: page,
   })
-
   const [createDeck] = useCreateDeckMutation()
   const [deleteDeck] = useDeletedDeckMutation()
   const [editDeck] = useUpdateDeckMutation()
 
-  const changeSort = (status: boolean) => setSortTable(status)
   const setSearchByName = (event: string) => {
     dispatch(deckSlice.actions.setSearchByName(event))
   }
@@ -142,7 +132,11 @@ export const PacksList = () => {
           <Typography variant={'body2'} className={s.titleSettings}>
             Number of cards
           </Typography>
-          <SliderDemo value={value} setValue={setValue} maxValue={sliderValues.maxValue} />
+          <SliderDemo
+            value={valueSlider}
+            setValue={setValueSlider}
+            maxValue={data?.maxCardsCount}
+          />
         </div>
         <Button variant={'secondary'}>
           <Trash />
@@ -151,8 +145,6 @@ export const PacksList = () => {
       </div>
       <TablePacksList
         data={data}
-        sortTable={sortTable}
-        changeSort={changeSort}
         authData={meData}
         setIsMyPackHandler={setIsMyPackHandler}
         handleOpen={handleOpen}
@@ -160,6 +152,8 @@ export const PacksList = () => {
         setCardId={setCardId}
         setOpen={setOpen}
         open={open}
+        sort={sort}
+        setSort={setSort}
       />
       <div className={s.pagination}>
         <Pagination count={data?.pagination.totalPages} page={page} onChange={setPage} />
