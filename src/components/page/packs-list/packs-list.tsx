@@ -101,6 +101,13 @@ export const PacksList = () => {
     }
   }
 
+  const clearFilterData = () => {
+    setSearchByName('')
+    handleTabSort('All cards')
+    setValueSlider([sliderValues.minValue, sliderValues.maxValue])
+    setSort({ key: 'updated', direction: 'asc' })
+  }
+
   return (
     <div className={s.packListBlock}>
       <div className={s.headBlock}>
@@ -138,7 +145,7 @@ export const PacksList = () => {
             maxValue={data?.maxCardsCount}
           />
         </div>
-        <Button variant={'secondary'}>
+        <Button variant={'secondary'} onClick={clearFilterData}>
           <Trash />
           Clear Filter
         </Button>
