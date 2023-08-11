@@ -16,10 +16,14 @@ export const RadioGroupDemo: FC<RadioGroupProps> = ({
   isDisabled = false,
   options,
   onChangeOption,
+  classname,
 }) => {
   return (
     <form>
-      <RadioGroup.Root className={s.radioGroupRoot} onValueChange={onChangeOption}>
+      <RadioGroup.Root
+        className={`${s.radioGroupRoot} ${classname}`}
+        onValueChange={onChangeOption}
+      >
         {options?.map(o => {
           return (
             <div className={s.itemGroup} key={o.id}>
