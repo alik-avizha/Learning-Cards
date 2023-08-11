@@ -3,8 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { Button } from '../../ui/button'
-import { ControlledCheckbox, ControlledTextField } from '../../ui/controlled'
+import { Button, ControlledCheckbox, ControlledTextField } from '../../ui'
 import s from '../sign-in/sign-in.module.scss'
 
 const loginSchema = z.object({

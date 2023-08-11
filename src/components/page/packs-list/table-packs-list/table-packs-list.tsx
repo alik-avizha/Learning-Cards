@@ -117,7 +117,9 @@ export const TablePacksList: FC<PropsType> = ({
               <TableElement.Cell>{el.author.name}</TableElement.Cell>
               <TableElement.Cell>
                 <div className={s.icons}>
-                  <Play className={s.icon} />
+                  <Link to={`/learn-pack/${el.id}`}>
+                    <Play className={s.icon} />
+                  </Link>
                   {el.author.id === authData?.id && (
                     <>
                       <Edit

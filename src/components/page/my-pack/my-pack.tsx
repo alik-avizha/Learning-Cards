@@ -129,7 +129,7 @@ export const MyPack = () => {
                   {new Date(el.updated).toLocaleDateString('ru-RU')}
                 </TableElement.Cell>
                 <TableElement.Cell>
-                  <Grade rating={el.rating} />
+                  <Grade rating={el.grade} />
                 </TableElement.Cell>
                 <TableElement.Cell>
                   <div className={s.icons}>
