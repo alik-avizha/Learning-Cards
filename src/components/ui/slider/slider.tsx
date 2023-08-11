@@ -9,7 +9,7 @@ import s from './slider.module.scss'
 type SliderPropsType = {
   value: number[]
   setValue: (value: number[]) => void
-  maxValue: number
+  maxValue?: number
 }
 
 export const SliderDemo: FC<SliderPropsType> = ({ value, setValue, maxValue = 10 }) => {
