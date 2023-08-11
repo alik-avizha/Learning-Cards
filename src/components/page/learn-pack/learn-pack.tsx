@@ -39,7 +39,12 @@ export const LearnPack = () => {
           <Typography variant={'large'} className={s.title}>
             Learn &quot;{deck?.name}&quot;
           </Typography>
-          <Typography variant={'subtitle1'}>Question: ${randomCard?.question}</Typography>
+          <Typography variant={'subtitle1'}>
+            Question:{' '}
+            <Typography variant={'body1'} className={s.question}>
+              {randomCard?.question}
+            </Typography>
+          </Typography>
           <Typography variant={'body2'} className={s.info}>
             Количество попыток ответов на вопрос: {randomCard?.shots}
           </Typography>
@@ -80,8 +85,11 @@ const AnswerPage: FC<PropsType> = ({ answer, setNewQuestion }) => {
 
   return (
     <div className={s.answerBlock}>
-      <Typography variant={'body1'} className={s.title}>
-        Answer: ${answer}
+      <Typography variant={'subtitle1'} className={s.title}>
+        Answer:{' '}
+        <Typography variant={'body1'} className={s.answer}>
+          {answer}
+        </Typography>
       </Typography>
       <Typography variant={'subtitle1'} className={s.grade}>
         Rate yourself:
