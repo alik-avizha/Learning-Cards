@@ -1,5 +1,3 @@
-import { useEffect } from 'react'
-
 import { Navigate, useNavigate } from 'react-router-dom'
 
 import { useLoginMutation, useMeQuery } from '../../../services/auth'
@@ -7,7 +5,7 @@ import { SignIn } from '../../auth'
 
 export const Login = () => {
   const [login] = useLoginMutation()
-  const { data, isUninitialized } = useMeQuery()
+  const { data, isLoading } = useMeQuery()
   const navigate = useNavigate()
 
   const loginHandler = (data: any) => {
@@ -18,19 +16,11 @@ export const Login = () => {
       })
   }
 
-  useEffect(() => {
-    if (!data) return
+  if (isLoading) return <div>...Loading</div>
 
-    navigate('/')
-  }, [data])
-
-  if (isUninitialized) {
+  if (data) {
     return <Navigate to={'/'} />
   }
 
-  return (
-    <>
-      <SignIn onSubmit={loginHandler} />
-    </>
-  )
+  return <SignIn onSubmit={loginHandler} />
 }
