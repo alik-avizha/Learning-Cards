@@ -100,7 +100,6 @@ export const PacksList = () => {
       setUserId('')
     }
   }
-
   const clearFilterData = () => {
     setSearchByName('')
     handleTabSort('All cards')

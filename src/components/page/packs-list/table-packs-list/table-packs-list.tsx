@@ -47,7 +47,7 @@ const columns: Array<Column> = [
 
 type PropsType = {
   data: DecksResponse | undefined
-  authData: ResponseUserType | undefined
+  authData?: ResponseUserType | null
   setIsMyPackHandler: (isMyPack: boolean) => void
   handleOpen: (typeModal: string) => void
   setPackName: (name: string) => void

@@ -7,7 +7,7 @@ import { Typography } from '../../typography'
 import s from './profile-block.module.scss'
 
 type PropsType = {
-  data?: ResponseUserType
+  data?: ResponseUserType | null
 }
 export const ProfileBlock: FC<PropsType> = ({ data }) => {
   return (
