@@ -41,6 +41,12 @@ export const modalSlice = createSlice({
     setAnswer: (state, action: PayloadAction<string>) => {
       state.settingsValue.answer = action.payload
     },
+    setClearState: (state, _) => {
+      state.settingsValue.packName = ''
+      state.settingsValue.question = ''
+      state.settingsValue.answer = ''
+      state.settingsValue.privatePack = false
+    },
   },
 })
 

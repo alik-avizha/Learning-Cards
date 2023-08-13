@@ -5,6 +5,7 @@ import { CheckboxDemo, TextField } from '../../../../ui'
 export const PackModal = () => {
   const { packName, privatePack } = useAppSelector(selectSettings)
   const dispatch = useAppDispatch()
+
   const setPackName = (value: string) => {
     dispatch(modalActions.setPackName(value))
   }

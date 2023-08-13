@@ -9,7 +9,7 @@ import {
   useUpdateDeckMutation,
 } from '../../../services/decks'
 import { deckSlice } from '../../../services/decks/deck.slice.ts'
-import { modalActions, selectOpenModals } from '../../../services/modal'
+import { modalActions, NameModal, selectOpenModals, selectSettings } from '../../../services/modal'
 import { useAppDispatch, useAppSelector } from '../../../services/store.ts'
 import { Button, Pagination, SliderDemo, TabSwitcher, TextField, Typography } from '../../ui'
 import { SelectRadix } from '../../ui/select/selectRadix.tsx'
@@ -28,6 +28,7 @@ export const PacksList = () => {
   const currentPage = useAppSelector(state => state.deckSlice.currentPage)
 
   const { addPack, editPack, deletePack } = useAppSelector(selectOpenModals)
+  const { privatePack, packName } = useAppSelector(selectSettings)
 
   const dispatch = useAppDispatch()
 
@@ -83,20 +84,16 @@ export const PacksList = () => {
     setSort({ key: 'updated', direction: 'asc' })
   }
 
-  const onHandlerActionClicked = (packName: string) => {
+  const onHandlerActionClicked = (value: NameModal) => {
     if (addPack) {
-      createDeck({ name: packName })
-      dispatch(modalActions.setCloseModal('addPack'))
-      dispatch(modalActions.setPackName(''))
+      createDeck({ name: packName, isPrivate: privatePack })
     } else if (editPack) {
-      editDeck({ id: cardId, name: packName })
-      dispatch(modalActions.setCloseModal('editPack'))
-      dispatch(modalActions.setPackName(''))
+      editDeck({ id: cardId, name: packName, isPrivate: privatePack })
     } else if (deletePack) {
       deleteDeck({ id: cardId })
-      dispatch(modalActions.setCloseModal('deletePack'))
-      dispatch(modalActions.setPackName(''))
     }
+    dispatch(modalActions.setCloseModal(value))
+    dispatch(modalActions.setClearState({}))
   }
   const setOpen = () => {
     dispatch(modalActions.setOpenModal('addPack'))
@@ -163,7 +160,7 @@ export const PacksList = () => {
         />
         <Typography variant={'body2'}>На странице</Typography>
       </div>
-      <TableModal handleClicked={packName => onHandlerActionClicked(packName)} />
+      <TableModal handleClicked={onHandlerActionClicked} />
     </div>
   )
 }
