@@ -7,7 +7,7 @@ import { z } from 'zod'
 
 import { Edit, Logout } from '../../../assets'
 import { Button, Card, ControlledTextField, Typography } from '../../ui'
-import { Avatar } from '../../ui/avatar'
+import { AvatarDemo } from '../../ui/avatar'
 
 import s from './personalInformation.module.scss'
 
@@ -23,7 +23,7 @@ type PropsType = {
   avatar?: string
 }
 
-export const PersonalInformation: FC<PropsType> = ({ name, email }) => {
+export const PersonalInformation: FC<PropsType> = ({ name, email, avatar }) => {
   const [editMode, setEditMode] = useState<boolean>(false)
   const { control, handleSubmit } = useForm<SignInFormShem>({
     resolver: zodResolver(sigInSchema),
@@ -39,7 +39,7 @@ export const PersonalInformation: FC<PropsType> = ({ name, email }) => {
       </Typography>
       <div className={s.avatarBlock}>
         <div className={s.avatar}>
-          <Avatar size={'96px'} />
+          <AvatarDemo src={avatar} name={name} className={s.avatar} />
           {!editMode && (
             <div className={s.avatarEdit}>
               <Edit />

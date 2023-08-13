@@ -1,6 +1,6 @@
 import { baseApi } from '../base-api.ts'
 
-import { ResponseUserType } from './types.ts'
+import { RequestForgotPassword, ResponseUserType, SignUpArgsType } from './types.ts'
 
 const authApi = baseApi.injectEndpoints({
   endpoints: builder => {
@@ -48,11 +48,48 @@ const authApi = baseApi.injectEndpoints({
         },
         invalidatesTags: ['Me'],
       }),
+      signUp: builder.mutation<ResponseUserType, SignUpArgsType>({
+        query: body => ({
+          url: 'v1/auth/sign-up',
+          method: 'POST',
+          body: body,
+        }),
+        invalidatesTags: ['Me'],
+      }),
+      forgotPassword: builder.mutation<RequestForgotPassword, { email: string; html: string }>({
+        query: ({ email, html }) => ({
+          url: 'v1/auth/recover-password',
+          method: 'POST',
+          body: {
+            email,
+            html,
+          },
+        }),
+        invalidatesTags: ['Me'],
+      }),
+      resetPassword: builder.mutation<
+        RequestForgotPassword,
+        { token: string | undefined; password: string }
+      >({
+        query: ({ token, password }) => ({
+          url: `v1/auth/reset-password/${token}`,
+          method: 'POST',
+          body: { password },
+        }),
+        invalidatesTags: ['Me'],
+      }),
     }
   },
 })
 
-export const { useMeQuery, useLoginMutation, useLogoutMutation } = authApi
+export const {
+  useMeQuery,
+  useLoginMutation,
+  useLogoutMutation,
+  useSignUpMutation,
+  useForgotPasswordMutation,
+  useResetPasswordMutation,
+} = authApi
 
 /*
 async onQueryStarted(_, { dispatch, queryFulfilled }) {

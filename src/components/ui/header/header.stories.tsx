@@ -18,11 +18,11 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 const data = {
-  avatar: 'string',
+  avatar: '',
   id: 'string',
-  email: 'string',
+  email: 'D',
   isEmailVerified: true,
-  name: 'string',
+  name: 'D',
   created: '2023-08-08T12:12:18.493Z',
   updated: '2023-08-08T12:12:18.493Z',
 }
