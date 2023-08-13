@@ -11,8 +11,15 @@ import {
 import { deckSlice } from '../../../services/decks/deck.slice.ts'
 import { modalActions, NameModal, selectOpenModals, selectSettings } from '../../../services/modal'
 import { useAppDispatch, useAppSelector } from '../../../services/store.ts'
-import { Button, Pagination, SliderDemo, TabSwitcher, TextField, Typography } from '../../ui'
-import { SelectRadix } from '../../ui/select/selectRadix.tsx'
+import {
+  Button,
+  Pagination,
+  SliderDemo,
+  SuperSelect,
+  TabSwitcher,
+  TextField,
+  Typography,
+} from '../../ui'
 import { TableModal } from '../common/modals'
 
 import { usePackDeckState } from './hook'
@@ -26,13 +33,9 @@ export const PacksList = () => {
   const sliderValues = useAppSelector(state => state.deckSlice.slider)
   const options = useAppSelector(state => state.deckSlice.paginationOptions)
   const currentPage = useAppSelector(state => state.deckSlice.currentPage)
-
   const { addPack, editPack, deletePack } = useAppSelector(selectOpenModals)
   const { privatePack, packName } = useAppSelector(selectSettings)
-
   const dispatch = useAppDispatch()
-
-  const newInitialName = useDebounce(initialName, 1000)
 
   const {
     cardId,
@@ -49,6 +52,8 @@ export const PacksList = () => {
     perPage,
     onSetPerPageHandler,
   } = usePackDeckState(sliderValues, currentPage, itemsPerPage)
+
+  const newInitialName = useDebounce(initialName, 1000)
 
   const { data: meData } = useMeQuery()
   const { data } = useGetDecksQuery({
@@ -83,7 +88,6 @@ export const PacksList = () => {
     setValueSlider([sliderValues.minValue, sliderValues.maxValue])
     setSort({ key: 'updated', direction: 'asc' })
   }
-
   const onHandlerActionClicked = (value: NameModal) => {
     if (addPack) {
       createDeck({ name: packName, isPrivate: privatePack })
@@ -152,7 +156,7 @@ export const PacksList = () => {
       <div className={s.pagination}>
         <Pagination count={data?.pagination.totalPages} page={page} onChange={setPage} />
         <Typography variant={'body2'}>Показать</Typography>
-        <SelectRadix
+        <SuperSelect
           options={options}
           defaultValue={perPage.value}
           onValueChange={onSetPerPageHandler}

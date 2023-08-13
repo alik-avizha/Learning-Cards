@@ -16,8 +16,7 @@ import {
 } from '../../../services/decks'
 import { modalActions, NameModal, selectOpenModals, selectSettings } from '../../../services/modal'
 import { useAppDispatch, useAppSelector } from '../../../services/store.ts'
-import { Button, DropDownMenuDemo, Pagination, TextField, Typography } from '../../ui'
-import { SelectRadix } from '../../ui/select/selectRadix.tsx'
+import { Button, DropDownMenuDemo, Pagination, SuperSelect, TextField, Typography } from '../../ui'
 import { Sort } from '../../ui/table/type.ts'
 import { TableModal } from '../common/modals'
 
@@ -26,42 +25,26 @@ import s from './my-pack.module.scss'
 
 export const MyPack = () => {
   const params = useParams<{ id: string }>()
-  const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
   const { privatePack, packName, question, answer } = useAppSelector(selectSettings)
   const itemsPerPage = useAppSelector(state => state.deckSlice.itemsPerPage)
   const options = useAppSelector(state => state.deckSlice.paginationOptions)
   const currentPage = useAppSelector(state => state.deckSlice.currentPage)
-
   const { editPack, deletePack, addCard, editCard, deleteCard } = useAppSelector(selectOpenModals)
+  const dispatch = useAppDispatch()
+
   const [cardId, setCardId] = useState<string>('')
   const [search, setSearch] = useState('')
   const [sort, setSort] = useState<Sort>({ key: 'updated', direction: 'desc' })
   const [perPage, setPerPage] = useState({ id: 1, value: itemsPerPage })
   const [page, setPage] = useState(currentPage)
 
-  const onSetPerPageHandler = (value: number) => {
-    setPerPage({ ...perPage, value })
-  }
-
   const sortedString = useMemo(() => {
     if (!sort) return null
 
     return `${sort.key}-${sort.direction}`
   }, [sort])
-
-  const openPackModal = (value: NameModal) => {
-    dispatch(modalActions.setOpenModal(value))
-    dispatch(modalActions.setPackName(data!.name))
-    dispatch(modalActions.setPrivatePack(data!.isPrivate))
-    setCardId(data!.id)
-  }
-  const [createCard] = useCreateCardMutation()
-  const [editItem] = useEditCardMutation()
-  const [deleteItem] = useDeleteCardMutation()
-  const [deleteDeck] = useDeletedDeckMutation()
-  const [editDeck] = useUpdateDeckMutation()
 
   const { data } = useGetDeckQuery({
     id: params.id,
@@ -73,10 +56,24 @@ export const MyPack = () => {
     itemsPerPage: perPage.value,
     currentPage: page,
   })
+  const [createCard] = useCreateCardMutation()
+  const [editItem] = useEditCardMutation()
+  const [deleteItem] = useDeleteCardMutation()
+  const [deleteDeck] = useDeletedDeckMutation()
+  const [editDeck] = useUpdateDeckMutation()
+
+  const openPackModal = (value: NameModal) => {
+    dispatch(modalActions.setOpenModal(value))
+    dispatch(modalActions.setPackName(data!.name))
+    dispatch(modalActions.setPrivatePack(data!.isPrivate))
+    setCardId(data!.id)
+  }
+  const onSetPerPageHandler = (value: number) => {
+    setPerPage({ ...perPage, value })
+  }
   const addCardModalHandler = () => {
     dispatch(modalActions.setOpenModal('addCard'))
   }
-
   const onHandlerActionClicked = (value: NameModal) => {
     if (addCard) {
       createCard({ id: params.id, question, answer })
@@ -154,7 +151,7 @@ export const MyPack = () => {
       <div className={s.pagination}>
         <Pagination count={dataCards?.pagination.totalPages} page={page} onChange={setPage} />
         <Typography variant={'body2'}>Показать</Typography>
-        <SelectRadix
+        <SuperSelect
           options={options}
           defaultValue={perPage.value}
           onValueChange={onSetPerPageHandler}
