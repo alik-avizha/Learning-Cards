@@ -1,13 +1,19 @@
 import { FC } from 'react'
 
+import { Edit, Trash } from '../../../../assets'
 import { CardsResponse } from '../../../../services/cards'
+import { modalActions } from '../../../../services/modal'
+import { useAppDispatch } from '../../../../services/store.ts'
 import { TableElement } from '../../../ui'
 import { Grade } from '../../../ui/grade'
 import { HeaderTable } from '../../../ui/table/header-table.tsx'
 import { Sort } from '../../../ui/table/type.ts'
 
+import s from './my-pack-table.module.scss'
+
 type PropsType = {
   dataCards: CardsResponse | undefined
+  setCardId: (cardId: string) => void
   sort: Sort
   setSort: (value: Sort) => void
 }
@@ -38,9 +44,27 @@ const columns: Array<Column> = [
     title: 'Grade',
     sortable: true,
   },
+  {
+    key: 'activity',
+    title: '',
+  },
 ]
 
-export const FriendsTable: FC<PropsType> = ({ sort, setSort, dataCards }) => {
+export const MyPackTable: FC<PropsType> = ({ dataCards, setCardId, sort, setSort }) => {
+  const dispatch = useAppDispatch()
+  const onEditHandler = (question: string, answer: string, cardId: string) => {
+    dispatch(modalActions.setOpenModal('editCard'))
+    dispatch(modalActions.setQuestion(question))
+    dispatch(modalActions.setAnswer(answer))
+    setCardId(cardId)
+  }
+
+  const onDeleteHandler = (question: string, cardId: string) => {
+    dispatch(modalActions.setOpenModal('deleteCard'))
+    dispatch(modalActions.setQuestion(question))
+    setCardId(cardId)
+  }
+
   return (
     <TableElement.Root>
       <HeaderTable columns={columns} sort={sort} onSort={setSort} />
@@ -55,6 +79,15 @@ export const FriendsTable: FC<PropsType> = ({ sort, setSort, dataCards }) => {
               </TableElement.Cell>
               <TableElement.Cell>
                 <Grade rating={el.grade} />
+              </TableElement.Cell>
+              <TableElement.Cell>
+                <div className={s.icons}>
+                  <Edit
+                    className={s.icon}
+                    onClick={() => onEditHandler(el.question, el.answer, el.id)}
+                  />
+                  <Trash className={s.icon} onClick={() => onDeleteHandler(el.question, el.id)} />
+                </div>
               </TableElement.Cell>
             </TableElement.Row>
           )

@@ -14,6 +14,7 @@ export type DecksResponse = PaginatedEntity<Deck> & {
 
 export type CreateGetDeckArgs = {
   name: string
+  isPrivate?: boolean
 }
 
 export type Author = {

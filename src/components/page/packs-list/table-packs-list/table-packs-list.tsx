@@ -67,8 +67,9 @@ export const TablePacksList: FC<PropsType> = ({
     setIsMyPackHandler(authorId === authData?.id)
   }
 
-  const onEditHandler = (name: string, cardId: string) => {
+  const onEditHandler = (name: string, cardId: string, isPrivate: boolean) => {
     dispatch(modalActions.setOpenModal('editPack'))
+    dispatch(modalActions.setPrivatePack(isPrivate))
     dispatch(modalActions.setPackName(name))
     setCardId(cardId)
   }
@@ -120,7 +121,7 @@ export const TablePacksList: FC<PropsType> = ({
                       <Edit
                         className={s.icon}
                         onClick={() => {
-                          onEditHandler(el.name, el.id)
+                          onEditHandler(el.name, el.id, el.isPrivate)
                         }}
                       />
                       <Trash

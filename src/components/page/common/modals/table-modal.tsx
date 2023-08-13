@@ -14,11 +14,10 @@ import { PackModal } from './pack-modal'
 import s from './table-modal.module.scss'
 
 type PropsType = {
-  handleClicked: (packName: string) => void
+  handleClicked: (value: NameModal) => void
 }
 
-export const TableModal: FC<PropsType> = props => {
-  const { handleClicked } = props
+export const TableModal: FC<PropsType> = ({ handleClicked }) => {
   const { addPack, editPack, deletePack, addCard, editCard, deleteCard } =
     useAppSelector(selectOpenModals)
 
@@ -27,43 +26,50 @@ export const TableModal: FC<PropsType> = props => {
 
   const setClose = (value: NameModal) => {
     dispatch(modalActions.setCloseModal(value))
-    dispatch(modalActions.setPackName(''))
+    dispatch(modalActions.setClearState({}))
   }
 
   let onCloseHandler
   let title
   let titleButton
+  let callbackClicked
 
   switch (true) {
     case addPack:
       onCloseHandler = () => setClose('addPack')
       title = 'Add New Pack'
       titleButton = 'Add New Pack'
+      callbackClicked = () => handleClicked('addPack')
       break
     case editPack:
       onCloseHandler = () => setClose('editPack')
       title = 'Edit Pack'
       titleButton = 'Save Changes'
+      callbackClicked = () => handleClicked('editPack')
       break
     case deletePack:
       onCloseHandler = () => setClose('deletePack')
       title = 'Delete Pack'
       titleButton = 'Delete Pack'
+      callbackClicked = () => handleClicked('deletePack')
       break
     case addCard:
       onCloseHandler = () => setClose('addCard')
-      title = 'Delete Card'
-      titleButton = 'Delete Card'
+      title = 'Add Card'
+      titleButton = 'Add Card'
+      callbackClicked = () => handleClicked('addCard')
       break
     case editCard:
       onCloseHandler = () => setClose('editCard')
-      title = 'Edit Pack'
+      title = 'Edit Card'
       titleButton = 'Edit Card'
+      callbackClicked = () => handleClicked('editCard')
       break
     case deleteCard:
       onCloseHandler = () => setClose('deleteCard')
-      title = 'Delete Pack'
+      title = 'Delete Card'
       titleButton = 'Delete Card'
+      callbackClicked = () => handleClicked('deleteCard')
       break
     default:
       title = 'Name Pack'
@@ -75,10 +81,10 @@ export const TableModal: FC<PropsType> = props => {
     <Modal
       title={title}
       showCloseButton={true}
-      open={addPack || editPack || deletePack}
+      open={addPack || editPack || deletePack || addCard || editCard || deleteCard}
       onClose={onCloseHandler}
       titleButton={titleButton}
-      callBack={() => handleClicked(packName)}
+      callBack={callbackClicked}
     >
       {deleteCard || deletePack ? (
         <Typography variant={'body1'}>

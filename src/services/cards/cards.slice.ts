@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const initialState = {
-  isMyPack: false,
+  isMyPack: true,
 }
 
 export const cardsSlice = createSlice({
