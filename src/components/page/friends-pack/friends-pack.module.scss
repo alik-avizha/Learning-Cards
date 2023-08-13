@@ -37,6 +37,17 @@
   .textField {
     margin-bottom: 1.5rem;
   }
+
+  .pagination {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    margin-top: 1rem;
+
+    .selectPagination {
+      width: 70px;
+    }
+  }
 }
 
 .buttonDrop {
