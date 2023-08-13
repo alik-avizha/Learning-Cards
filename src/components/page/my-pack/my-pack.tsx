@@ -16,7 +16,8 @@ import {
 } from '../../../services/decks'
 import { modalActions, NameModal, selectOpenModals, selectSettings } from '../../../services/modal'
 import { useAppDispatch, useAppSelector } from '../../../services/store.ts'
-import { Button, DropDownMenuDemo, TextField, Typography } from '../../ui'
+import { Button, DropDownMenuDemo, Pagination, TextField, Typography } from '../../ui'
+import { SelectRadix } from '../../ui/select/selectRadix.tsx'
 import { Sort } from '../../ui/table/type.ts'
 import { TableModal } from '../common/modals'
 
@@ -25,20 +26,24 @@ import s from './my-pack.module.scss'
 
 export const MyPack = () => {
   const params = useParams<{ id: string }>()
-  const [cardId, setCardId] = useState<string>('')
-  const [search, setSearch] = useState('')
-  const [sort, setSort] = useState<Sort>({ key: 'updated', direction: 'desc' })
-  const { editPack, deletePack, addCard, editCard, deleteCard } = useAppSelector(selectOpenModals)
-  const { privatePack, packName, question, answer } = useAppSelector(selectSettings)
-
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  // const [perPage, setPerPage] = useState({ id: 1, value: itemsPerPage })
-  // const [page, setPage] = useState(currentPage)
-  // const onSetPerPageHandler = (value: number) => {
-  //   setPerPage({ ...perPage, value })
-  // }
+  const { privatePack, packName, question, answer } = useAppSelector(selectSettings)
+  const itemsPerPage = useAppSelector(state => state.deckSlice.itemsPerPage)
+  const options = useAppSelector(state => state.deckSlice.paginationOptions)
+  const currentPage = useAppSelector(state => state.deckSlice.currentPage)
+
+  const { editPack, deletePack, addCard, editCard, deleteCard } = useAppSelector(selectOpenModals)
+  const [cardId, setCardId] = useState<string>('')
+  const [search, setSearch] = useState('')
+  const [sort, setSort] = useState<Sort>({ key: 'updated', direction: 'desc' })
+  const [perPage, setPerPage] = useState({ id: 1, value: itemsPerPage })
+  const [page, setPage] = useState(currentPage)
+
+  const onSetPerPageHandler = (value: number) => {
+    setPerPage({ ...perPage, value })
+  }
 
   const sortedString = useMemo(() => {
     if (!sort) return null
@@ -65,6 +70,8 @@ export const MyPack = () => {
     id: params.id,
     question: search,
     orderBy: sortedString,
+    itemsPerPage: perPage.value,
+    currentPage: page,
   })
   const addCardModalHandler = () => {
     dispatch(modalActions.setOpenModal('addCard'))
@@ -144,6 +151,17 @@ export const MyPack = () => {
       />
       <MyPackTable dataCards={dataCards} sort={sort} setSort={setSort} setCardId={setCardId} />
       <TableModal handleClicked={onHandlerActionClicked} />
+      <div className={s.pagination}>
+        <Pagination count={dataCards?.pagination.totalPages} page={page} onChange={setPage} />
+        <Typography variant={'body2'}>Показать</Typography>
+        <SelectRadix
+          options={options}
+          defaultValue={perPage.value}
+          onValueChange={onSetPerPageHandler}
+          classname={s.selectPagination}
+        />
+        <Typography variant={'body2'}>На странице</Typography>
+      </div>
     </div>
   )
 }
