@@ -9,12 +9,14 @@ import { Button, Modal, TextField, Typography } from '../../ui'
 import s from './empty-pack.module.scss'
 
 export const EmptyPack = () => {
+  const navigate = useNavigate()
+  const params = useParams<{ id: string; name: string }>()
+
   const [question, setQuestion] = useState<string>('')
   const [answer, setAnswer] = useState<string>('')
   const [open, setOpen] = useState<boolean>(false)
+
   const [createCard] = useCreateCardMutation()
-  const navigate = useNavigate()
-  const params = useParams<{ id: string; name: string }>()
 
   const addCardHandler = () => {
     createCard({ id: params.id, question, answer })

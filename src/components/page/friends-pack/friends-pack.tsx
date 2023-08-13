@@ -6,8 +6,7 @@ import { Back } from '../../../assets'
 import { useGetCardsQuery } from '../../../services/cards'
 import { useGetDeckQuery } from '../../../services/decks'
 import { useAppSelector } from '../../../services/store.ts'
-import { Button, Pagination, TextField, Typography } from '../../ui'
-import { SelectRadix } from '../../ui/select/selectRadix.tsx'
+import { Button, Pagination, SuperSelect, TextField, Typography } from '../../ui'
 import { Sort } from '../../ui/table/type.ts'
 
 import s from './friends-pack.module.scss'
@@ -15,29 +14,28 @@ import { FriendsTable } from './friends-table'
 
 export const FriendsPack = () => {
   const params = useParams<{ id: string }>()
-  const [search, setSearch] = useState('')
+
   const itemsPerPage = useAppSelector(state => state.deckSlice.itemsPerPage)
   const options = useAppSelector(state => state.deckSlice.paginationOptions)
   const currentPage = useAppSelector(state => state.deckSlice.currentPage)
+
+  const [search, setSearch] = useState('')
   const [perPage, setPerPage] = useState({ id: 1, value: itemsPerPage })
   const [page, setPage] = useState(currentPage)
+  const [sort, setSort] = useState<Sort>({ key: 'updated', direction: 'desc' })
 
   const onSetPerPageHandler = (value: number) => {
     setPerPage({ ...perPage, value })
   }
-
-  const { data } = useGetDeckQuery({
-    id: params.id,
-  })
-
-  const [sort, setSort] = useState<Sort>({ key: 'updated', direction: 'desc' })
-
   const sortedString = useMemo(() => {
     if (!sort) return null
 
     return `${sort.key}-${sort.direction}`
   }, [sort])
 
+  const { data } = useGetDeckQuery({
+    id: params.id,
+  })
   const { data: dataCards } = useGetCardsQuery({
     id: params.id,
     orderBy: sortedString,
@@ -70,7 +68,7 @@ export const FriendsPack = () => {
       <div className={s.pagination}>
         <Pagination count={dataCards?.pagination.totalPages} page={page} onChange={setPage} />
         <Typography variant={'body2'}>Показать</Typography>
-        <SelectRadix
+        <SuperSelect
           options={options}
           defaultValue={perPage.value}
           onValueChange={onSetPerPageHandler}

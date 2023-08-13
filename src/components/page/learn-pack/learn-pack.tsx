@@ -14,13 +14,13 @@ import s from './learn-pack.module.scss'
 
 export const LearnPack = () => {
   const params = useParams<{ id: string }>()
+
   const [showAnswer, setShowAnswer] = useState(false)
 
   const { data: deck } = useGetDeckQuery({ id: params.id })
   const { data: randomCard } = useLearnDeckQuery({
     id: params.id,
   })
-
   const [updateCardGrade] = useUpdateGradeCardMutation()
 
   const updateCardGradeHandler = (grade: number) => {
@@ -78,7 +78,6 @@ const AnswerPage: FC<PropsType> = ({ answer, setNewQuestion }) => {
     { id: 4, value: 'Confused' },
     { id: 5, value: 'Knew the answer' },
   ]
-
   const onClickHandler = () => {
     setNewQuestion(value)
   }
