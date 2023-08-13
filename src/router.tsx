@@ -6,6 +6,7 @@ import {
   RouterProvider,
 } from 'react-router-dom'
 
+import { CheckEmail, CreateNewPassword, ForgotPassword, SignUp } from './components/auth'
 import { Layout } from './components/layout'
 import { PacksList } from './components/page'
 import { EmptyPack } from './components/page/empty-pack'
@@ -19,6 +20,22 @@ const publicRoutes: RouteObject[] = [
   {
     path: '/login',
     element: <Login />,
+  },
+  {
+    path: '/sign-up',
+    element: <SignUp />,
+  },
+  {
+    path: '/forgot-password',
+    element: <ForgotPassword />,
+  },
+  {
+    path: '/recover-password/:token',
+    element: <CreateNewPassword />,
+  },
+  {
+    path: '/check-email/:email',
+    element: <CheckEmail />,
   },
 ]
 

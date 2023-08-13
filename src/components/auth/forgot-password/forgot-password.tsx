@@ -1,9 +1,10 @@
 import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 
+import { useForgotPasswordMutation } from '../../../services/auth'
 import { Button, Card, ControlledTextField, Typography } from '../../ui'
 
 import s from './forgot-password.module.scss'
@@ -17,9 +18,15 @@ export const ForgotPassword = () => {
   const { control, handleSubmit } = useForm<SignInFormShem>({
     resolver: zodResolver(sigInSchema),
   })
+  const navigate = useNavigate()
+  const [forgotPassword] = useForgotPasswordMutation()
 
   const onSubmit = (data: SignInFormShem) => {
-    console.log(data)
+    forgotPassword({
+      ...data,
+      html: `<h1>Hi, ##name##</h1><p>Click <a href="http://localhost:5173/recover-password/##token##">here</a> to recover your password</p>`,
+    })
+    navigate(`/check-email/${data.email}`)
   }
 
   return (
@@ -47,7 +54,7 @@ export const ForgotPassword = () => {
       <Typography variant={'body2'} className={s.question}>
         Did you remember your password?
       </Typography>
-      <Button as={Link} to="/sign-in" variant={'link'} className={s.signUp}>
+      <Button as={Link} to="/login" variant={'link'} className={s.signUp}>
         Try logging in
       </Button>
     </Card>

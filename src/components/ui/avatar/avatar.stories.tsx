@@ -2,13 +2,13 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import AvatarDefault from '../../../assets/icons/avatar-default.svg'
 
-import { Avatar } from './avatar.tsx'
+import { AvatarDemo } from './avatar.tsx'
 
 const meta = {
   title: 'Components/Avatar',
-  component: Avatar,
+  component: AvatarDemo,
   tags: ['autodocs'],
-} satisfies Meta<typeof Avatar>
+} satisfies Meta<typeof AvatarDemo>
 
 export default meta
 type Story = StoryObj<typeof meta>

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { Logo, Logout, Profile } from '../../../assets'
 import { ResponseUserType, useLogoutMutation } from '../../../services/auth'
-import { Avatar } from '../avatar'
+import { AvatarDemo } from '../avatar'
 import { Button } from '../button'
 import { DropDownMenuDemo } from '../dropDownMenu'
 import { Typography } from '../typography'
@@ -56,7 +56,10 @@ export const Header: FC<HeaderProps> = ({ data }) => {
             <Typography variant={'subtitle1'} className={s.menu_name}>
               {data.name}
             </Typography>
-            <DropDownMenuDemo items={dropDownMenu} trigger={<Avatar src={data.avatar} />} />
+            <DropDownMenuDemo
+              items={dropDownMenu}
+              trigger={<AvatarDemo src={data.avatar} name={data.name} />}
+            />
           </div>
         )}
       </div>

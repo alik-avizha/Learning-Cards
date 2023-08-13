@@ -1,19 +1,21 @@
-import { ComponentProps } from 'react'
+import { ComponentProps, FC } from 'react'
 
-import avatarDefault from '../../../assets/icons/avatar-default.svg'
+import * as Avatar from '@radix-ui/react-avatar'
 
 import s from './avatar.module.scss'
 
 export type AvatarProps = {
   name?: string
   src?: ComponentProps<'img'>['src']
-  size?: ComponentProps<'img'>['width']
+  className?: string
 }
 
-export const Avatar = ({ name, src = avatarDefault, size = 36 }: AvatarProps) => {
-  return (
-    <>
-      <img className={s.avatar} src={src} alt={`${name} avatar`} width={size} height={size} />
-    </>
-  )
-}
+export const AvatarDemo: FC<AvatarProps> = ({ name, src, className }) => (
+  <Avatar.Root className={`${s.AvatarRoot} ${className}`}>
+    {src ? (
+      <Avatar.Image className={s.AvatarImage} src={src} alt={name} />
+    ) : (
+      <Avatar.Fallback className="AvatarFallback">{name?.[0]}</Avatar.Fallback>
+    )}
+  </Avatar.Root>
+)

@@ -2,7 +2,7 @@ import { Meta } from '@storybook/react'
 
 import { Edit, Logout, Play, Profile, SubMenu, Trash } from '../../../assets'
 import s from '../../page/friends-pack/friends-pack.module.scss'
-import { Avatar } from '../avatar'
+import { AvatarDemo } from '../avatar'
 import { Button } from '../button'
 import { ProfileBlock } from '../header/profile-block'
 import { Typography } from '../typography'
@@ -73,5 +73,5 @@ export const DropdownMenuSecondVariant = () => {
     },
   ]
 
-  return <DropDownMenuDemo items={dropDownMenu} trigger={<Avatar />} />
+  return <DropDownMenuDemo items={dropDownMenu} trigger={<AvatarDemo name={'A'} src={''} />} />
 }

@@ -1,10 +1,8 @@
 import { useMemo, useState } from 'react'
 
 import { Sort } from '../../../ui/table/type.ts'
-import { ModalType } from '../pack-modal'
 
 export const usePackDeckState = (
-  initialPackName = '',
   sliderValues: {
     minValue: number
     maxValue: number
@@ -12,16 +10,9 @@ export const usePackDeckState = (
   currentPage: number,
   itemsPerPage: number
 ) => {
-  const [packName, setPackName] = useState<string>(initialPackName)
-  const [open, setOpen] = useState<ModalType>({
-    addNewPack: false,
-    editPack: false,
-    deletePack: false,
-  })
   const [cardId, setCardId] = useState<string>('')
-  const [privatePack, setPrivatePack] = useState<boolean>(false)
   const [userId, setUserId] = useState<string>('')
-  const [sort, setSort] = useState<Sort>({ key: 'updated', direction: 'asc' })
+  const [sort, setSort] = useState<Sort>({ key: 'updated', direction: 'desc' })
   const [valueSlider, setValueSlider] = useState<number[]>([
     sliderValues.minValue,
     sliderValues.maxValue,
@@ -39,14 +30,8 @@ export const usePackDeckState = (
   }, [sort])
 
   return {
-    packName,
-    setPackName,
-    open,
-    setOpen,
     cardId,
     setCardId,
-    privatePack,
-    setPrivatePack,
     userId,
     setUserId,
     sort,

@@ -5,10 +5,11 @@ import { Link } from 'react-router-dom'
 import { Edit, Play, Trash } from '../../../../assets'
 import { ResponseUserType } from '../../../../services/auth'
 import { DecksResponse } from '../../../../services/decks/types.ts'
+import { modalActions } from '../../../../services/modal'
+import { useAppDispatch } from '../../../../services/store.ts'
 import { Button, TableElement } from '../../../ui'
 import { HeaderTable } from '../../../ui/table/header-table.tsx'
 import { Sort } from '../../../ui/table/type.ts'
-import { ModalType } from '../pack-modal'
 
 import s from './table-packs-list.module.scss'
 
@@ -49,11 +50,7 @@ type PropsType = {
   data: DecksResponse | undefined
   authData?: ResponseUserType | null
   setIsMyPackHandler: (isMyPack: boolean) => void
-  handleOpen: (typeModal: string) => void
-  setPackName: (name: string) => void
   setCardId: (cardId: string) => void
-  setOpen: (modalType: ModalType) => void
-  open: ModalType
   sort: Sort
   setSort: (value: Sort) => void
 }
@@ -61,26 +58,24 @@ export const TablePacksList: FC<PropsType> = ({
   data,
   authData,
   setIsMyPackHandler,
-  handleOpen,
-  setPackName,
   setCardId,
-  setOpen,
-  open,
   sort,
   setSort,
 }) => {
+  const dispatch = useAppDispatch()
   const onClickNameDeckHandler = (authorId: string) => {
     setIsMyPackHandler(authorId === authData?.id)
   }
 
   const onEditHandler = (name: string, cardId: string) => {
-    handleOpen('editPack')
-    setPackName(name)
+    dispatch(modalActions.setOpenModal('editPack'))
+    dispatch(modalActions.setPackName(name))
     setCardId(cardId)
   }
 
-  const onDeleteHandler = (cardId: string) => {
-    setOpen({ ...open, deletePack: true })
+  const onDeleteHandler = (name: string, cardId: string) => {
+    dispatch(modalActions.setOpenModal('deletePack'))
+    dispatch(modalActions.setPackName(name))
     setCardId(cardId)
   }
 
@@ -131,7 +126,7 @@ export const TablePacksList: FC<PropsType> = ({
                       <Trash
                         className={s.icon}
                         onClick={() => {
-                          onDeleteHandler(el.id)
+                          onDeleteHandler(el.name, el.id)
                         }}
                       />
                     </>

@@ -1,9 +1,10 @@
 import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 
+import { useSignUpMutation } from '../../../services/auth'
 import { Button, Card, ControlledTextField, Typography } from '../../ui'
 
 import s from './sign-up.module.scss'
@@ -21,12 +22,22 @@ const sigInSchema = z
 
 type SignInFormShem = z.infer<typeof sigInSchema>
 export const SignUp = () => {
+  const navigate = useNavigate()
   const { control, handleSubmit } = useForm<SignInFormShem>({
     resolver: zodResolver(sigInSchema),
   })
 
+  const [signUp] = useSignUpMutation()
+
   const onSubmit = (data: SignInFormShem) => {
-    console.log(data)
+    signUp({ email: data.email, password: data.password, sendConfirmationEmail: false })
+      .unwrap()
+      .then(() => {
+        navigate('/login')
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   return (
@@ -67,7 +78,7 @@ export const SignUp = () => {
       <Typography variant={'body2'} className={s.question}>
         Already have an account?
       </Typography>
-      <Button as={Link} to="/sign-in" variant={'link'} className={s.signIn}>
+      <Button as={Link} to="/login" variant={'link'} className={s.signIn}>
         Sign In
       </Button>
     </Card>
