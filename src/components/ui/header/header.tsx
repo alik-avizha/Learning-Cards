@@ -25,7 +25,7 @@ export const Header: FC<HeaderProps> = ({ data }) => {
     {
       id: 2,
       component: (
-        <Button variant={'link'} className={s.buttonDrop}>
+        <Button as={Link} to={'/profile'} variant={'link'} className={s.buttonDrop}>
           <Profile />
           <Typography variant={'caption'}>My Profile</Typography>
         </Button>
