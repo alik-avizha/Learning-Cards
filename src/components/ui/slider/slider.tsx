@@ -21,7 +21,7 @@ export const SliderDemo: FC<SliderPropsType> = ({ value, setValue, maxValue = 10
       <Slider.Root
         className={s.sliderRoot}
         onValueChange={setValue}
-        defaultValue={value}
+        value={value}
         max={maxValue}
         step={1}
       >
