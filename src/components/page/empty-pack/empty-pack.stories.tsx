@@ -1,11 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import {
-  BrowserRouterDecorator,
-  ReduxStoreProviderDecorator,
-} from '../../../common/utils/decorators.tsx'
-
-import { EmptyPack } from './empty-pack.tsx'
+import { BrowserRouterDecorator, ReduxStoreProviderDecorator } from '@/common'
+import { EmptyPack } from '@/components/page/empty-pack/empty-pack.tsx'
 
 const meta = {
   title: 'Page/EmptyPack',

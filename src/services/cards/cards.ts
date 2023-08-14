@@ -1,6 +1,5 @@
-import { baseApi } from '../base-api.ts'
-
-import { CardsResponse, GetRequestType } from './types.ts'
+import { baseApi } from '@/services/base-api.ts'
+import { CardsResponse, GetRequestType } from '@/services/cards/types.ts'
 
 const cardsApi = baseApi.injectEndpoints({
   endpoints: builder => {

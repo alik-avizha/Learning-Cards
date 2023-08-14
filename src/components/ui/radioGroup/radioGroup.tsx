@@ -2,9 +2,9 @@ import { FC } from 'react'
 
 import * as RadioGroup from '@radix-ui/react-radio-group'
 
-import { Typography } from '../typography'
-
 import s from './radioGroup.module.scss'
+
+import { Typography } from '@/components/ui'
 
 type RadioGroupProps = {
   classname?: string

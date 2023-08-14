@@ -5,11 +5,11 @@ import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { z } from 'zod'
 
-import { Edit, Logout } from '../../../assets'
-import { Button, Card, ControlledTextField, Typography } from '../../ui'
-import { AvatarDemo } from '../../ui/avatar'
-
 import s from './personalInformation.module.scss'
+
+import { Edit, Logout } from '@/assets'
+import { Button, Card, ControlledTextField, Typography } from '@/components/ui'
+import { AvatarDemo } from '@/components/ui/avatar'
 
 const sigInSchema = z.object({
   nickName: z.string().trim().min(1),

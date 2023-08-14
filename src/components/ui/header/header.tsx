@@ -2,15 +2,13 @@ import { FC } from 'react'
 
 import { Link } from 'react-router-dom'
 
-import { Logo, Logout, Profile } from '../../../assets'
-import { ResponseUserType, useLogoutMutation } from '../../../services/auth'
-import { AvatarDemo } from '../avatar'
-import { Button } from '../button'
-import { DropDownMenuDemo } from '../dropDownMenu'
-import { Typography } from '../typography'
-
 import s from './header.module.scss'
-import { ProfileBlock } from './profile-block'
+
+import { Logo, Logout, Profile } from '@/assets'
+import { Button, DropDownMenuDemo, Typography } from '@/components/ui'
+import { AvatarDemo } from '@/components/ui/avatar'
+import { ProfileBlock } from '@/components/ui/header/profile-block'
+import { ResponseUserType, useLogoutMutation } from '@/services/auth'
 
 type HeaderProps = {
   data?: ResponseUserType | null

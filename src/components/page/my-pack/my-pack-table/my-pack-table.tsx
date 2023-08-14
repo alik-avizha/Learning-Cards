@@ -1,15 +1,15 @@
 import { FC } from 'react'
 
-import { Edit, Trash } from '../../../../assets'
-import { CardsResponse } from '../../../../services/cards'
-import { modalActions } from '../../../../services/modal'
-import { useAppDispatch } from '../../../../services/store.ts'
-import { TableElement } from '../../../ui'
-import { Grade } from '../../../ui/grade'
-import { HeaderTable } from '../../../ui/table/header-table.tsx'
-import { Sort } from '../../../ui/table/type.ts'
-
 import s from './my-pack-table.module.scss'
+
+import { Edit, Trash } from '@/assets'
+import { TableElement } from '@/components/ui'
+import { Grade } from '@/components/ui/grade'
+import { HeaderTable } from '@/components/ui/table/header-table.tsx'
+import { Sort } from '@/components/ui/table/type.ts'
+import { CardsResponse } from '@/services/cards'
+import { modalActions } from '@/services/modal'
+import { useAppDispatch } from '@/services/store.ts'
 
 type PropsType = {
   dataCards: CardsResponse | undefined

@@ -1,17 +1,12 @@
 import { FC } from 'react'
 
-import {
-  modalActions,
-  NameModal,
-  selectOpenModals,
-  selectSettings,
-} from '../../../../services/modal'
-import { useAppDispatch, useAppSelector } from '../../../../services/store.ts'
-import { Modal, Typography } from '../../../ui'
-
-import { CardModal } from './card-modal'
-import { PackModal } from './pack-modal'
 import s from './table-modal.module.scss'
+
+import { CardModal } from '@/components/page/common/modals/card-modal'
+import { PackModal } from '@/components/page/common/modals/pack-modal'
+import { Modal, Typography } from '@/components/ui'
+import { modalActions, NameModal, selectOpenModals, selectSettings } from '@/services/modal'
+import { useAppDispatch, useAppSelector } from '@/services/store.ts'
 
 type PropsType = {
   handleClicked: (value: NameModal) => void

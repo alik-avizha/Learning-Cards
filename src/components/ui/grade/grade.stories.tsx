@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Grade } from './grade.tsx'
+import { Grade } from '@/components/ui/grade/grade.tsx'
 
 const meta = {
   title: 'Components/Stars',

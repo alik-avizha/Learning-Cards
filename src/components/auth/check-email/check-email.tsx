@@ -1,9 +1,9 @@
 import { Link, useParams } from 'react-router-dom'
 
-import { Email } from '../../../assets'
-import { Button, Card, Typography } from '../../ui'
-
 import s from './check-email.module.scss'
+
+import { Email } from '@/assets'
+import { Button, Card, Typography } from '@/components/ui'
 
 export const CheckEmail = () => {
   const params = useParams<{ email: string }>()

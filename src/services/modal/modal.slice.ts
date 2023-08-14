@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { NameModal } from './types.ts'
+import { NameModal } from '@/services/modal/types.ts'
 
 const initialState = {
   showModal: {

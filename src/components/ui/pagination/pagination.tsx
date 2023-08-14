@@ -2,10 +2,10 @@ import { FC } from 'react'
 
 import { clsx } from 'clsx'
 
-import { ArrowLeft, ArrowRight } from '../../../assets'
-
 import s from './pagination.module.scss'
-import { usePagination } from './usePagination'
+
+import { ArrowLeft, ArrowRight } from '@/assets'
+import { usePagination } from '@/components/ui/pagination/usePagination.tsx'
 
 type PaginationConditionals =
   | {

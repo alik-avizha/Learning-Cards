@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { SuperSelect } from './select.tsx'
+import { SuperSelect } from '@/components/ui'
 
 const meta = {
   title: 'Components/Select',

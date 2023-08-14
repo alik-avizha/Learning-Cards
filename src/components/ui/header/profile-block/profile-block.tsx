@@ -1,10 +1,10 @@
 import { FC } from 'react'
 
-import { ResponseUserType } from '../../../../services/auth'
-import { AvatarDemo } from '../../avatar'
-import { Typography } from '../../typography'
-
 import s from './profile-block.module.scss'
+
+import { Typography } from '@/components/ui'
+import { AvatarDemo } from '@/components/ui/avatar'
+import { ResponseUserType } from '@/services/auth'
 
 type PropsType = {
   data?: ResponseUserType | null
