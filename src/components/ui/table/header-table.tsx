@@ -1,10 +1,10 @@
 import { FC } from 'react'
 
-import { ArrowDown, ArrowUp } from '../../../assets'
-import { Column } from '../../page/packs-list/table-packs-list'
-import { TableElement } from '../index.ts'
-
 import { Sort } from './type.ts'
+
+import { ArrowDown, ArrowUp } from '@/assets'
+import { Column } from '@/components/page/packs-list/table-packs-list'
+import { TableElement } from '@/components/ui'
 
 type PropsType = {
   columns: Column[]

@@ -2,16 +2,16 @@ import { FC } from 'react'
 
 import { Link } from 'react-router-dom'
 
-import { Edit, Play, Trash } from '../../../../assets'
-import { ResponseUserType } from '../../../../services/auth'
-import { DecksResponse } from '../../../../services/decks/types.ts'
-import { modalActions } from '../../../../services/modal'
-import { useAppDispatch } from '../../../../services/store.ts'
-import { Button, TableElement } from '../../../ui'
-import { HeaderTable } from '../../../ui/table/header-table.tsx'
-import { Sort } from '../../../ui/table/type.ts'
-
 import s from './table-packs-list.module.scss'
+
+import { Edit, Play, Trash } from '@/assets'
+import { Button, TableElement } from '@/components/ui'
+import { HeaderTable } from '@/components/ui/table/header-table.tsx'
+import { Sort } from '@/components/ui/table/type.ts'
+import { ResponseUserType } from '@/services/auth'
+import { DecksResponse } from '@/services/decks/types.ts'
+import { modalActions } from '@/services/modal'
+import { useAppDispatch } from '@/services/store.ts'
 
 export type Column = {
   key: string

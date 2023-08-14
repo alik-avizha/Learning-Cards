@@ -1,8 +1,8 @@
 import { FC } from 'react'
 
-import { Star } from '../../../assets'
-
 import s from './grade.module.scss'
+
+import { Star } from '@/assets'
 
 type PropsType = {
   maxRating?: number

@@ -1,10 +1,10 @@
 import { FC } from 'react'
 
-import { CardsResponse } from '../../../../services/cards'
-import { TableElement } from '../../../ui'
-import { Grade } from '../../../ui/grade'
-import { HeaderTable } from '../../../ui/table/header-table.tsx'
-import { Sort } from '../../../ui/table/type.ts'
+import { TableElement } from '@/components/ui'
+import { Grade } from '@/components/ui/grade'
+import { HeaderTable } from '@/components/ui/table/header-table.tsx'
+import { Sort } from '@/components/ui/table/type.ts'
+import { CardsResponse } from '@/services/cards'
 
 type PropsType = {
   dataCards: CardsResponse | undefined

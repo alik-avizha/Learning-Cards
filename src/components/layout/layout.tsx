@@ -1,7 +1,8 @@
 import { Outlet } from 'react-router-dom'
 
-import { useMeQuery } from '../../services/auth'
 import { Header } from '../ui'
+
+import { useMeQuery } from '@/services/auth'
 
 export const Layout = () => {
   const { data } = useMeQuery()

@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 
-import { baseApi } from './base-api.ts'
-import { cardsSlice } from './cards'
-import { deckSlice } from './decks/deck.slice.ts'
-import { modalSlice } from './modal'
+import { baseApi } from '@/services/base-api.ts'
+import { cardsSlice } from '@/services/cards'
+import { deckSlice } from '@/services/decks/deck.slice.ts'
+import { modalSlice } from '@/services/modal'
 
 export const store = configureStore({
   reducer: {

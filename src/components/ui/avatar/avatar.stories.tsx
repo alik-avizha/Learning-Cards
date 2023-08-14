@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import AvatarDefault from '../../../assets/icons/avatar-default.svg'
 
-import { AvatarDemo } from './avatar.tsx'
+import { AvatarDemo } from '@/components/ui/avatar/avatar.tsx'
 
 const meta = {
   title: 'Components/Avatar',

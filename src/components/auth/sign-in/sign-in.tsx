@@ -6,9 +6,9 @@ import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { z } from 'zod'
 
-import { Button, Card, ControlledCheckbox, ControlledTextField, Typography } from '../../ui'
-
 import s from './sign-in.module.scss'
+
+import { Button, Card, ControlledCheckbox, ControlledTextField, Typography } from '@/components/ui'
 
 const sigInSchema = z.object({
   email: z.string().email(),

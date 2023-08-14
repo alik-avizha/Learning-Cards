@@ -1,7 +1,7 @@
 import { Navigate, useNavigate } from 'react-router-dom'
 
-import { useLoginMutation, useMeQuery } from '../../../services/auth'
-import { SignIn } from '../../auth'
+import { SignIn } from '@/components/auth'
+import { useLoginMutation, useMeQuery } from '@/services/auth'
 
 export const Login = () => {
   const [login] = useLoginMutation()

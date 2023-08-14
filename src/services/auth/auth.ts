@@ -1,6 +1,5 @@
-import { baseApi } from '../base-api.ts'
-
-import { RequestForgotPassword, ResponseUserType, SignUpArgsType } from './types.ts'
+import { RequestForgotPassword, ResponseUserType, SignUpArgsType } from '@/services/auth/types.ts'
+import { baseApi } from '@/services/base-api.ts'
 
 const authApi = baseApi.injectEndpoints({
   endpoints: builder => {

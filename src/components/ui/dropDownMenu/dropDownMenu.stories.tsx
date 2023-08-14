@@ -1,13 +1,11 @@
 import { Meta } from '@storybook/react'
 
-import { Edit, Logout, Play, Profile, SubMenu, Trash } from '../../../assets'
 import s from '../../page/friends-pack/friends-pack.module.scss'
-import { AvatarDemo } from '../avatar'
-import { Button } from '../button'
-import { ProfileBlock } from '../header/profile-block'
-import { Typography } from '../typography'
 
-import { DropDownMenuDemo } from './dropDownMenu.tsx'
+import { Edit, Logout, Play, Profile, SubMenu, Trash } from '@/assets'
+import { Button, DropDownMenuDemo, Typography } from '@/components/ui'
+import { AvatarDemo } from '@/components/ui/avatar'
+import { ProfileBlock } from '@/components/ui/header/profile-block'
 
 const meta = {
   title: 'Components/DropDownMenu',

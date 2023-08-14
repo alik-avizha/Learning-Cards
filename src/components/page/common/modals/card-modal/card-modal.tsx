@@ -1,6 +1,6 @@
-import { modalActions, selectSettings } from '../../../../../services/modal'
-import { useAppDispatch, useAppSelector } from '../../../../../services/store.ts'
-import { TextField } from '../../../../ui'
+import { TextField } from '@/components/ui'
+import { modalActions, selectSettings } from '@/services/modal'
+import { useAppDispatch, useAppSelector } from '@/services/store.ts'
 
 export const CardModal = () => {
   const { question, answer } = useAppSelector(selectSettings)

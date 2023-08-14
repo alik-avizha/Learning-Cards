@@ -1,11 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import {
-  BrowserRouterDecorator,
-  ReduxStoreProviderDecorator,
-} from '../../../common/utils/decorators.tsx'
-
-import { Header } from './'
+import { BrowserRouterDecorator, ReduxStoreProviderDecorator } from '@/common'
+import { Header } from '@/components/ui'
 
 const meta = {
   title: 'Components/Header',

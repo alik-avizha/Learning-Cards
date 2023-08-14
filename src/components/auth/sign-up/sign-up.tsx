@@ -4,10 +4,10 @@ import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 
-import { useSignUpMutation } from '../../../services/auth'
-import { Button, Card, ControlledTextField, Typography } from '../../ui'
-
 import s from './sign-up.module.scss'
+
+import { Button, Card, ControlledTextField, Typography } from '@/components/ui'
+import { useSignUpMutation } from '@/services/auth'
 
 const sigInSchema = z
   .object({

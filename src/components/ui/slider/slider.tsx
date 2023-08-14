@@ -2,9 +2,9 @@ import { FC } from 'react'
 
 import * as Slider from '@radix-ui/react-slider'
 
-import { Typography } from '../typography'
-
 import s from './slider.module.scss'
+
+import { Typography } from '@/components/ui'
 
 type SliderPropsType = {
   value: number[]

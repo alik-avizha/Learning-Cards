@@ -1,11 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import {
-  BrowserRouterDecorator,
-  ReduxStoreProviderDecorator,
-} from '../../../common/utils/decorators.tsx'
-
-import { ForgotPassword } from './forgot-password.tsx'
+import { BrowserRouterDecorator, ReduxStoreProviderDecorator } from '@/common'
+import { ForgotPassword } from '@/components/auth'
 
 const meta = {
   title: 'Auth/ForgotPassword',
