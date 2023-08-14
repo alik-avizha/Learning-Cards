@@ -23,12 +23,7 @@ export const TabSwitcher: FC<PropsType> = ({
       <Tabs.List className={s.tabsList}>
         {options?.map((tab, index) => {
           return (
-            <Tabs.Trigger
-              disabled={tab.isDisabled}
-              className={`${s.tabsTrigger} ${classname}`}
-              value={tab.value}
-              key={index}
-            >
+            <Tabs.Trigger className={`${s.tabsTrigger} ${classname}`} value={tab.value} key={index}>
               <Typography className={'body1'}>{tab.value}</Typography>
             </Tabs.Trigger>
           )
