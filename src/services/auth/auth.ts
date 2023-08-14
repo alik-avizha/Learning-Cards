@@ -77,6 +77,14 @@ const authApi = baseApi.injectEndpoints({
         }),
         invalidatesTags: ['Me'],
       }),
+      updateProfile: builder.mutation<ResponseUserType, FormData>({
+        query: body => ({
+          url: 'v1/auth/me',
+          method: 'PATCH',
+          body: body,
+        }),
+        invalidatesTags: ['Me'],
+      }),
     }
   },
 })
@@ -88,6 +96,7 @@ export const {
   useSignUpMutation,
   useForgotPasswordMutation,
   useResetPasswordMutation,
+  useUpdateProfileMutation,
 } = authApi
 
 /*

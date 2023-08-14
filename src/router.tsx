@@ -16,6 +16,8 @@ import { Login } from './components/page/login/login.tsx'
 import { MyPack } from './components/page/my-pack'
 import { useMeQuery } from './services/auth'
 
+import { Profile } from '@/components/page/profile/profile.tsx'
+
 const publicRoutes: RouteObject[] = [
   {
     path: '/login',
@@ -59,6 +61,10 @@ const privateRoutes: RouteObject[] = [
   {
     path: '/learn-pack/:id',
     element: <LearnPack />,
+  },
+  {
+    path: '/profile',
+    element: <Profile />,
   },
 ]
 

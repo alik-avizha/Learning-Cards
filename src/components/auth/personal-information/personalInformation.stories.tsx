@@ -17,5 +17,7 @@ export const PersonalCard: Story = {
   args: {
     name: 'Ivan',
     email: 'egorbelozerov@mail.ru',
+    update: () => {},
+    logout: () => {},
   },
 }
