@@ -29,6 +29,17 @@
 
       font-size: calc(6rem * 0.8);
 
+      .mainPhotoInput {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+
+        width: 10px;
+        height: 10px;
+
+        opacity: 0;
+      }
+
       .avatarEdit {
         cursor: pointer;
 

@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { ChangeEvent, FC, useState } from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -10,6 +10,7 @@ import s from './personalInformation.module.scss'
 import { Edit, Logout } from '@/assets'
 import { Button, Card, ControlledTextField, Typography } from '@/components/ui'
 import { AvatarDemo } from '@/components/ui/avatar'
+import { useUpdateProfileMutation } from '@/services/auth'
 
 const sigInSchema = z.object({
   name: z.string().trim().min(1),
@@ -27,11 +28,20 @@ type PropsType = {
 
 export const PersonalInformation: FC<PropsType> = ({ name, email, avatar, logout, update }) => {
   const [editMode, setEditMode] = useState<boolean>(false)
+  const [updatePhoto] = useUpdateProfileMutation()
 
   const { control, handleSubmit } = useForm<SignInFormShem>({
     resolver: zodResolver(sigInSchema),
   })
 
+  const mainPhotoSelected = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length) {
+      const formData = new FormData()
+
+      formData.append('avatar', event.target.files[0])
+      updatePhoto(formData)
+    }
+  }
   const onSubmit = (data: SignInFormShem) => {
     update(data.name)
   }
@@ -45,9 +55,19 @@ export const PersonalInformation: FC<PropsType> = ({ name, email, avatar, logout
         <div className={s.avatar}>
           <AvatarDemo src={avatar} name={name} className={s.avatar} />
           {!editMode && (
-            <div className={s.avatarEdit}>
-              <Edit />
-            </div>
+            <label htmlFor="mainPhotoInput">
+              <div className={s.avatarEdit}>
+                <Edit />
+              </div>
+              <div className={s.inputContainer}>
+                <input
+                  type={'file'}
+                  id="mainPhotoInput"
+                  onChange={mainPhotoSelected}
+                  className={s.mainPhotoInput}
+                />
+              </div>
+            </label>
           )}
         </div>
       </div>

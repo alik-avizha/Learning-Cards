@@ -17,6 +17,7 @@ export const Profile = () => {
     <PersonalInformation
       name={data?.name}
       email={data?.email}
+      avatar={data?.avatar}
       update={onSaveChanges}
       logout={logout}
     />
