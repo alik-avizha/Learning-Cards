@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify'
+
 import s from './packs-list.module.scss'
 
 import { Trash } from '@/assets'
@@ -91,10 +93,28 @@ export const PacksList = () => {
   const onHandlerActionClicked = (value: NameModal) => {
     if (addPack) {
       createDeck({ name: packName, isPrivate: privatePack })
+        .unwrap()
+        .catch(err => {
+          toast.error(err.data.errorMessages[0].message)
+        })
     } else if (editPack) {
       editDeck({ id: cardId, name: packName, isPrivate: privatePack })
+        .unwrap()
+        .then(() => {
+          toast.success('Колода успешно обновлена')
+        })
+        .catch(() => {
+          toast.error('Some error')
+        })
     } else if (deletePack) {
       deleteDeck({ id: cardId })
+        .unwrap()
+        .then(() => {
+          toast.success('Карта успешно удалена')
+        })
+        .catch(() => {
+          toast.error('Some error')
+        })
     }
     dispatch(modalActions.setCloseModal(value))
     dispatch(modalActions.setClearState({}))

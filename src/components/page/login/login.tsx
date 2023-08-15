@@ -1,6 +1,8 @@
 import { Navigate, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import { SignIn } from '@/components/auth'
+import { Loader } from '@/components/ui/loader/loader.tsx'
 import { useLoginMutation, useMeQuery } from '@/services/auth'
 
 export const Login = () => {
@@ -14,9 +16,12 @@ export const Login = () => {
       .then(() => {
         navigate('/')
       })
+      .catch(err => {
+        toast.error(err.data.message)
+      })
   }
 
-  if (isLoading) return <div>...Loading</div>
+  if (isLoading) return <Loader />
 
   if (data) {
     return <Navigate to={'/'} />

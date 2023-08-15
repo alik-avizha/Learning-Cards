@@ -17,6 +17,7 @@ import { MyPack } from './components/page/my-pack'
 import { useMeQuery } from './services/auth'
 
 import { Profile } from '@/components/page/profile/profile.tsx'
+import { Loader } from '@/components/ui/loader/loader.tsx'
 
 const publicRoutes: RouteObject[] = [
   {
@@ -84,7 +85,7 @@ const router = createBrowserRouter([
 function PrivateRoutes() {
   const { data, isLoading } = useMeQuery()
 
-  if (isLoading) return <div>...Loading</div>
+  if (isLoading) return <Loader />
 
   return data ? <Outlet /> : <Navigate to="/login" />
 }

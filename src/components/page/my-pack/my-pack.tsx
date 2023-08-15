@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import s from './my-pack.module.scss'
 
@@ -15,6 +16,7 @@ import {
   TextField,
   Typography,
 } from '@/components/ui'
+import { Loader } from '@/components/ui/loader/loader.tsx'
 import { Sort } from '@/components/ui/table/type.ts'
 import {
   useCreateCardMutation,
@@ -52,7 +54,7 @@ export const MyPack = () => {
   const { data } = useGetDeckQuery({
     id: params.id,
   })
-  const { data: dataCards } = useGetCardsQuery({
+  const { data: dataCards, isLoading } = useGetCardsQuery({
     id: params.id,
     question: search,
     orderBy: sortedString,
@@ -82,12 +84,32 @@ export const MyPack = () => {
       createCard({ id: params.id, question, answer })
     } else if (editCard) {
       editItem({ id: cardId, question, answer })
+        .unwrap()
+        .then(() => toast.success('Карточка успешна обновлена'))
+        .catch(() => {
+          toast.error('Some error')
+        })
     } else if (deleteCard) {
       deleteItem({ id: cardId })
     } else if (editPack) {
       editDeck({ id: cardId, name: packName, isPrivate: privatePack })
+        .unwrap()
+        .then(() => {
+          toast.success('Колода успешно обновлена')
+        })
+        .catch(() => {
+          toast.error('Some error')
+        })
     } else if (deletePack) {
       deleteDeck({ id: cardId })
+        .unwrap()
+        .then(() => {
+          toast.success('Карта успешно удалена')
+        })
+        .catch(() => {
+          toast.error('Some error')
+        })
+
       navigate('/')
     }
     dispatch(modalActions.setCloseModal(value))
@@ -127,6 +149,8 @@ export const MyPack = () => {
       ),
     },
   ]
+
+  if (isLoading) return <Loader />
 
   return (
     <div className={s.myPackBlock}>
