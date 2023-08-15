@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import s from './table-packs-list.module.scss'
 
@@ -113,9 +114,13 @@ export const TablePacksList: FC<PropsType> = ({
               <TableElement.Cell>{el.author.name}</TableElement.Cell>
               <TableElement.Cell>
                 <div className={s.icons}>
-                  <Link to={`/learn-pack/${el.id}`}>
-                    <Play className={s.icon} />
-                  </Link>
+                  {el.cardsCount ? (
+                    <Link to={`/learn-pack/${el.id}`}>
+                      <Play className={s.icon} />
+                    </Link>
+                  ) : (
+                    <Play className={s.icon} onClick={() => toast.error('No cart')} />
+                  )}
                   {el.author.id === authData?.id && (
                     <>
                       <Edit

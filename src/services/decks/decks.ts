@@ -68,7 +68,7 @@ const decksApi = baseApi.injectEndpoints({
             params: { previousCardId },
           }
         },
-        providesTags: ['Decks'],
+        providesTags: ['Cards'],
       }),
       updateGradeCard: builder.mutation<
         LearnDeckResponse,
@@ -79,7 +79,7 @@ const decksApi = baseApi.injectEndpoints({
           method: 'POST',
           body: { cardId, grade },
         }),
-        invalidatesTags: ['Decks'],
+        invalidatesTags: ['Cards'],
       }),
     }
   },

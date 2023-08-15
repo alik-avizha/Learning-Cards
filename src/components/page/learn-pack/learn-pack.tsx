@@ -28,35 +28,29 @@ export const LearnPack = () => {
     <div className={s.learnPackPage}>
       <Button as={Link} to="/" variant={'link'} className={s.backButton}>
         <Back />
-        Back to Packs List
+        Back to PackList
       </Button>
-      {deck?.cardsCount ? (
-        <Card className={s.cardBlock}>
-          <Typography variant={'large'} className={s.title}>
-            Learn &quot;{deck?.name}&quot;
-          </Typography>
-          <Typography variant={'subtitle1'}>
-            Question:{' '}
-            <Typography variant={'body1'} className={s.question}>
-              {randomCard?.question}
-            </Typography>
-          </Typography>
-          <Typography variant={'body2'} className={s.info}>
-            Количество попыток ответов на вопрос: {randomCard?.shots}
-          </Typography>
-          {!showAnswer ? (
-            <Button variant={'primary'} onClick={() => setShowAnswer(!showAnswer)}>
-              Show Answer
-            </Button>
-          ) : (
-            <AnswerPage answer={randomCard?.answer} setNewQuestion={updateCardGradeHandler} />
-          )}
-        </Card>
-      ) : (
-        <Typography variant={'large'} className={s.error}>
-          На данный момент владелец колоды не создал карточки
+      <Card className={s.cardBlock}>
+        <Typography variant={'large'} className={s.title}>
+          Learn &quot;{deck?.name}&quot;
         </Typography>
-      )}
+        <Typography variant={'subtitle1'}>
+          Question:{' '}
+          <Typography variant={'body1'} className={s.question}>
+            {randomCard?.question}
+          </Typography>
+        </Typography>
+        <Typography variant={'body2'} className={s.info}>
+          Количество попыток ответов на вопрос: {randomCard?.shots}
+        </Typography>
+        {!showAnswer ? (
+          <Button variant={'primary'} onClick={() => setShowAnswer(!showAnswer)}>
+            Show Answer
+          </Button>
+        ) : (
+          <AnswerPage answer={randomCard?.answer} setNewQuestion={updateCardGradeHandler} />
+        )}
+      </Card>
     </div>
   )
 }

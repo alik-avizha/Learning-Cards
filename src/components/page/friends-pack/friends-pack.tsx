@@ -7,6 +7,7 @@ import { FriendsTable } from './friends-table'
 
 import { Back } from '@/assets'
 import { Button, Pagination, SuperSelect, TextField, Typography } from '@/components/ui'
+import { Loader } from '@/components/ui/loader/loader.tsx'
 import { Sort } from '@/components/ui/table/type.ts'
 import { useGetCardsQuery } from '@/services/cards'
 import { useGetDeckQuery } from '@/services/decks'
@@ -36,13 +37,15 @@ export const FriendsPack = () => {
   const { data } = useGetDeckQuery({
     id: params.id,
   })
-  const { data: dataCards } = useGetCardsQuery({
+  const { data: dataCards, isLoading } = useGetCardsQuery({
     id: params.id,
     orderBy: sortedString,
     question: search,
     itemsPerPage: perPage.value,
     currentPage: page,
   })
+
+  if (isLoading) return <Loader />
 
   return (
     <div className={s.friendsPackBlock}>

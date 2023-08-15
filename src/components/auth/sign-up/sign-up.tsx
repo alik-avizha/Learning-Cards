@@ -2,6 +2,7 @@ import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { z } from 'zod'
 
 import s from './sign-up.module.scss'
@@ -30,13 +31,18 @@ export const SignUp = () => {
   const [signUp] = useSignUpMutation()
 
   const onSubmit = (data: SignInFormShem) => {
-    signUp({ email: data.email, password: data.password, sendConfirmationEmail: false })
+    signUp({
+      email: data.email,
+      password: data.password,
+      sendConfirmationEmail: true,
+      html: `<h1>Hi, ##name##</h1><p>Click <a href="http://localhost:5173/confirm-email/##token##">here</a> to recover your password</p>`,
+    })
       .unwrap()
       .then(() => {
         navigate('/login')
       })
-      .catch(err => {
-        console.log(err)
+      .catch(() => {
+        toast.error('Some error')
       })
   }
 
