@@ -34,15 +34,14 @@ export const SignUp = () => {
     signUp({
       email: data.email,
       password: data.password,
-      sendConfirmationEmail: true,
-      html: `<h1>Hi, ##name##</h1><p>Click <a href="http://localhost:5173/confirm-email/##token##">here</a> to recover your password</p>`,
+      sendConfirmationEmail: false,
     })
       .unwrap()
       .then(() => {
-        navigate('/login')
+        navigate(`/check-email/${data.email}`)
       })
-      .catch(() => {
-        toast.error('Some error')
+      .catch(err => {
+        toast.error(err.data.message)
       })
   }
 

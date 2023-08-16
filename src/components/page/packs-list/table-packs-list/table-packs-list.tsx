@@ -104,6 +104,7 @@ export const TablePacksList: FC<PropsType> = ({
                   onClick={() => onClickNameDeckHandler(el.author.id)}
                   className={s.nameOfDeckButton}
                 >
+                  {el.cover && <img className={s.nameImg} src={el.cover} alt="img" />}
                   {el.name}
                 </Button>
               </TableElement.Cell>

@@ -16,6 +16,7 @@ import { Login } from './components/page/login/login.tsx'
 import { MyPack } from './components/page/my-pack'
 import { useMeQuery } from './services/auth'
 
+import { ConfirmationEmail } from '@/components/auth/confirmation-email'
 import { Profile } from '@/components/page/profile/profile.tsx'
 import { Loader } from '@/components/ui/loader/loader.tsx'
 
@@ -39,6 +40,10 @@ const publicRoutes: RouteObject[] = [
   {
     path: '/check-email/:email',
     element: <CheckEmail />,
+  },
+  {
+    path: '/confirm-email/:code',
+    element: <ConfirmationEmail />,
   },
 ]
 
