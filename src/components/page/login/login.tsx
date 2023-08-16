@@ -14,6 +14,7 @@ export const Login = () => {
     login(data)
       .unwrap()
       .then(() => {
+        toast.success('Успешный вход')
         navigate('/')
       })
       .catch(err => {
