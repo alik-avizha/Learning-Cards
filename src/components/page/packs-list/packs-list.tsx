@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { toast } from 'react-toastify'
 
 import s from './packs-list.module.scss'
@@ -37,6 +39,7 @@ export const PacksList = () => {
   const currentPage = useAppSelector(state => state.deckSlice.currentPage)
   const { addPack, editPack, deletePack } = useAppSelector(selectOpenModals)
   const { privatePack, packName } = useAppSelector(selectSettings)
+  const [activeTab, setActiveTab] = useState(tabSwitcherOptions[1].value)
   const dispatch = useAppDispatch()
 
   const {
@@ -78,6 +81,7 @@ export const PacksList = () => {
     dispatch(cardsSlice.actions.setIsMyPack({ isMyPack: value }))
   }
   const handleTabSort = (value: string) => {
+    setActiveTab(value)
     if (value === 'My Cards') {
       setUserId(meData!.id)
     } else {
@@ -87,6 +91,7 @@ export const PacksList = () => {
   const clearFilterData = () => {
     setSearchByName('')
     handleTabSort('All cards')
+    setActiveTab('All Cards')
     setValueSlider([sliderValues.minValue, sliderValues.maxValue])
     setSort({ key: 'updated', direction: 'asc' })
   }
@@ -147,7 +152,7 @@ export const PacksList = () => {
             onChangeCallback={value => handleTabSort(value)}
             options={tabSwitcherOptions}
             classname={s.switcher}
-            defaultValue={tabSwitcherOptions[1].value}
+            activeTab={activeTab}
           />
         </div>
         <div>
