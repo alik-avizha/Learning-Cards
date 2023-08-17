@@ -88,9 +88,16 @@
       }
     }
 
-    .email {
-      margin-bottom: 0.81rem;
-      color: var(--color-dark-100);
+    .emailBlock {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+      justify-content: space-between;
+
+      .email {
+        margin-bottom: 0.81rem;
+        color: var(--color-dark-100);
+      }
     }
 
     .logout {
