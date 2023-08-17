@@ -19,19 +19,27 @@
   .headBlock {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: start;
     justify-content: space-between;
 
     margin-bottom: 1.5rem;
   }
 
-  .titleMenu {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    align-items: center;
+  .titleAndCover {
+    .titleMenu {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
 
-    text-align: center;
+      text-align: center;
+    }
+
+    .cover {
+      width: 10.625rem;
+      height: 6.6875rem;
+      border: 0.5px solid var(--color-dark-500);
+    }
   }
 
   .textField {
