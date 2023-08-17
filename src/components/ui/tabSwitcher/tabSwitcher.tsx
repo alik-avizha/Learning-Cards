@@ -15,12 +15,7 @@ type PropsType = {
 export const TabSwitcher: FC<PropsType> = ({ options, onChangeCallback, classname, activeTab }) => {
   return (
     <div key={activeTab}>
-      <Tabs.Root
-        className={s.tabsRoot}
-        onValueChange={value => {
-          onChangeCallback?.(value)
-        }}
-      >
+      <Tabs.Root className={s.tabsRoot} onValueChange={onChangeCallback}>
         <Tabs.List className={s.tabsList}>
           {options?.map((tab, index) => {
             return (
