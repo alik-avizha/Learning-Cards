@@ -17,6 +17,7 @@ import { MyPack } from './components/page/my-pack'
 import { useMeQuery } from './services/auth'
 
 import { ConfirmationEmail } from '@/components/auth/confirmation-email'
+import { ErrorPage } from '@/components/page/error-page'
 import { Profile } from '@/components/page/profile/profile.tsx'
 import { Loader } from '@/components/ui/loader/loader.tsx'
 
@@ -77,10 +78,16 @@ const privateRoutes: RouteObject[] = [
 const router = createBrowserRouter([
   {
     element: <Layout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         element: <PrivateRoutes />,
+
         children: privateRoutes,
+      },
+      {
+        path: '*',
+        element: <ErrorPage />,
       },
       ...publicRoutes,
     ],
