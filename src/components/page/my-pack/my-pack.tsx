@@ -159,9 +159,12 @@ export const MyPack = () => {
         Back to Packs List
       </Button>
       <div className={s.headBlock}>
-        <div className={s.titleMenu}>
-          <Typography variant={'large'}>{data?.name}</Typography>
-          <DropDownMenuDemo items={dropDownMenu} trigger={<SubMenu />} />
+        <div className={s.titleAndCover}>
+          <div className={s.titleMenu}>
+            <Typography variant={'large'}>{data?.name}</Typography>
+            <DropDownMenuDemo items={dropDownMenu} trigger={<SubMenu />} />
+          </div>
+          {data?.cover && <img src={data.cover} alt="cover" className={s.cover} />}
         </div>
         <Button variant={'primary'} onClick={addCardModalHandler}>
           Add New Card

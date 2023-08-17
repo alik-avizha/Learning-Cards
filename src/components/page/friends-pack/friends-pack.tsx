@@ -54,8 +54,11 @@ export const FriendsPack = () => {
         Back to Packs List
       </Button>
       <div className={s.headBlock}>
-        <div className={s.titleMenu}>
-          <Typography variant={'large'}>{data?.name}</Typography>
+        <div className={s.titleAndCover}>
+          <div className={s.titleMenu}>
+            <Typography variant={'large'}>{data?.name}</Typography>
+          </div>
+          {data?.cover && <img src={data.cover} alt="cover" className={s.cover} />}
         </div>
         <Button as={Link} to={`/learn-pack/${params.id}`} variant={'primary'}>
           Learn to Pack
