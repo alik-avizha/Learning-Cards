@@ -2,13 +2,7 @@ import { useMemo, useState } from 'react'
 
 import { Sort } from '@/components/ui/table/type.ts'
 
-export const usePackDeckState = (
-  sliderValues: {
-    minValue: number
-    maxValue: number
-  },
-  itemsPerPage: number
-) => {
+export const usePackDeckState = (sliderValues: { minValue: number; maxValue: number }) => {
   const [cardId, setCardId] = useState<string>('')
   const [userId, setUserId] = useState<string>('')
   const [sort, setSort] = useState<Sort>({ key: 'updated', direction: 'desc' })
@@ -16,11 +10,7 @@ export const usePackDeckState = (
     sliderValues.minValue,
     sliderValues.maxValue,
   ])
-  const [perPage, setPerPage] = useState({ id: 1, value: itemsPerPage })
 
-  const onSetPerPageHandler = (value: number) => {
-    setPerPage({ ...perPage, value })
-  }
   const sortedString = useMemo(() => {
     if (!sort) return null
 
@@ -35,9 +25,7 @@ export const usePackDeckState = (
     sort,
     setSort,
     sortedString,
-    onSetPerPageHandler,
     valueSlider,
     setValueSlider,
-    perPage,
   }
 }
