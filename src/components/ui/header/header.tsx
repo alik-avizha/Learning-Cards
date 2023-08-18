@@ -55,9 +55,11 @@ export const Header: FC<HeaderProps> = ({ data }) => {
         {!data && <Button variant={'primary'}>Sign In</Button>}
         {data && (
           <div className={s.avatar_menu}>
-            <Typography variant={'subtitle1'} className={s.menu_name}>
-              {data.name}
-            </Typography>
+            <Link to={`/profile`} className={s.link}>
+              <Typography variant={'subtitle1'} className={s.menu_name}>
+                {data.name}
+              </Typography>
+            </Link>
             <DropDownMenuDemo
               items={dropDownMenu}
               trigger={<AvatarDemo src={data.avatar} name={data.name} />}
