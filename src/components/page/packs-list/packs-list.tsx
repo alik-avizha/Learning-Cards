@@ -33,18 +33,15 @@ import { useAppDispatch, useAppSelector } from '@/services/store.ts'
 export const PacksList = () => {
   const initialName = useAppSelector(state => state.deckSlice.searchByName)
   const tabSwitcherOptions = useAppSelector(state => state.deckSlice.tabSwitcherOptions)
-  const itemsPerPage = useAppSelector(state => state.deckSlice.itemsPerPage)
+  const itemsPerPage = useAppSelector(state => state.deckSlice.currentPerPagePackList)
   const sliderValues = useAppSelector(state => state.deckSlice.slider)
   const options = useAppSelector(state => state.deckSlice.paginationOptions)
   const currentPage = useAppSelector(state => state.deckSlice.currentPagePackList)
   const { addPack, editPack, deletePack } = useAppSelector(selectOpenModals)
   const { privatePack, packName } = useAppSelector(selectSettings)
+
   const [activeTab, setActiveTab] = useState(tabSwitcherOptions[1].value)
   const dispatch = useAppDispatch()
-
-  const setNewCurrentPage = (page: number) => {
-    dispatch(deckSlice.actions.setCurrentPagePackList(page))
-  }
 
   const {
     cardId,
@@ -56,9 +53,7 @@ export const PacksList = () => {
     sortedString,
     setValueSlider,
     valueSlider,
-    perPage,
-    onSetPerPageHandler,
-  } = usePackDeckState(sliderValues, itemsPerPage)
+  } = usePackDeckState(sliderValues)
 
   const newInitialName = useDebounce(initialName, 1000)
 
@@ -66,7 +61,7 @@ export const PacksList = () => {
   const { data } = useGetDecksQuery({
     name: newInitialName,
     orderBy: sortedString,
-    itemsPerPage: perPage.value,
+    itemsPerPage: itemsPerPage.value,
     authorId: userId,
     minCardsCount: valueSlider[0],
     maxCardsCount: valueSlider[1],
@@ -76,6 +71,12 @@ export const PacksList = () => {
   const [deleteDeck] = useDeletedDeckMutation()
   const [editDeck] = useUpdateDeckMutation()
 
+  const setNewCurrentPage = (page: number) => {
+    dispatch(deckSlice.actions.setCurrentPagePackList(page))
+  }
+  const setNewPerPage = (value: number) => {
+    dispatch(deckSlice.actions.setItemsPackListPerPage(value))
+  }
   const setSearchByName = (event: string) => {
     dispatch(deckSlice.actions.setSearchByName(event))
   }
@@ -189,8 +190,8 @@ export const PacksList = () => {
         <Typography variant={'body2'}>Показать</Typography>
         <SuperSelect
           options={options}
-          defaultValue={perPage.value}
-          onValueChange={onSetPerPageHandler}
+          defaultValue={itemsPerPage.value}
+          onValueChange={setNewPerPage}
           classname={s.selectPagination}
         />
         <Typography variant={'body2'}>На странице</Typography>

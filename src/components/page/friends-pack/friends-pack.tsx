@@ -17,21 +17,14 @@ import { useAppDispatch, useAppSelector } from '@/services/store.ts'
 export const FriendsPack = () => {
   const params = useParams<{ id: string }>()
 
-  const itemsPerPage = useAppSelector(state => state.deckSlice.itemsPerPage)
+  const itemsPerPage = useAppSelector(state => state.deckSlice.currentPerPageFriendPack)
   const options = useAppSelector(state => state.deckSlice.paginationOptions)
   const currentPage = useAppSelector(state => state.deckSlice.currentPageFriendsPack)
   const dispatch = useAppDispatch()
 
   const [search, setSearch] = useState('')
-  const [perPage, setPerPage] = useState({ id: 1, value: itemsPerPage })
   const [sort, setSort] = useState<Sort>({ key: 'updated', direction: 'desc' })
 
-  const setNewCurrentPage = (page: number) => {
-    dispatch(deckSlice.actions.setCurrentPageFriendsPack(page))
-  }
-  const onSetPerPageHandler = (value: number) => {
-    setPerPage({ ...perPage, value })
-  }
   const sortedString = useMemo(() => {
     if (!sort) return null
 
@@ -45,9 +38,17 @@ export const FriendsPack = () => {
     id: params.id,
     orderBy: sortedString,
     question: search,
-    itemsPerPage: perPage.value,
+    itemsPerPage: itemsPerPage.value,
     currentPage: currentPage,
   })
+
+  const setNewCurrentPage = (page: number) => {
+    dispatch(deckSlice.actions.setCurrentPageFriendsPack(page))
+  }
+
+  const setNewPerPage = (value: number) => {
+    dispatch(deckSlice.actions.setItemsFriendsPackPerPage(value))
+  }
 
   if (isLoading) return <Loader />
 
@@ -85,8 +86,8 @@ export const FriendsPack = () => {
         <Typography variant={'body2'}>Показать</Typography>
         <SuperSelect
           options={options}
-          defaultValue={perPage.value}
-          onValueChange={onSetPerPageHandler}
+          defaultValue={itemsPerPage.value}
+          onValueChange={setNewPerPage}
           classname={s.selectPagination}
         />
         <Typography variant={'body2'}>На странице</Typography>

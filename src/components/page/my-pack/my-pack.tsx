@@ -34,7 +34,7 @@ export const MyPack = () => {
   const navigate = useNavigate()
 
   const { privatePack, packName, question, answer } = useAppSelector(selectSettings)
-  const itemsPerPage = useAppSelector(state => state.deckSlice.itemsPerPage)
+  const itemsPerPage = useAppSelector(state => state.deckSlice.currentPerPageMyPack)
   const options = useAppSelector(state => state.deckSlice.paginationOptions)
   const currentPage = useAppSelector(state => state.deckSlice.currentPageMyPack)
   const { editPack, deletePack, addCard, editCard, deleteCard } = useAppSelector(selectOpenModals)
@@ -43,11 +43,6 @@ export const MyPack = () => {
   const [cardId, setCardId] = useState<string>('')
   const [search, setSearch] = useState('')
   const [sort, setSort] = useState<Sort>({ key: 'updated', direction: 'desc' })
-  const [perPage, setPerPage] = useState({ id: 1, value: itemsPerPage })
-
-  const setNewCurrentPage = (page: number) => {
-    dispatch(deckSlice.actions.setCurrentPageFriendsPack(page))
-  }
 
   const sortedString = useMemo(() => {
     if (!sort) return null
@@ -62,7 +57,7 @@ export const MyPack = () => {
     id: params.id,
     question: search,
     orderBy: sortedString,
-    itemsPerPage: perPage.value,
+    itemsPerPage: itemsPerPage.value,
     currentPage: currentPage,
   })
   const [createCard] = useCreateCardMutation()
@@ -76,9 +71,6 @@ export const MyPack = () => {
     dispatch(modalActions.setPackName(data!.name))
     dispatch(modalActions.setPrivatePack(data!.isPrivate))
     setCardId(data!.id)
-  }
-  const onSetPerPageHandler = (value: number) => {
-    setPerPage({ ...perPage, value })
   }
   const addCardModalHandler = () => {
     dispatch(modalActions.setOpenModal('addCard'))
@@ -118,6 +110,12 @@ export const MyPack = () => {
     }
     dispatch(modalActions.setCloseModal(value))
     dispatch(modalActions.setClearState({}))
+  }
+  const setNewCurrentPage = (page: number) => {
+    dispatch(deckSlice.actions.setCurrentPageFriendsPack(page))
+  }
+  const setNewPerPage = (value: number) => {
+    dispatch(deckSlice.actions.setItemsMyPackPerPage(value))
   }
 
   const dropDownMenu = [
@@ -192,8 +190,8 @@ export const MyPack = () => {
         <Typography variant={'body2'}>Показать</Typography>
         <SuperSelect
           options={options}
-          defaultValue={perPage.value}
-          onValueChange={onSetPerPageHandler}
+          defaultValue={itemsPerPage.value}
+          onValueChange={setNewPerPage}
           classname={s.selectPagination}
         />
         <Typography variant={'body2'}>На странице</Typography>
