@@ -67,6 +67,7 @@ export const FriendsPack = () => {
       <TextField
         value={search}
         onChangeText={e => setSearch(e)}
+        onSearchClear={() => setSearch('')}
         type={'searchType'}
         className={s.textField}
       />

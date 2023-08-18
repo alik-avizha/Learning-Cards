@@ -33,6 +33,10 @@
       align-items: center;
       justify-content: flex-end;
 
+      .link {
+        text-decoration: none;
+      }
+
       .menu_name {
         cursor: pointer;
         position: relative;

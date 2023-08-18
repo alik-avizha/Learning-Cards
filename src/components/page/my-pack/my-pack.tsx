@@ -173,6 +173,7 @@ export const MyPack = () => {
       <TextField
         value={search}
         onChangeText={event => setSearch(event)}
+        onSearchClear={() => setSearch('')}
         type={'searchType'}
         className={s.textField}
       />
