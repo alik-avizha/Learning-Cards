@@ -36,11 +36,15 @@ export const PacksList = () => {
   const itemsPerPage = useAppSelector(state => state.deckSlice.itemsPerPage)
   const sliderValues = useAppSelector(state => state.deckSlice.slider)
   const options = useAppSelector(state => state.deckSlice.paginationOptions)
-  const currentPage = useAppSelector(state => state.deckSlice.currentPage)
+  const currentPage = useAppSelector(state => state.deckSlice.currentPagePackList)
   const { addPack, editPack, deletePack } = useAppSelector(selectOpenModals)
   const { privatePack, packName } = useAppSelector(selectSettings)
   const [activeTab, setActiveTab] = useState(tabSwitcherOptions[1].value)
   const dispatch = useAppDispatch()
+
+  const setNewCurrentPage = (page: number) => {
+    dispatch(deckSlice.actions.setCurrentPagePackList(page))
+  }
 
   const {
     cardId,
@@ -50,13 +54,11 @@ export const PacksList = () => {
     sort,
     setSort,
     sortedString,
-    page,
-    setPage,
     setValueSlider,
     valueSlider,
     perPage,
     onSetPerPageHandler,
-  } = usePackDeckState(sliderValues, currentPage, itemsPerPage)
+  } = usePackDeckState(sliderValues, itemsPerPage)
 
   const newInitialName = useDebounce(initialName, 1000)
 
@@ -68,7 +70,7 @@ export const PacksList = () => {
     authorId: userId,
     minCardsCount: valueSlider[0],
     maxCardsCount: valueSlider[1],
-    currentPage: page,
+    currentPage,
   })
   const [createDeck] = useCreateDeckMutation()
   const [deleteDeck] = useDeletedDeckMutation()
@@ -179,7 +181,11 @@ export const PacksList = () => {
         setSort={setSort}
       />
       <div className={s.pagination}>
-        <Pagination count={data?.pagination.totalPages} page={page} onChange={setPage} />
+        <Pagination
+          count={data?.pagination.totalPages}
+          page={currentPage}
+          onChange={setNewCurrentPage}
+        />
         <Typography variant={'body2'}>Показать</Typography>
         <SuperSelect
           options={options}

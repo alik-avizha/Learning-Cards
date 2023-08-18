@@ -7,7 +7,6 @@ export const usePackDeckState = (
     minValue: number
     maxValue: number
   },
-  currentPage: number,
   itemsPerPage: number
 ) => {
   const [cardId, setCardId] = useState<string>('')
@@ -18,7 +17,6 @@ export const usePackDeckState = (
     sliderValues.maxValue,
   ])
   const [perPage, setPerPage] = useState({ id: 1, value: itemsPerPage })
-  const [page, setPage] = useState(currentPage)
 
   const onSetPerPageHandler = (value: number) => {
     setPerPage({ ...perPage, value })
@@ -40,8 +38,6 @@ export const usePackDeckState = (
     onSetPerPageHandler,
     valueSlider,
     setValueSlider,
-    page,
-    setPage,
     perPage,
   }
 }

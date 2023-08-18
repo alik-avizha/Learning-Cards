@@ -2,7 +2,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const initialState = {
   itemsPerPage: 7,
-  currentPage: 1,
+  currentPagePackList: 1,
+  currentPageFriendsPack: 1,
+  currentPageMyPack: 1,
   searchByName: '',
   tabSwitcherOptions: [
     { id: 1, value: 'My Cards' },
@@ -28,8 +30,14 @@ export const deckSlice = createSlice({
     setItemsPerPage: (state, action: PayloadAction<number>) => {
       state.itemsPerPage = action.payload
     },
-    setCurrentPage: (state, action: PayloadAction<number>) => {
-      state.itemsPerPage = action.payload
+    setCurrentPagePackList: (state, action: PayloadAction<number>) => {
+      state.currentPagePackList = action.payload
+    },
+    setCurrentPageFriendsPack: (state, action: PayloadAction<number>) => {
+      state.currentPageFriendsPack = action.payload
+    },
+    setCurrentPageMyPack: (state, action: PayloadAction<number>) => {
+      state.currentPageMyPack = action.payload
     },
     setSearchByName: (state, action: PayloadAction<string>) => {
       state.searchByName = action.payload
