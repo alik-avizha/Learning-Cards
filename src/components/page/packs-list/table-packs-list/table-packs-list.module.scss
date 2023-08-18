@@ -4,6 +4,8 @@
   justify-content: end;
 
   .icon {
+    display: flex;
+    align-items: center;
     transition: transform 0.2s ease-in-out;
 
     &:hover {

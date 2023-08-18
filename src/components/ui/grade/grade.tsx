@@ -15,7 +15,7 @@ export const Grade: FC<PropsType> = ({ maxRating = 5, rating = 0 }) => {
       {maxRating > 0 &&
         [...Array(maxRating)].map((_, index) => {
           return (
-            <div key={index}>
+            <div key={index} className={s.star}>
               <Star active={rating > index ? 'active' : ''} />
             </div>
           )
