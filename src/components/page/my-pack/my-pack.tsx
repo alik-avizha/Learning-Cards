@@ -25,6 +25,7 @@ import {
   useGetCardsQuery,
 } from '@/services/cards'
 import { useDeletedDeckMutation, useGetDeckQuery, useUpdateDeckMutation } from '@/services/decks'
+import { deckSlice } from '@/services/decks/deck.slice.ts'
 import { modalActions, NameModal, selectOpenModals, selectSettings } from '@/services/modal'
 import { useAppDispatch, useAppSelector } from '@/services/store.ts'
 
@@ -35,7 +36,7 @@ export const MyPack = () => {
   const { privatePack, packName, question, answer } = useAppSelector(selectSettings)
   const itemsPerPage = useAppSelector(state => state.deckSlice.itemsPerPage)
   const options = useAppSelector(state => state.deckSlice.paginationOptions)
-  const currentPage = useAppSelector(state => state.deckSlice.currentPage)
+  const currentPage = useAppSelector(state => state.deckSlice.currentPageMyPack)
   const { editPack, deletePack, addCard, editCard, deleteCard } = useAppSelector(selectOpenModals)
   const dispatch = useAppDispatch()
 
@@ -43,7 +44,10 @@ export const MyPack = () => {
   const [search, setSearch] = useState('')
   const [sort, setSort] = useState<Sort>({ key: 'updated', direction: 'desc' })
   const [perPage, setPerPage] = useState({ id: 1, value: itemsPerPage })
-  const [page, setPage] = useState(currentPage)
+
+  const setNewCurrentPage = (page: number) => {
+    dispatch(deckSlice.actions.setCurrentPageFriendsPack(page))
+  }
 
   const sortedString = useMemo(() => {
     if (!sort) return null
@@ -59,7 +63,7 @@ export const MyPack = () => {
     question: search,
     orderBy: sortedString,
     itemsPerPage: perPage.value,
-    currentPage: page,
+    currentPage: currentPage,
   })
   const [createCard] = useCreateCardMutation()
   const [editItem] = useEditCardMutation()
@@ -180,7 +184,11 @@ export const MyPack = () => {
       <MyPackTable dataCards={dataCards} sort={sort} setSort={setSort} setCardId={setCardId} />
       <TableModal handleClicked={onHandlerActionClicked} />
       <div className={s.pagination}>
-        <Pagination count={dataCards?.pagination.totalPages} page={page} onChange={setPage} />
+        <Pagination
+          count={dataCards?.pagination.totalPages}
+          page={currentPage}
+          onChange={setNewCurrentPage}
+        />
         <Typography variant={'body2'}>Показать</Typography>
         <SuperSelect
           options={options}
