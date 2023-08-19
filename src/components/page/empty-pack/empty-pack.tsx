@@ -1,26 +1,39 @@
-import { useState } from 'react'
-
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import s from './empty-pack.module.scss'
 
 import { Back } from '@/assets'
-import { Button, Modal, TextField, Typography } from '@/components/ui'
+import { AddEditCardModal } from '@/components/page/common/modals'
+import { Button, Typography } from '@/components/ui'
 import { useCreateCardMutation } from '@/services/cards'
+import { modalActions, selectCardSettings } from '@/services/modal'
+import { useAppDispatch, useAppSelector } from '@/services/store.ts'
 
 export const EmptyPack = () => {
   const navigate = useNavigate()
   const params = useParams<{ id: string; name: string }>()
 
-  const [question, setQuestion] = useState<string>('')
-  const [answer, setAnswer] = useState<string>('')
-  const [open, setOpen] = useState<boolean>(false)
+  const { question, answer, questionImg, answerImg } = useAppSelector(selectCardSettings)
+  const dispatch = useAppDispatch()
 
   const [createCard] = useCreateCardMutation()
 
+  const setOpen = () => {
+    dispatch(modalActions.setOpenModal('addCard'))
+  }
   const addCardHandler = () => {
-    createCard({ id: params.id, question, answer })
+    const formData = new FormData()
+
+    formData.append('question', question)
+    formData.append('answer', answer)
+
+    questionImg && formData.append('questionImg', questionImg)
+    answerImg && formData.append('answerImg', answerImg)
+    createCard({ id: params.id, formData })
     navigate(`/my-pack/${params.id}`)
+    dispatch(modalActions.setCloseModal('addCard'))
+    dispatch(modalActions.setQuestion(''))
+    dispatch(modalActions.setAnswer(''))
   }
 
   return (
@@ -36,34 +49,11 @@ export const EmptyPack = () => {
         This pack is empty. Click add new card to fill this pack
       </Typography>
       <div className={s.addNewPackButton}>
-        <Button variant={'primary'} onClick={() => setOpen(true)}>
+        <Button variant={'primary'} onClick={setOpen}>
           Add New Card
         </Button>
       </div>
-      <Modal
-        title={'Add New Card'}
-        open={open}
-        onClose={() => setOpen(false)}
-        titleButton={'Add New Card'}
-        showCloseButton={true}
-        callBack={addCardHandler}
-        disableButton={false}
-      >
-        <TextField
-          type={'default'}
-          value={question}
-          label={'Question'}
-          placeholder={'Question'}
-          onChangeText={e => setQuestion(e)}
-        />
-        <TextField
-          type={'default'}
-          value={answer}
-          label={'Answer'}
-          placeholder={'Answer'}
-          onChangeText={e => setAnswer(e)}
-        />
-      </Modal>
+      <AddEditCardModal onSubmit={addCardHandler} />
     </div>
   )
 }

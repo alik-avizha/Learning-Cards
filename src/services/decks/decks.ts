@@ -1,11 +1,4 @@
-import {
-  CreateGetDeckArgs,
-  Deck,
-  DeckResponse,
-  DecksResponse,
-  GetDecksArgs,
-  LearnDeckResponse,
-} from './types.ts'
+import { Deck, DeckResponse, DecksResponse, GetDecksArgs, LearnDeckResponse } from './types.ts'
 
 import { baseApi } from '@/services/base-api.ts'
 
@@ -29,24 +22,21 @@ const decksApi = baseApi.injectEndpoints({
         }),
         providesTags: ['Decks'],
       }),
-      createDeck: builder.mutation<Deck, CreateGetDeckArgs>({
-        query: ({ name, isPrivate }) => {
+      createDeck: builder.mutation<Deck, any>({
+        query: formData => {
           return {
             url: 'v1/decks',
             method: 'POST',
-            body: { name, isPrivate },
+            body: formData,
           }
         },
         invalidatesTags: ['Decks'],
       }),
-      updateDeck: builder.mutation<
-        any,
-        { id: string; name: string; isPrivate: boolean | undefined }
-      >({
-        query: ({ id, name, isPrivate }) => ({
+      updateDeck: builder.mutation<any, any>({
+        query: ({ id, formData }) => ({
           url: `v1/decks/${id}`,
           method: 'PATCH',
-          body: { name, isPrivate },
+          body: formData,
         }),
         invalidatesTags: ['Decks'],
       }),

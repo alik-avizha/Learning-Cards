@@ -4,7 +4,7 @@ import { BrowserRouterDecorator, ReduxStoreProviderDecorator } from '@/common'
 import { ErrorPage } from '@/components/page/error-page/error-page.tsx'
 
 const meta = {
-  title: 'Page/EmptyPack',
+  title: 'Page/ErrorPage',
   component: ErrorPage,
   tags: ['autodocs'],
   decorators: [ReduxStoreProviderDecorator, BrowserRouterDecorator],

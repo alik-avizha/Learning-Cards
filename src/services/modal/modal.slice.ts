@@ -1,21 +1,22 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { NameModal } from '@/services/modal/types.ts'
+import { ModalType, NameModal } from '@/services/modal/types.ts'
 
-const initialState = {
-  showModal: {
-    addPack: false,
-    addCard: false,
-    editPack: false,
-    editCard: false,
-    deletePack: false,
-    deleteCard: false,
-  },
-  settingsValue: {
-    privatePack: false,
+const initialState: ModalType = {
+  open: '',
+  pack: {
     packName: '',
+    privatePack: false,
+    img: null,
+    editImg: '',
+  },
+  card: {
     question: '',
     answer: '',
+    questionImg: null,
+    answerImg: null,
+    questionEditImg: '',
+    answerEditImg: '',
   },
 }
 
@@ -24,28 +25,49 @@ export const modalSlice = createSlice({
   initialState,
   reducers: {
     setOpenModal: (state, action: PayloadAction<NameModal>) => {
-      state.showModal[action.payload] = true
+      state.open = action.payload
     },
-    setCloseModal: (state, action: PayloadAction<NameModal>) => {
-      state.showModal[action.payload] = false
-    },
-    setPrivatePack: (state, action: PayloadAction<boolean>) => {
-      state.settingsValue.privatePack = action.payload
-    },
-    setPackName: (state, action: PayloadAction<string>) => {
-      state.settingsValue.packName = action.payload
-    },
-    setQuestion: (state, action: PayloadAction<string>) => {
-      state.settingsValue.question = action.payload
-    },
-    setAnswer: (state, action: PayloadAction<string>) => {
-      state.settingsValue.answer = action.payload
+    setCloseModal: (state, _) => {
+      state.open = ''
     },
     setClearState: (state, _) => {
-      state.settingsValue.packName = ''
-      state.settingsValue.question = ''
-      state.settingsValue.answer = ''
-      state.settingsValue.privatePack = false
+      state.pack.packName = ''
+      state.pack.img = null
+      state.pack.privatePack = false
+      state.card.question = ''
+      state.card.answer = ''
+      state.card.questionImg = null
+      state.card.answerImg = null
+    },
+    setPrivatePack: (state, action: PayloadAction<boolean>) => {
+      state.pack.privatePack = action.payload
+    },
+    setPackName: (state, action: PayloadAction<string>) => {
+      state.pack.packName = action.payload
+    },
+    setImg: (state, action: PayloadAction<File>) => {
+      state.pack.img = action.payload
+    },
+    setEditImg: (state, action: PayloadAction<string | null | undefined>) => {
+      state.pack.editImg = action.payload
+    },
+    setQuestion: (state, action: PayloadAction<string>) => {
+      state.card.question = action.payload
+    },
+    setAnswer: (state, action: PayloadAction<string>) => {
+      state.card.answer = action.payload
+    },
+    setQuestionImg: (state, action: PayloadAction<File>) => {
+      state.card.questionImg = action.payload
+    },
+    setAnswerImg: (state, action: PayloadAction<File>) => {
+      state.card.answerImg = action.payload
+    },
+    setQuestionEditImg: (state, action: PayloadAction<string | null | undefined>) => {
+      state.card.questionEditImg = action.payload
+    },
+    setAnswerEditImg: (state, action: PayloadAction<string | null | undefined>) => {
+      state.card.answerEditImg = action.payload
     },
   },
 })
