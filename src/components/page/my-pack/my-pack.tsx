@@ -6,7 +6,11 @@ import { toast } from 'react-toastify'
 import s from './my-pack.module.scss'
 
 import { Back, Edit, Play, SubMenu, Trash } from '@/assets'
-import { TableModal } from '@/components/page/common/modals'
+import {
+  AddEditCardModal,
+  AddEditPackModal,
+  DeletePackCardModal,
+} from '@/components/page/common/modals'
 import { MyPackTable } from '@/components/page/my-pack/my-pack-table/my-pack-table.tsx'
 import {
   Button,
@@ -26,18 +30,25 @@ import {
 } from '@/services/cards'
 import { useDeletedDeckMutation, useGetDeckQuery, useUpdateDeckMutation } from '@/services/decks'
 import { deckSlice } from '@/services/decks/deck.slice.ts'
-import { modalActions, NameModal, selectOpenModals, selectSettings } from '@/services/modal'
+import {
+  modalActions,
+  NameModal,
+  selectCardSettings,
+  selectOpen,
+  selectPackSettings,
+} from '@/services/modal'
 import { useAppDispatch, useAppSelector } from '@/services/store.ts'
 
 export const MyPack = () => {
   const params = useParams<{ id: string }>()
   const navigate = useNavigate()
 
-  const { privatePack, packName, question, answer } = useAppSelector(selectSettings)
+  const { privatePack, packName } = useAppSelector(selectPackSettings)
+  const { question, answer, questionImg, answerImg } = useAppSelector(selectCardSettings)
   const itemsPerPage = useAppSelector(state => state.deckSlice.currentPerPageMyPack)
   const options = useAppSelector(state => state.deckSlice.paginationOptions)
   const currentPage = useAppSelector(state => state.deckSlice.currentPageMyPack)
-  const { editPack, deletePack, addCard, editCard, deleteCard } = useAppSelector(selectOpenModals)
+  const open = useAppSelector(selectOpen)
   const dispatch = useAppDispatch()
 
   const [cardId, setCardId] = useState<string>('')
@@ -72,22 +83,48 @@ export const MyPack = () => {
     dispatch(modalActions.setPrivatePack(data!.isPrivate))
     setCardId(data!.id)
   }
+  const setNewCurrentPage = (page: number) => {
+    dispatch(deckSlice.actions.setCurrentPageFriendsPack(page))
+  }
+  const setNewPerPage = (value: number) => {
+    dispatch(deckSlice.actions.setItemsMyPackPerPage(value))
+  }
+
   const addCardModalHandler = () => {
     dispatch(modalActions.setOpenModal('addCard'))
   }
-  const onHandlerActionClicked = (value: NameModal) => {
-    if (addCard) {
-      createCard({ id: params.id, question, answer })
-    } else if (editCard) {
-      editItem({ id: cardId, question, answer })
+  const addOrEditCard = () => {
+    if (open === 'addCard') {
+      const formData = new FormData()
+
+      formData.append('question', question)
+      formData.append('answer', answer)
+
+      questionImg && formData.append('questionImg', questionImg)
+      answerImg && formData.append('answerImg', answerImg)
+      createCard({ id: params.id, formData })
+    } else if (open === 'editCard') {
+      const formData = new FormData()
+
+      formData.append('question', question)
+      formData.append('answer', answer)
+
+      questionImg && formData.append('questionImg', questionImg)
+      answerImg && formData.append('answerImg', answerImg)
+      editItem({ id: cardId, formData })
         .unwrap()
         .then(() => toast.success('Карточка успешна обновлена'))
         .catch(() => {
           toast.error('Some error')
         })
-    } else if (deleteCard) {
+    }
+    dispatch(modalActions.setCloseModal({}))
+    dispatch(modalActions.setClearState({}))
+  }
+  const deleteCardOrPack = () => {
+    if (open === 'deleteCard') {
       deleteItem({ id: cardId })
-    } else if (editPack) {
+    } else if (open === 'editPack') {
       editDeck({ id: cardId, name: packName, isPrivate: privatePack })
         .unwrap()
         .then(() => {
@@ -96,7 +133,7 @@ export const MyPack = () => {
         .catch(() => {
           toast.error('Some error')
         })
-    } else if (deletePack) {
+    } else if (open === 'deletePack') {
       deleteDeck({ id: cardId })
         .unwrap()
         .then(() => {
@@ -108,14 +145,20 @@ export const MyPack = () => {
 
       navigate('/')
     }
-    dispatch(modalActions.setCloseModal(value))
+    dispatch(modalActions.setCloseModal({}))
     dispatch(modalActions.setClearState({}))
   }
-  const setNewCurrentPage = (page: number) => {
-    dispatch(deckSlice.actions.setCurrentPageFriendsPack(page))
-  }
-  const setNewPerPage = (value: number) => {
-    dispatch(deckSlice.actions.setItemsMyPackPerPage(value))
+  const editPack = () => {
+    editDeck({ id: cardId, name: packName, isPrivate: privatePack })
+      .unwrap()
+      .then(() => {
+        toast.success('Колода успешно обновлена')
+      })
+      .catch(() => {
+        toast.error('Some error')
+      })
+    dispatch(modalActions.setCloseModal({}))
+    dispatch(modalActions.setClearState({}))
   }
 
   const dropDownMenu = [
@@ -180,7 +223,9 @@ export const MyPack = () => {
         className={s.textField}
       />
       <MyPackTable dataCards={dataCards} sort={sort} setSort={setSort} setCardId={setCardId} />
-      <TableModal handleClicked={onHandlerActionClicked} />
+      <AddEditCardModal onSubmit={addOrEditCard} />
+      <AddEditPackModal onSubmit={editPack} />
+      <DeletePackCardModal onSubmit={deleteCardOrPack} />
       <div className={s.pagination}>
         <Pagination
           count={dataCards?.pagination.totalPages}

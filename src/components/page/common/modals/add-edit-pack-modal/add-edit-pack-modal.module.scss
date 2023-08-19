@@ -1,0 +1,19 @@
+.packImg {
+  width: 100%;
+  height: 7.4375rem;
+  margin-bottom: 1.25rem;
+  object-fit: contain;
+}
+
+.input {
+  display: none;
+}
+
+.labelBlock {
+  width: 100%;
+
+  .changeButton {
+    width: 100%;
+    padding: 0.38rem 0;
+  }
+}

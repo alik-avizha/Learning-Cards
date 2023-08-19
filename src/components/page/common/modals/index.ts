@@ -1,3 +1,3 @@
-export * from './table-modal.tsx'
-export * from './pack-modal'
-export * from './card-modal'
+export * from './add-edit-card-modal'
+export * from './delete-modal'
+export * from './add-edit-pack-modal'

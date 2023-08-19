@@ -39,6 +39,13 @@ export const LearnPack = () => {
           <Typography variant={'body1'} className={s.question}>
             {randomCard?.question}
           </Typography>
+          {randomCard?.questionImg && (
+            <img
+              src={randomCard?.questionImg}
+              className={s.questionImg}
+              alt={'картинка для вопроса'}
+            />
+          )}
         </Typography>
         <Typography variant={'body2'} className={s.info}>
           Количество попыток ответов на вопрос: {randomCard?.shots}
@@ -48,7 +55,11 @@ export const LearnPack = () => {
             Show Answer
           </Button>
         ) : (
-          <AnswerPage answer={randomCard?.answer} setNewQuestion={updateCardGradeHandler} />
+          <AnswerPage
+            answer={randomCard?.answer}
+            answerImg={randomCard?.answerImg}
+            setNewQuestion={updateCardGradeHandler}
+          />
         )}
       </Card>
     </div>
@@ -57,9 +68,10 @@ export const LearnPack = () => {
 
 type PropsType = {
   answer?: string
+  answerImg?: string
   setNewQuestion: (grade: number) => void
 }
-const AnswerPage: FC<PropsType> = ({ answer, setNewQuestion }) => {
+const AnswerPage: FC<PropsType> = ({ answer, setNewQuestion, answerImg }) => {
   const [value, setValue] = useState(1)
   const options = [
     { id: 1, value: 'Did not know' },
@@ -79,6 +91,7 @@ const AnswerPage: FC<PropsType> = ({ answer, setNewQuestion }) => {
         <Typography variant={'body1'} className={s.answer}>
           {answer}
         </Typography>
+        {answerImg && <img src={answerImg} className={s.questionImg} alt={'картинка для ответа'} />}
       </Typography>
       <Typography variant={'subtitle1'} className={s.grade}>
         Rate yourself:

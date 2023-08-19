@@ -12,22 +12,19 @@ const cardsApi = baseApi.injectEndpoints({
         }),
         providesTags: ['Cards'],
       }),
-      createCard: builder.mutation<
-        any,
-        { id: string | undefined; question: string; answer: string }
-      >({
-        query: ({ id, ...args }) => ({
+      createCard: builder.mutation<any, any>({
+        query: ({ id, formData }) => ({
           url: `v1/decks/${id}/cards`,
           method: 'POST',
-          body: { ...args },
+          body: formData,
         }),
-        invalidatesTags: ['Cards'],
+        invalidatesTags: ['Cards', 'Decks'],
       }),
-      editCard: builder.mutation<any, CreateEditArguments>({
-        query: ({ id, ...args }) => ({
+      editCard: builder.mutation<any, { id: string; formData: FormData }>({
+        query: ({ id, formData }) => ({
           url: `v1/cards/${id}`,
           method: 'PATCH',
-          body: { ...args },
+          body: formData,
         }),
         invalidatesTags: ['Cards'],
       }),
@@ -49,7 +46,7 @@ export const {
   useEditCardMutation,
 } = cardsApi
 
-type CreateEditArguments = {
+/*type CreateEditArguments = {
   id: string
   questionImg?: string
   answerImg?: string
@@ -57,4 +54,4 @@ type CreateEditArguments = {
   answer?: string
   questionVideo?: string
   answerVideo?: string
-}
+}*/

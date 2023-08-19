@@ -1,12 +1,10 @@
 import { useState } from 'react'
 
-import { toast } from 'react-toastify'
-
 import s from './packs-list.module.scss'
 
 import { Trash } from '@/assets'
 import { useDebounce } from '@/common/hooks'
-import { TableModal } from '@/components/page/common/modals'
+import { AddEditPackModal, DeletePackCardModal } from '@/components/page/common/modals'
 import { usePackDeckState } from '@/components/page/packs-list/hook'
 import { TablePacksList } from '@/components/page/packs-list/table-packs-list'
 import {
@@ -27,7 +25,7 @@ import {
   useUpdateDeckMutation,
 } from '@/services/decks'
 import { deckSlice } from '@/services/decks/deck.slice.ts'
-import { modalActions, NameModal, selectOpenModals, selectSettings } from '@/services/modal'
+import { modalActions, selectOpen, selectPackSettings } from '@/services/modal'
 import { useAppDispatch, useAppSelector } from '@/services/store.ts'
 
 export const PacksList = () => {
@@ -37,8 +35,8 @@ export const PacksList = () => {
   const sliderValues = useAppSelector(state => state.deckSlice.slider)
   const options = useAppSelector(state => state.deckSlice.paginationOptions)
   const currentPage = useAppSelector(state => state.deckSlice.currentPagePackList)
-  const { addPack, editPack, deletePack } = useAppSelector(selectOpenModals)
-  const { privatePack, packName } = useAppSelector(selectSettings)
+  const open = useAppSelector(selectOpen)
+  const { privatePack, packName, img } = useAppSelector(selectPackSettings)
 
   const [activeTab, setActiveTab] = useState(tabSwitcherOptions[1].value)
   const dispatch = useAppDispatch()
@@ -98,33 +96,30 @@ export const PacksList = () => {
     setValueSlider([sliderValues.minValue, sliderValues.maxValue])
     setSort({ key: 'updated', direction: 'asc' })
   }
-  const onHandlerActionClicked = (value: NameModal) => {
-    if (addPack) {
-      createDeck({ name: packName, isPrivate: privatePack })
-        .unwrap()
-        .catch(err => {
-          toast.error(err.data.errorMessages[0].message)
-        })
-    } else if (editPack) {
-      editDeck({ id: cardId, name: packName, isPrivate: privatePack })
-        .unwrap()
-        .then(() => {
-          toast.success('Колода успешно обновлена')
-        })
-        .catch(() => {
-          toast.error('Some error')
-        })
-    } else if (deletePack) {
-      deleteDeck({ id: cardId })
-        .unwrap()
-        .then(() => {
-          toast.success('Карта успешно удалена')
-        })
-        .catch(() => {
-          toast.error('Some error')
-        })
+  const addOrEditPack = () => {
+    if (open === 'addPack') {
+      const formData = new FormData()
+
+      formData.append('name', packName)
+      formData.append('isPrivate', String(privatePack))
+
+      img && formData.append('cover', img)
+      createDeck(formData)
+    } else if (open === 'editPack') {
+      const formData = new FormData()
+
+      formData.append('name', packName)
+      formData.append('isPrivate', String(privatePack))
+
+      img && formData.append('cover', img)
+      editDeck({ id: cardId, formData })
     }
-    dispatch(modalActions.setCloseModal(value))
+    dispatch(modalActions.setCloseModal({}))
+    dispatch(modalActions.setClearState({}))
+  }
+  const deletePack = () => {
+    deleteDeck({ id: cardId })
+    dispatch(modalActions.setCloseModal({}))
     dispatch(modalActions.setClearState({}))
   }
   const setOpen = () => {
@@ -196,7 +191,8 @@ export const PacksList = () => {
         />
         <Typography variant={'body2'}>На странице</Typography>
       </div>
-      <TableModal handleClicked={onHandlerActionClicked} />
+      <AddEditPackModal onSubmit={addOrEditPack} />
+      <DeletePackCardModal onSubmit={deletePack} />
     </div>
   )
 }
