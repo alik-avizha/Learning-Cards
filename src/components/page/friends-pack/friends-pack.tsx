@@ -71,6 +71,7 @@ export const FriendsPack = () => {
       </div>
       <TextField
         value={search}
+        placeholder={'Type to find...'}
         onChangeText={e => setSearch(e)}
         onSearchClear={() => setSearch('')}
         type={'searchType'}

@@ -89,7 +89,6 @@ export const MyPack = () => {
   const setNewPerPage = (value: number) => {
     dispatch(deckSlice.actions.setItemsMyPackPerPage(value))
   }
-
   const addCardModalHandler = () => {
     dispatch(modalActions.setOpenModal('addCard'))
   }
@@ -124,15 +123,6 @@ export const MyPack = () => {
   const deleteCardOrPack = () => {
     if (open === 'deleteCard') {
       deleteItem({ id: cardId })
-    } else if (open === 'editPack') {
-      editDeck({ id: cardId, name: packName, isPrivate: privatePack })
-        .unwrap()
-        .then(() => {
-          toast.success('Колода успешно обновлена')
-        })
-        .catch(() => {
-          toast.error('Some error')
-        })
     } else if (open === 'deletePack') {
       deleteDeck({ id: cardId })
         .unwrap()
@@ -217,6 +207,7 @@ export const MyPack = () => {
       </div>
       <TextField
         value={search}
+        placeholder={'Type to find...'}
         onChangeText={event => setSearch(event)}
         onSearchClear={() => setSearch('')}
         type={'searchType'}

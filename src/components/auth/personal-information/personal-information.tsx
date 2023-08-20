@@ -71,7 +71,7 @@ export const PersonalInformation: FC<PropsType> = ({
   const verifyEmail = () => {
     resendVerEmail({
       userId,
-      html: `<h1>Hi, ##name##</h1><p>Click <a href="http://localhost:5173/confirm-email/##token##">here</a> to recover your password</p>`,
+      html: `<h1>Hi, ##name##</h1><p>Click <a href="http://localhost:5173/confirm-email/##token##">here</a> to verify your password</p>`,
     })
       .unwrap()
       .then(() => toast.success(`Сообщение отправлено по адресу ${email}`))
@@ -145,7 +145,7 @@ export const PersonalInformation: FC<PropsType> = ({
               {email}
             </Typography>
             {!isEmailVer && (
-              <Button variant={'primary'} onClick={verifyEmail}>
+              <Button className={s.verify} variant={'primary'} onClick={verifyEmail}>
                 Verify email
               </Button>
             )}

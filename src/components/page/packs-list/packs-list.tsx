@@ -137,6 +137,7 @@ export const PacksList = () => {
       <div className={s.settingsBlock}>
         <TextField
           value={initialName}
+          placeholder={'Type to find...'}
           type={'searchType'}
           className={s.textField}
           onChangeText={event => setSearchByName(event)}
