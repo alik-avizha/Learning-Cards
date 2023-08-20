@@ -46,10 +46,6 @@
       outline: 2px solid var(--color-info-700);
     }
 
-    &:not(:disabled):active {
-      border: 1px solid var(--color-light-100);
-    }
-
     &:not(:disabled):hover {
       background: var(--color-dark-700);
     }

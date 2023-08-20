@@ -17,7 +17,6 @@ export const EmptyPack = () => {
   const dispatch = useAppDispatch()
 
   const [createCard] = useCreateCardMutation()
-
   const setOpen = () => {
     dispatch(modalActions.setOpenModal('addCard'))
   }

@@ -1,6 +1,5 @@
 import { FC } from 'react'
 
-import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
@@ -23,6 +22,11 @@ type PropsType = {
 }
 export const SignIn: FC<PropsType> = ({ onSubmit }) => {
   const { control, handleSubmit } = useForm<SignInFormShem>({
+    defaultValues: {
+      email: '',
+      password: '',
+      rememberMe: false,
+    },
     resolver: zodResolver(sigInSchema),
   })
   const handleSubmitForm = handleSubmit(onSubmit)
@@ -33,7 +37,6 @@ export const SignIn: FC<PropsType> = ({ onSubmit }) => {
         Sign In
       </Typography>
       <form onSubmit={handleSubmitForm}>
-        <DevTool control={control} />
         <ControlledTextField
           name={'email'}
           label={'Email'}
@@ -49,6 +52,7 @@ export const SignIn: FC<PropsType> = ({ onSubmit }) => {
           placeholder={'enter your password'}
           control={control}
           className={s.password}
+          autoComplete={'on'}
         />
         <ControlledCheckbox
           control={control}

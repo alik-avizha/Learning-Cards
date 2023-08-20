@@ -77,7 +77,7 @@ export const AddEditPackModal: FC<PropsType> = props => {
         value={packName}
         onChangeText={e => setPackName(e)}
         label={'Name Pack'}
-        placeholder={'Name Pack'}
+        placeholder={'Type name pack'}
       />
       <CheckboxDemo
         variant={'withText'}

@@ -1,6 +1,6 @@
 .block {
   display: flex;
-  flex-direction: column;
+  flex-flow: column wrap;
 
   width: 26.5rem;
   height: auto;
@@ -90,12 +90,14 @@
 
     .emailBlock {
       display: flex;
-      gap: 40px;
-      align-items: center;
-      justify-content: space-between;
+      flex-direction: column;
+
+      .verify {
+        margin-bottom: 2.56rem;
+      }
 
       .email {
-        margin-bottom: 0.81rem;
+        margin-bottom: 2.56rem;
         color: var(--color-dark-100);
       }
     }

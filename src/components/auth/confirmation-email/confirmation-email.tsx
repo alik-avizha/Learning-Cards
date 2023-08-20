@@ -19,7 +19,7 @@ export const ConfirmationEmail = () => {
   return (
     <Card className={s.emailBlock}>
       <Typography className={s.title} variant={'large'}>
-        Email Сonfirmed
+        Email confirmed
       </Typography>
       <OkEmail className={s.emailIcon} />
       <Button as={Link} to="/login" fullWidth={true} className={s.backToSignIn}>

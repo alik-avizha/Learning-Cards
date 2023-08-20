@@ -47,7 +47,7 @@ export const CreateNewPassword = () => {
           Create new password and we will send you further instructions to email
         </Typography>
         <Button fullWidth={true} className={s.submit} type="submit">
-          Create New Password{' '}
+          Create New Password
         </Button>
       </form>
     </Card>
