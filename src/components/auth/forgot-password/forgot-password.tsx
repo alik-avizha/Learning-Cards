@@ -6,6 +6,7 @@ import { z } from 'zod'
 
 import s from './forgot-password.module.scss'
 
+import { useMutationWithToast } from '@/common'
 import { Button, Card, ControlledTextField, Typography } from '@/components/ui'
 import { useForgotPasswordMutation } from '@/services/auth'
 
@@ -19,13 +20,17 @@ export const ForgotPassword = () => {
     resolver: zodResolver(sigInSchema),
   })
   const navigate = useNavigate()
+  const hookWithToast = useMutationWithToast()
   const [forgotPassword] = useForgotPasswordMutation()
 
   const onSubmit = (data: SignInFormShem) => {
-    forgotPassword({
-      ...data,
-      html: `<h1>Hi, ##name##</h1><p>Click <a href="http://localhost:5173/recover-password/##token##">here</a> to recover your password</p>`,
-    })
+    hookWithToast(
+      forgotPassword({
+        ...data,
+        html: `<h1>Hi, ##name##</h1><p>Click <a href="http://localhost:5173/recover-password/##token##">here</a> to recover your password</p>`,
+      }),
+      'Пароль успешно cброшен'
+    )
     navigate(`/check-email/${data.email}`)
   }
 

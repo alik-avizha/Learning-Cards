@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 
-import { Link, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import s from './learn-pack.module.scss'
 
@@ -10,6 +10,7 @@ import { useGetDeckQuery, useLearnDeckQuery, useUpdateGradeCardMutation } from '
 
 export const LearnPack = () => {
   const params = useParams<{ id: string }>()
+  const navigate = useNavigate()
 
   const [showAnswer, setShowAnswer] = useState(false)
 
@@ -26,9 +27,15 @@ export const LearnPack = () => {
 
   return (
     <div className={s.learnPackPage}>
-      <Button as={Link} to="/" variant={'link'} className={s.backButton}>
+      <Button
+        onClick={() => {
+          navigate(-1)
+        }}
+        variant={'link'}
+        className={s.backButton}
+      >
         <Back />
-        Back to PackList
+        Back
       </Button>
       <Card className={s.cardBlock}>
         <Typography variant={'large'} className={s.title}>

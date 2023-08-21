@@ -4,6 +4,7 @@ import s from './packs-list.module.scss'
 
 import { Trash } from '@/assets'
 import { useDebounce } from '@/common/hooks'
+import { useMutationWithToast } from '@/common/hooks/useMutationWithToast.ts'
 import { AddEditPackModal, DeletePackCardModal } from '@/components/page/common/modals'
 import { usePackDeckState } from '@/components/page/packs-list/hook'
 import { TablePacksList } from '@/components/page/packs-list/table-packs-list'
@@ -31,13 +32,13 @@ import { useAppDispatch, useAppSelector } from '@/services/store.ts'
 export const PacksList = () => {
   const initialName = useAppSelector(state => state.deckSlice.searchByName)
   const tabSwitcherOptions = useAppSelector(state => state.deckSlice.tabSwitcherOptions)
-  const itemsPerPage = useAppSelector(state => state.deckSlice.currentPerPagePackList)
+  const itemsPerPage = useAppSelector(state => state.deckSlice.currentPerPage.packList)
   const sliderValues = useAppSelector(state => state.deckSlice.slider)
   const options = useAppSelector(state => state.deckSlice.paginationOptions)
-  const currentPage = useAppSelector(state => state.deckSlice.currentPagePackList)
+  const currentPage = useAppSelector(state => state.deckSlice.currentPage.packList)
   const open = useAppSelector(selectOpen)
   const { privatePack, packName, img } = useAppSelector(selectPackSettings)
-
+  const hookWithToast = useMutationWithToast()
   const [activeTab, setActiveTab] = useState(tabSwitcherOptions[1].value)
   const dispatch = useAppDispatch()
 
@@ -70,10 +71,10 @@ export const PacksList = () => {
   const [editDeck] = useUpdateDeckMutation()
 
   const setNewCurrentPage = (page: number) => {
-    dispatch(deckSlice.actions.setCurrentPagePackList(page))
+    dispatch(deckSlice.actions.setCurrentPage({ value: 'packList', newCurrentPage: page }))
   }
   const setNewPerPage = (value: number) => {
-    dispatch(deckSlice.actions.setItemsPackListPerPage(value))
+    dispatch(deckSlice.actions.setItemsPerPage({ value: 'packList', newCurrentPage: value }))
   }
   const setSearchByName = (event: string) => {
     dispatch(deckSlice.actions.setSearchByName(event))
@@ -91,7 +92,7 @@ export const PacksList = () => {
   }
   const clearFilterData = () => {
     setSearchByName('')
-    handleTabSort('All cards')
+    handleTabSort('All Cards')
     setActiveTab('All Cards')
     setValueSlider([sliderValues.minValue, sliderValues.maxValue])
     setSort({ key: 'updated', direction: 'asc' })
@@ -102,23 +103,25 @@ export const PacksList = () => {
 
       formData.append('name', packName)
       formData.append('isPrivate', String(privatePack))
-
       img && formData.append('cover', img)
-      createDeck(formData)
+
+      hookWithToast(createDeck(formData), 'Колода успешно добавлена')
     } else if (open === 'editPack') {
       const formData = new FormData()
 
       formData.append('name', packName)
       formData.append('isPrivate', String(privatePack))
-
       img && formData.append('cover', img)
-      editDeck({ id: cardId, formData })
+
+      hookWithToast(editDeck({ id: cardId, formData }), 'Карта успешно обновлена')
     }
     dispatch(modalActions.setCloseModal({}))
     dispatch(modalActions.setClearState({}))
   }
+
   const deletePack = () => {
-    deleteDeck({ id: cardId })
+    hookWithToast(deleteDeck({ id: cardId }), 'Карта успешно удалена')
+
     dispatch(modalActions.setCloseModal({}))
     dispatch(modalActions.setClearState({}))
   }

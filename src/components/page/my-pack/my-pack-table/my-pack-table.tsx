@@ -91,6 +91,7 @@ export const MyPackTable: FC<PropsType> = ({ dataCards, setCardId, sort, setSort
               <TableElement.Cell>
                 <div className={s.icons}>
                   <Edit
+                    className={s.icon}
                     onClick={() =>
                       onEditHandler(el.question, el.answer, el.id, el.questionImg, el.answerImg)
                     }

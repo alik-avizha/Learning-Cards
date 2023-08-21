@@ -17,9 +17,9 @@ import { useAppDispatch, useAppSelector } from '@/services/store.ts'
 export const FriendsPack = () => {
   const params = useParams<{ id: string }>()
 
-  const itemsPerPage = useAppSelector(state => state.deckSlice.currentPerPageFriendPack)
+  const itemsPerPage = useAppSelector(state => state.deckSlice.currentPerPage.friendsPack)
   const options = useAppSelector(state => state.deckSlice.paginationOptions)
-  const currentPage = useAppSelector(state => state.deckSlice.currentPageFriendsPack)
+  const currentPage = useAppSelector(state => state.deckSlice.currentPage.friendsPack)
   const dispatch = useAppDispatch()
 
   const [search, setSearch] = useState('')
@@ -43,11 +43,11 @@ export const FriendsPack = () => {
   })
 
   const setNewCurrentPage = (page: number) => {
-    dispatch(deckSlice.actions.setCurrentPageFriendsPack(page))
+    dispatch(deckSlice.actions.setCurrentPage({ value: 'friendsPack', newCurrentPage: page }))
   }
 
   const setNewPerPage = (value: number) => {
-    dispatch(deckSlice.actions.setItemsFriendsPackPerPage(value))
+    dispatch(deckSlice.actions.setItemsPerPage({ value: 'friendsPack', newCurrentPage: value }))
   }
 
   if (isLoading) return <Loader />

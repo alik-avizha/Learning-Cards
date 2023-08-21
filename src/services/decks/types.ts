@@ -71,3 +71,4 @@ export type LearnDeckResponse = {
   created: string
   updated: string
 }
+export type NameTypePack = 'packList' | 'friendsPack' | 'myPack'

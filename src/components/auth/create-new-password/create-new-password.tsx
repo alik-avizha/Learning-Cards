@@ -6,6 +6,7 @@ import { z } from 'zod'
 
 import s from './create-new-password.module.scss'
 
+import { useMutationWithToast } from '@/common'
 import { Button, Card, ControlledTextField, Typography } from '@/components/ui'
 import { useResetPasswordMutation } from '@/services/auth'
 
@@ -17,14 +18,17 @@ type SignInFormShem = z.infer<typeof sigInSchema>
 export const CreateNewPassword = () => {
   const params = useParams<{ token: string }>()
   const navigate = useNavigate()
-
+  const hookWithToast = useMutationWithToast()
   const { control, handleSubmit } = useForm<SignInFormShem>({
     resolver: zodResolver(sigInSchema),
   })
 
   const [setNewPassword] = useResetPasswordMutation()
   const onSubmit = (data: SignInFormShem) => {
-    setNewPassword({ password: data.password, token: params.token })
+    hookWithToast(
+      setNewPassword({ password: data.password, token: params.token }),
+      'Пароль успешно обновлен'
+    )
     navigate('/login')
   }
 

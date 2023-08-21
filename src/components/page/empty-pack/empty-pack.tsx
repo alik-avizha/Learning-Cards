@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import s from './empty-pack.module.scss'
 
 import { Back } from '@/assets'
+import { useMutationWithToast } from '@/common'
 import { AddEditCardModal } from '@/components/page/common/modals'
 import { Button, Typography } from '@/components/ui'
 import { useCreateCardMutation } from '@/services/cards'
@@ -14,6 +15,7 @@ export const EmptyPack = () => {
   const params = useParams<{ id: string; name: string }>()
 
   const { question, answer, questionImg, answerImg } = useAppSelector(selectCardSettings)
+  const hookWithToast = useMutationWithToast()
   const dispatch = useAppDispatch()
 
   const [createCard] = useCreateCardMutation()
@@ -25,10 +27,11 @@ export const EmptyPack = () => {
 
     formData.append('question', question)
     formData.append('answer', answer)
-
     questionImg && formData.append('questionImg', questionImg)
     answerImg && formData.append('answerImg', answerImg)
-    createCard({ id: params.id, formData })
+
+    hookWithToast(createCard({ id: params.id, formData }), 'Карта успешно добавлена')
+
     navigate(`/my-pack/${params.id}`)
     dispatch(modalActions.setCloseModal('addCard'))
     dispatch(modalActions.setQuestion(''))
