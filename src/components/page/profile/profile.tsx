@@ -1,15 +1,17 @@
+import { useMutationWithToast } from '@/common'
 import { PersonalInformation } from '@/components/auth'
 import { useMeQuery, useUpdateProfileMutation } from '@/services/auth'
 
 export const Profile = () => {
   const { data } = useMeQuery()
   const [update] = useUpdateProfileMutation()
-
+  const hookWithToast = useMutationWithToast()
   const onSaveChanges = (value: string) => {
     const form = new FormData()
 
     form.append('name', value)
-    update(form)
+
+    hookWithToast(update(form), 'Имя успешно обновлено')
   }
 
   return (

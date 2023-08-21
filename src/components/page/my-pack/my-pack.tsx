@@ -1,11 +1,11 @@
 import { useMemo, useState } from 'react'
 
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { toast } from 'react-toastify'
 
 import s from './my-pack.module.scss'
 
 import { Back, Edit, Play, SubMenu, Trash } from '@/assets'
+import { useMutationWithToast } from '@/common'
 import {
   AddEditCardModal,
   AddEditPackModal,
@@ -43,12 +43,13 @@ export const MyPack = () => {
   const params = useParams<{ id: string }>()
   const navigate = useNavigate()
 
-  const { privatePack, packName } = useAppSelector(selectPackSettings)
+  const { privatePack, packName, img } = useAppSelector(selectPackSettings)
   const { question, answer, questionImg, answerImg } = useAppSelector(selectCardSettings)
-  const itemsPerPage = useAppSelector(state => state.deckSlice.currentPerPageMyPack)
+  const itemsPerPage = useAppSelector(state => state.deckSlice.currentPerPage.myPack)
   const options = useAppSelector(state => state.deckSlice.paginationOptions)
-  const currentPage = useAppSelector(state => state.deckSlice.currentPageMyPack)
+  const currentPage = useAppSelector(state => state.deckSlice.currentPage.myPack)
   const open = useAppSelector(selectOpen)
+  const hookWithToast = useMutationWithToast()
   const dispatch = useAppDispatch()
 
   const [cardId, setCardId] = useState<string>('')
@@ -84,10 +85,10 @@ export const MyPack = () => {
     setCardId(data!.id)
   }
   const setNewCurrentPage = (page: number) => {
-    dispatch(deckSlice.actions.setCurrentPageFriendsPack(page))
+    dispatch(deckSlice.actions.setCurrentPage({ value: 'myPack', newCurrentPage: page }))
   }
   const setNewPerPage = (value: number) => {
-    dispatch(deckSlice.actions.setItemsMyPackPerPage(value))
+    dispatch(deckSlice.actions.setItemsPerPage({ value: 'myPack', newCurrentPage: value }))
   }
   const addCardModalHandler = () => {
     dispatch(modalActions.setOpenModal('addCard'))
@@ -98,55 +99,43 @@ export const MyPack = () => {
 
       formData.append('question', question)
       formData.append('answer', answer)
-
       questionImg && formData.append('questionImg', questionImg)
       answerImg && formData.append('answerImg', answerImg)
-      createCard({ id: params.id, formData })
+
+      hookWithToast(createCard({ id: params.id, formData }), 'Карта успешно добавлена')
     } else if (open === 'editCard') {
       const formData = new FormData()
 
       formData.append('question', question)
       formData.append('answer', answer)
-
       questionImg && formData.append('questionImg', questionImg)
       answerImg && formData.append('answerImg', answerImg)
-      editItem({ id: cardId, formData })
-        .unwrap()
-        .then(() => toast.success('Карточка успешна обновлена'))
-        .catch(() => {
-          toast.error('Some error')
-        })
+
+      hookWithToast(editItem({ id: cardId, formData }), 'Карта успешно обновлена')
     }
     dispatch(modalActions.setCloseModal({}))
     dispatch(modalActions.setClearState({}))
   }
   const deleteCardOrPack = () => {
     if (open === 'deleteCard') {
-      deleteItem({ id: cardId })
+      hookWithToast(deleteItem({ id: cardId }), 'Карта успешно удалена')
     } else if (open === 'deletePack') {
-      deleteDeck({ id: cardId })
-        .unwrap()
-        .then(() => {
-          toast.success('Карта успешно удалена')
-        })
-        .catch(() => {
-          toast.error('Some error')
-        })
-
-      navigate('/')
+      hookWithToast(deleteDeck({ id: cardId }), 'Колода успешно удалена').then(() => {
+        navigate('/')
+      })
     }
     dispatch(modalActions.setCloseModal({}))
     dispatch(modalActions.setClearState({}))
   }
   const editPack = () => {
-    editDeck({ id: cardId, name: packName, isPrivate: privatePack })
-      .unwrap()
-      .then(() => {
-        toast.success('Колода успешно обновлена')
-      })
-      .catch(() => {
-        toast.error('Some error')
-      })
+    const formData = new FormData()
+
+    formData.append('name', packName)
+    formData.append('isPrivate', String(privatePack))
+    img && formData.append('cover', img)
+
+    hookWithToast(editDeck({ id: cardId, formData }), 'Колода успешно обновлена')
+
     dispatch(modalActions.setCloseModal({}))
     dispatch(modalActions.setClearState({}))
   }

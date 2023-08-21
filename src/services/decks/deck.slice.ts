@@ -1,9 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+import { NameTypePack } from '@/services/decks/types.ts'
+
 const initialState = {
-  currentPagePackList: 1,
-  currentPageFriendsPack: 1,
-  currentPageMyPack: 1,
   searchByName: '',
   tabSwitcherOptions: [
     { id: 1, value: 'My Cards' },
@@ -20,35 +19,34 @@ const initialState = {
     { id: 4, value: 50 },
     { id: 5, value: 100 },
   ],
-  currentPerPagePackList: { id: 1, value: 7 },
-  currentPerPageFriendPack: { id: 2, value: 7 },
-  currentPerPageMyPack: { id: 3, value: 7 },
+  currentPerPage: {
+    packList: { id: 1, value: 7 },
+    friendsPack: { id: 2, value: 7 },
+    myPack: { id: 3, value: 7 },
+  },
+  currentPage: {
+    packList: 1,
+    friendsPack: 1,
+    myPack: 1,
+  },
 }
 
 export const deckSlice = createSlice({
   name: 'deckSlice',
   initialState,
   reducers: {
-    setItemsPackListPerPage: (state, action: PayloadAction<number>) => {
-      state.currentPerPagePackList.value = action.payload
+    setItemsPerPage: (
+      state,
+      action: PayloadAction<{ value: NameTypePack; newCurrentPage: number }>
+    ) => {
+      state.currentPerPage[action.payload.value].value = action.payload.newCurrentPage
     },
-    setItemsFriendsPackPerPage: (state, action: PayloadAction<number>) => {
-      state.currentPerPageFriendPack.value = action.payload
+    setCurrentPage: (
+      state,
+      action: PayloadAction<{ value: NameTypePack; newCurrentPage: number }>
+    ) => {
+      state.currentPage[action.payload.value] = action.payload.newCurrentPage
     },
-    setItemsMyPackPerPage: (state, action: PayloadAction<number>) => {
-      state.currentPerPageMyPack.value = action.payload
-    },
-
-    setCurrentPagePackList: (state, action: PayloadAction<number>) => {
-      state.currentPagePackList = action.payload
-    },
-    setCurrentPageFriendsPack: (state, action: PayloadAction<number>) => {
-      state.currentPageFriendsPack = action.payload
-    },
-    setCurrentPageMyPack: (state, action: PayloadAction<number>) => {
-      state.currentPageMyPack = action.payload
-    },
-
     setSearchByName: (state, action: PayloadAction<string>) => {
       state.searchByName = action.payload
     },

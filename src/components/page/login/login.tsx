@@ -1,6 +1,6 @@
 import { Navigate, useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
 
+import { useMutationWithToast } from '@/common'
 import { SignIn } from '@/components/auth'
 import { Loader } from '@/components/ui/loader/loader.tsx'
 import { useLoginMutation, useMeQuery } from '@/services/auth'
@@ -8,18 +8,13 @@ import { useLoginMutation, useMeQuery } from '@/services/auth'
 export const Login = () => {
   const [login] = useLoginMutation()
   const { data, isLoading } = useMeQuery()
+  const hookWithToast = useMutationWithToast()
   const navigate = useNavigate()
 
   const loginHandler = (data: any) => {
-    login(data)
-      .unwrap()
-      .then(() => {
-        toast.success('Успешный вход')
-        navigate('/')
-      })
-      .catch(err => {
-        toast.error(err.data.message)
-      })
+    hookWithToast(login(data), 'Успешный вход').then(() => {
+      navigate('/')
+    })
   }
 
   if (isLoading) return <Loader />

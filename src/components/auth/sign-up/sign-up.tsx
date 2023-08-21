@@ -2,11 +2,11 @@ import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
 import { z } from 'zod'
 
 import s from './sign-up.module.scss'
 
+import { useMutationWithToast } from '@/common'
 import { Button, Card, ControlledTextField, Typography } from '@/components/ui'
 import { useSignUpMutation } from '@/services/auth'
 
@@ -24,25 +24,25 @@ const sigInSchema = z
 type SignInFormShem = z.infer<typeof sigInSchema>
 export const SignUp = () => {
   const navigate = useNavigate()
+  const hookWithToast = useMutationWithToast()
   const { control, handleSubmit } = useForm<SignInFormShem>({
     resolver: zodResolver(sigInSchema),
   })
 
   const [signUp] = useSignUpMutation()
 
+  //при offline происходит все равно редирект на checkemail
   const onSubmit = (data: SignInFormShem) => {
-    signUp({
-      email: data.email,
-      password: data.password,
-      sendConfirmationEmail: false,
+    hookWithToast(
+      signUp({
+        email: data.email,
+        password: data.password,
+        sendConfirmationEmail: false,
+      }),
+      'Спасибо за регистрацию'
+    ).then(() => {
+      navigate(`/check-email/${data.email}`)
     })
-      .unwrap()
-      .then(() => {
-        navigate(`/check-email/${data.email}`)
-      })
-      .catch(err => {
-        toast.error(err.data.message)
-      })
   }
 
   return (
