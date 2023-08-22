@@ -97,7 +97,7 @@ export const PacksList = () => {
     setValueSlider([sliderValues.minValue, sliderValues.maxValue])
     setSort({ key: 'updated', direction: 'asc' })
   }
-  const addOrEditPack = () => {
+  const addOrEditPack = async () => {
     if (open === 'addPack') {
       const formData = new FormData()
 
@@ -105,7 +105,7 @@ export const PacksList = () => {
       formData.append('isPrivate', String(privatePack))
       img && formData.append('cover', img)
 
-      hookWithToast(createDeck(formData), 'Колода успешно добавлена')
+      await hookWithToast(createDeck(formData), 'Колода успешно добавлена')
     } else if (open === 'editPack') {
       const formData = new FormData()
 
@@ -113,14 +113,13 @@ export const PacksList = () => {
       formData.append('isPrivate', String(privatePack))
       img && formData.append('cover', img)
 
-      hookWithToast(editDeck({ id: cardId, formData }), 'Карта успешно обновлена')
+      await hookWithToast(editDeck({ id: cardId, formData }), 'Колода успешно обновлена')
     }
     dispatch(modalActions.setCloseModal({}))
     dispatch(modalActions.setClearState({}))
   }
-
-  const deletePack = () => {
-    hookWithToast(deleteDeck({ id: cardId }), 'Карта успешно удалена')
+  const deletePack = async () => {
+    await hookWithToast(deleteDeck({ id: cardId }), 'Колода успешно удалена')
 
     dispatch(modalActions.setCloseModal({}))
     dispatch(modalActions.setClearState({}))

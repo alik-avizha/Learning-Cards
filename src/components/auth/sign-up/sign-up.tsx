@@ -31,18 +31,19 @@ export const SignUp = () => {
 
   const [signUp] = useSignUpMutation()
 
-  //при offline происходит все равно редирект на checkemail
-  const onSubmit = (data: SignInFormShem) => {
-    hookWithToast(
+  const onSubmit = async (data: SignInFormShem) => {
+    const result = await hookWithToast(
       signUp({
         email: data.email,
         password: data.password,
         sendConfirmationEmail: false,
       }),
       'Спасибо за регистрацию'
-    ).then(() => {
+    )
+
+    if (result?.success) {
       navigate(`/check-email/${data.email}`)
-    })
+    }
   }
 
   return (

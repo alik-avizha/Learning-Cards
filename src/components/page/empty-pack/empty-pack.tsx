@@ -22,7 +22,7 @@ export const EmptyPack = () => {
   const setOpen = () => {
     dispatch(modalActions.setOpenModal('addCard'))
   }
-  const addCardHandler = () => {
+  const addCardHandler = async () => {
     const formData = new FormData()
 
     formData.append('question', question)
@@ -30,9 +30,15 @@ export const EmptyPack = () => {
     questionImg && formData.append('questionImg', questionImg)
     answerImg && formData.append('answerImg', answerImg)
 
-    hookWithToast(createCard({ id: params.id, formData }), 'Карта успешно добавлена')
+    const result = await hookWithToast(
+      createCard({ id: params.id, formData }),
+      'Карта успешно добавлена'
+    )
 
-    navigate(`/my-pack/${params.id}`)
+    if (result?.success) {
+      navigate(`/my-pack/${params.id}`)
+    }
+
     dispatch(modalActions.setCloseModal('addCard'))
     dispatch(modalActions.setQuestion(''))
     dispatch(modalActions.setAnswer(''))

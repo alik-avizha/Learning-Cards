@@ -1,11 +1,12 @@
 import { FC } from 'react'
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import s from './header.module.scss'
 
 import { Logo, Logout, Profile } from '@/assets'
+import { useMutationWithToast } from '@/common'
 import { Button, DropDownMenuDemo, Typography } from '@/components/ui'
 import { AvatarDemo } from '@/components/ui/avatar'
 import { ProfileBlock } from '@/components/ui/header/profile-block'
@@ -16,12 +17,20 @@ type HeaderProps = {
 }
 export const Header: FC<HeaderProps> = ({ data }) => {
   const [logout] = useLogoutMutation()
+  const hookWithToast = useMutationWithToast()
+  const navigate = useNavigate()
 
-  const logoutHandler = () => {
-    logout()
-      .unwrap()
-      .then(() => toast.success('Всего хорошего'))
-      .catch(() => toast.error('Что-то пошло не так'))
+  const logoutHandler = async () => {
+    if (!navigator.onLine) {
+      toast.error("Can't perform logout while offline")
+
+      return
+    }
+    const result = await hookWithToast(logout(), 'Всего хорошего')
+
+    if (result?.success) {
+      navigate('/login')
+    }
   }
 
   const dropDownMenu = [

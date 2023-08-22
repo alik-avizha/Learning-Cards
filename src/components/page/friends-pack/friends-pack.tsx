@@ -45,7 +45,6 @@ export const FriendsPack = () => {
   const setNewCurrentPage = (page: number) => {
     dispatch(deckSlice.actions.setCurrentPage({ value: 'friendsPack', newCurrentPage: page }))
   }
-
   const setNewPerPage = (value: number) => {
     dispatch(deckSlice.actions.setItemsPerPage({ value: 'friendsPack', newCurrentPage: value }))
   }

@@ -2,7 +2,8 @@ import { ChangeEvent, FC, useState } from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { z } from 'zod'
 
 import s from './personalInformation.module.scss'
@@ -45,30 +46,37 @@ export const PersonalInformation: FC<PropsType> = ({
   const [logout] = useLogoutMutation()
   const [resendVerEmail] = useResendVerificationEmailMutation()
   const hookWithToast = useMutationWithToast()
+  const navigate = useNavigate()
 
   const { control, handleSubmit } = useForm<SignInFormShem>({
     resolver: zodResolver(sigInSchema),
   })
-  const mainPhotoSelected = (event: ChangeEvent<HTMLInputElement>) => {
+  const mainPhotoSelected = async (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length) {
       const formData = new FormData()
 
-      formData.append('avatar', event.target.files[0])
-
-      hookWithToast(updatePhoto(formData), 'Фото успешно обновлено')
+      await hookWithToast(updatePhoto(formData), 'Фото успешно обновлено')
     }
   }
   const onSubmit = (data: SignInFormShem) => {
     update(data.name)
   }
 
-  //при offline происходит все равно редирект на login
-  const logoutHandler = () => {
-    hookWithToast(logout(), 'Всего хорошего')
+  const logoutHandler = async () => {
+    if (!navigator.onLine) {
+      toast.error("Can't perform logout while offline")
+
+      return
+    }
+    const result = await hookWithToast(logout(), 'Всего хорошего')
+
+    if (result?.success) {
+      navigate('/login')
+    }
   }
 
-  const verifyEmail = () => {
-    hookWithToast(
+  const verifyEmail = async () => {
+    await hookWithToast(
       resendVerEmail({
         userId,
         html: `<h1>Hi, ##name##</h1><p>Click <a href="http://localhost:5173/confirm-email/##token##">here</a> to verify your password</p>`,
@@ -155,13 +163,7 @@ export const PersonalInformation: FC<PropsType> = ({
               )}
             </div>
 
-            <Button
-              as={Link}
-              to="/login"
-              variant={'secondary'}
-              className={s.logout}
-              onClick={logoutHandler}
-            >
+            <Button variant={'secondary'} className={s.logout} onClick={logoutHandler}>
               <Logout />
               <Typography variant={'subtitle2'}>Logout</Typography>
             </Button>

@@ -6,12 +6,12 @@ export const Profile = () => {
   const { data } = useMeQuery()
   const [update] = useUpdateProfileMutation()
   const hookWithToast = useMutationWithToast()
-  const onSaveChanges = (value: string) => {
+  const onSaveChanges = async (value: string) => {
     const form = new FormData()
 
     form.append('name', value)
 
-    hookWithToast(update(form), 'Имя успешно обновлено')
+    await hookWithToast(update(form), 'Имя успешно обновлено')
   }
 
   return (

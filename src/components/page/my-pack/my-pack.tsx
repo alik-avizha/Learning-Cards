@@ -93,7 +93,7 @@ export const MyPack = () => {
   const addCardModalHandler = () => {
     dispatch(modalActions.setOpenModal('addCard'))
   }
-  const addOrEditCard = () => {
+  const addOrEditCard = async () => {
     if (open === 'addCard') {
       const formData = new FormData()
 
@@ -102,7 +102,7 @@ export const MyPack = () => {
       questionImg && formData.append('questionImg', questionImg)
       answerImg && formData.append('answerImg', answerImg)
 
-      hookWithToast(createCard({ id: params.id, formData }), 'Карта успешно добавлена')
+      await hookWithToast(createCard({ id: params.id, formData }), 'Карта успешно добавлена')
     } else if (open === 'editCard') {
       const formData = new FormData()
 
@@ -111,30 +111,32 @@ export const MyPack = () => {
       questionImg && formData.append('questionImg', questionImg)
       answerImg && formData.append('answerImg', answerImg)
 
-      hookWithToast(editItem({ id: cardId, formData }), 'Карта успешно обновлена')
+      await hookWithToast(editItem({ id: cardId, formData }), 'Карта успешно обновлена')
     }
     dispatch(modalActions.setCloseModal({}))
     dispatch(modalActions.setClearState({}))
   }
-  const deleteCardOrPack = () => {
+  const deleteCardOrPack = async () => {
     if (open === 'deleteCard') {
-      hookWithToast(deleteItem({ id: cardId }), 'Карта успешно удалена')
+      await hookWithToast(deleteItem({ id: cardId }), 'Карта успешно удалена')
     } else if (open === 'deletePack') {
-      hookWithToast(deleteDeck({ id: cardId }), 'Колода успешно удалена').then(() => {
+      const result = await hookWithToast(deleteDeck({ id: cardId }), 'Колода успешно удалена')
+
+      if (result?.success) {
         navigate('/')
-      })
+      }
     }
     dispatch(modalActions.setCloseModal({}))
     dispatch(modalActions.setClearState({}))
   }
-  const editPack = () => {
+  const editPack = async () => {
     const formData = new FormData()
 
     formData.append('name', packName)
     formData.append('isPrivate', String(privatePack))
     img && formData.append('cover', img)
 
-    hookWithToast(editDeck({ id: cardId, formData }), 'Колода успешно обновлена')
+    await hookWithToast(editDeck({ id: cardId, formData }), 'Колода успешно обновлена')
 
     dispatch(modalActions.setCloseModal({}))
     dispatch(modalActions.setClearState({}))
