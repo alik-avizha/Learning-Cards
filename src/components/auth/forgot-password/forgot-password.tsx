@@ -23,15 +23,18 @@ export const ForgotPassword = () => {
   const hookWithToast = useMutationWithToast()
   const [forgotPassword] = useForgotPasswordMutation()
 
-  const onSubmit = (data: SignInFormShem) => {
-    hookWithToast(
+  const onSubmit = async (data: SignInFormShem) => {
+    const result = await hookWithToast(
       forgotPassword({
         ...data,
         html: `<h1>Hi, ##name##</h1><p>Click <a href="http://localhost:5173/recover-password/##token##">here</a> to recover your password</p>`,
       }),
       'Пароль успешно cброшен'
     )
-    navigate(`/check-email/${data.email}`)
+
+    if (result?.success) {
+      navigate(`/check-email/${data.email}`)
+    }
   }
 
   return (

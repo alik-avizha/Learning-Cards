@@ -24,12 +24,15 @@ export const CreateNewPassword = () => {
   })
 
   const [setNewPassword] = useResetPasswordMutation()
-  const onSubmit = (data: SignInFormShem) => {
-    hookWithToast(
+  const onSubmit = async (data: SignInFormShem) => {
+    const result = await hookWithToast(
       setNewPassword({ password: data.password, token: params.token }),
       'Пароль успешно обновлен'
     )
-    navigate('/login')
+
+    if (result?.success) {
+      navigate('/login')
+    }
   }
 
   return (

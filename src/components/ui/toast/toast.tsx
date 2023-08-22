@@ -4,7 +4,7 @@ export const GlobalToast = () => {
   return (
     <ToastContainer
       position="bottom-left"
-      autoClose={5000}
+      autoClose={1500}
       closeOnClick
       pauseOnFocusLoss
       draggable

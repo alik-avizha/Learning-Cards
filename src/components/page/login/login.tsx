@@ -1,4 +1,4 @@
-import { Navigate, useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 
 import { useMutationWithToast } from '@/common'
 import { SignIn } from '@/components/auth'
@@ -9,12 +9,9 @@ export const Login = () => {
   const [login] = useLoginMutation()
   const { data, isLoading } = useMeQuery()
   const hookWithToast = useMutationWithToast()
-  const navigate = useNavigate()
 
-  const loginHandler = (data: any) => {
-    hookWithToast(login(data), 'Успешный вход').then(() => {
-      navigate('/')
-    })
+  const loginHandler = async (data: any) => {
+    await hookWithToast(login(data), 'Успешный вход')
   }
 
   if (isLoading) return <Loader />
