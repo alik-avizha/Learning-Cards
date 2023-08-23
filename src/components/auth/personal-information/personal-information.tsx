@@ -79,7 +79,7 @@ export const PersonalInformation: FC<PropsType> = ({
     await hookWithToast(
       resendVerEmail({
         userId,
-        html: `<h1>Hi, ##name##</h1><p>Click <a href="http://localhost:5173/confirm-email/##token##">here</a> to verify your password</p>`,
+        html: `<h1>Hi, ##name##</h1><p>Click <a href="https://flaskcards-project.vercel.app/confirm-email/##token##">here</a> to verify your password</p>`,
       }),
       `Сообщение отправлено по адресу ${email}`
     )
