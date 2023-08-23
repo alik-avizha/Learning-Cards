@@ -2,7 +2,7 @@
 
 ### The project is under development. The purpose of this project is to help people learn something new
 
-/https://flaskcards-project.vercel.app/
+https://flaskcards-project.vercel.app/
 
 Below you can see a bit of information about authorisation flow
 ![](src/assets/images/signInPage.png)
