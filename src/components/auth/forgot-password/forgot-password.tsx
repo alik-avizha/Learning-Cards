@@ -27,7 +27,7 @@ export const ForgotPassword = () => {
     const result = await hookWithToast(
       forgotPassword({
         ...data,
-        html: `<h1>Hi, ##name##</h1><p>Click <a href="http://localhost:5173/recover-password/##token##">here</a> to recover your password</p>`,
+        html: `<h1>Hi, ##name##</h1><p>Click <a href="https://flaskcards-project.vercel.app/recover-password/##token##">here</a> to recover your password</p>`,
       }),
       'Пароль успешно cброшен'
     )
