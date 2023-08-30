@@ -58,7 +58,7 @@ export const Header: FC<HeaderProps> = ({ data }) => {
   return (
     <div className={s.headerBlock}>
       <div className={s.contentHeader}>
-        <Button as={Link} to="/" variant={'link'} className={s.logo}>
+        <Button aria-label={'to-main-page'} as={Link} to="/" variant={'link'} className={s.logo}>
           <Logo />
         </Button>
         {!data && <Button variant={'primary'}>Sign In</Button>}

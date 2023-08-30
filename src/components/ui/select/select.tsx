@@ -3,10 +3,11 @@ import { FC, ReactNode } from 'react'
 import * as Label from '@radix-ui/react-label'
 import * as Select from '@radix-ui/react-select'
 
-import { SelectArrow } from '../../../assets'
 import { Typography } from '../typography'
 
 import s from './select.module.scss'
+
+import { SelectArrow } from '@/assets'
 
 export type SelectPropsType = {
   label?: string
@@ -49,6 +50,7 @@ export const SuperSelect: FC<SelectPropsType> = ({
       <Select.Trigger
         className={`${disabled ? s.triggerDisabled : s.trigger} ${classname}`}
         asChild
+        aria-label={'select'}
         tabIndex={1}
       >
         <div>

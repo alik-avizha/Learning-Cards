@@ -122,7 +122,7 @@ export const TablePacksList: FC<PropsType> = ({
               <TableElement.Cell>
                 <div className={s.icons}>
                   {el.cardsCount ? (
-                    <Link to={`/learn-pack/${el.id}`}>
+                    <Link aria-label={'play-pack'} to={`/learn-pack/${el.id}`}>
                       <Play className={s.icon} />
                     </Link>
                   ) : (
