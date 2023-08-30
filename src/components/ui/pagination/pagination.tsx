@@ -100,7 +100,12 @@ const PageButton: FC<PageButtonProps> = ({ onClick, disabled, selected, page }) 
 }
 const PrevButton: FC<NavigationButtonProps> = ({ onClick, disabled }) => {
   return (
-    <button className={classNames.item} onClick={onClick} disabled={disabled}>
+    <button
+      aria-label="change-page-left"
+      className={classNames.item}
+      onClick={onClick}
+      disabled={disabled}
+    >
       <ArrowLeft className={classNames.icon} />
     </button>
   )
@@ -108,7 +113,12 @@ const PrevButton: FC<NavigationButtonProps> = ({ onClick, disabled }) => {
 
 const NextButton: FC<NavigationButtonProps> = ({ onClick, disabled }) => {
   return (
-    <button className={classNames.item} onClick={onClick} disabled={disabled}>
+    <button
+      aria-label="change-page-right"
+      className={classNames.item}
+      onClick={onClick}
+      disabled={disabled}
+    >
       <ArrowRight className={classNames.icon} />
     </button>
   )
