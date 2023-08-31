@@ -1,0 +1,23 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "pnpm run build-storybook",
+  "devCommand": "pnpm run storybook",
+  "installCommand": "pnpm i",
+  "framework": null,
+  "outputDirectory": "./storybook-static",
+  "routes": [
+    { "src": "/login", "dest": "/" },
+    { "src": "/sign-up", "dest": "/" },
+    { "src": "/forgot-password", "dest": "/" },
+    { "src": "/recover-password/:token", "dest": "/" },
+    { "src": "check-email/:email", "dest": "/" },
+    { "src": "confirm-email/:code", "dest": "/" },
+    { "src": "/", "dest": "/" },
+    { "src": "/my-pack/:id", "dest": "/" },
+    { "src": "/friends-pack/:id", "dest": "/" },
+    { "src": "/empty-pack/:name/:id", "dest": "/" },
+    { "src": "/learn-pack/:id", "dest": "/" },
+    { "src": "/profile", "dest": "/" },
+    { "src": "*", "dest": "/" }
+  ]
+}
