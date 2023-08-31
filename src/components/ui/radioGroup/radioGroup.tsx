@@ -2,9 +2,9 @@ import { FC } from 'react'
 
 import * as RadioGroup from '@radix-ui/react-radio-group'
 
-import { Typography } from '../typography'
-
 import s from './radioGroup.module.scss'
+
+import { Typography } from '@/components/ui'
 
 type RadioGroupProps = {
   classname?: string
@@ -16,10 +16,14 @@ export const RadioGroupDemo: FC<RadioGroupProps> = ({
   isDisabled = false,
   options,
   onChangeOption,
+  classname,
 }) => {
   return (
     <form>
-      <RadioGroup.Root className={s.radioGroupRoot} onValueChange={onChangeOption}>
+      <RadioGroup.Root
+        className={`${s.radioGroupRoot} ${classname}`}
+        onValueChange={onChangeOption}
+      >
         {options?.map(o => {
           return (
             <div className={s.itemGroup} key={o.id}>

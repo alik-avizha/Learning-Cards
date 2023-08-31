@@ -1,0 +1,39 @@
+.AvatarRoot {
+  user-select: none;
+
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 2.25rem;
+  height: 2.25rem;
+
+  font-size: calc(2.25rem * 0.8);
+  color: var(--color-dark-900);
+  text-transform: capitalize;
+  vertical-align: middle;
+
+  background-color: var(--color-light-100);
+  border-radius: 100%;
+}
+
+.AvatarImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+.AvatarFallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+
+  color: var(--color-dark-900);
+
+  background-color: var(--color-light-100);
+}

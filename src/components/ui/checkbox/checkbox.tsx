@@ -3,11 +3,11 @@ import { FC } from 'react'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { CheckIcon } from '@radix-ui/react-icons'
 
-import { Typography } from '../typography'
-
 import s from './checkbox.module.scss'
 
-type CheckBoxProps = {
+import { Typography } from '@/components/ui'
+
+export type CheckBoxProps = {
   onChange?: (checked: boolean) => void
   disabled?: boolean
   checked?: boolean

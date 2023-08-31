@@ -26,8 +26,10 @@
 
       border: 1px solid var(--dark-300, #4c4c4c);
 
+      &:focus-visible,
       &:focus {
-        border: 2px solid var(--color-info-900);
+        border-color: transparent;
+        outline: 2px solid var(--color-info-700);
       }
 
       &:hover {
@@ -39,9 +41,10 @@
         }
       }
 
-      &:active {
+      &[data-state='active'] {
         background-color: var(--color-accent-500);
         border: 1px solid var(--color-accent-500);
+        outline: none;
 
         p {
           color: var(--color-light-100);

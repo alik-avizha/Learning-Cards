@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { SliderDemo } from './'
+import { SliderDemo } from '@/components/ui'
 
 const meta = {
   title: 'Components/Slider',
@@ -13,7 +13,8 @@ type Story = StoryObj<typeof meta>
 
 export const ShowSlider: Story = {
   args: {
-    minValue: 0,
-    maxValue: 100,
+    value: [0, 10],
+    setValue: () => {},
+    maxValue: 10,
   },
 }

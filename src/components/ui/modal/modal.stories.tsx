@@ -2,13 +2,7 @@ import { useState } from 'react'
 
 import type { Meta } from '@storybook/react'
 
-import { Button } from '../button'
-import { CheckboxDemo } from '../checkbox'
-import { RadioGroupDemo } from '../radioGroup'
-import { TextField } from '../textfield'
-import { Typography } from '../typography'
-
-import { Modal } from './modal.tsx'
+import { Button, Modal } from '@/components/ui'
 
 const meta = {
   title: 'Components/Modal',
@@ -33,13 +27,13 @@ export const ModalDemo = () => {
       <Button variant={'primary'} onClick={handleOpen}>
         Open Modal
       </Button>
-      <Modal title={'hello'} showCloseButton={true} open={open} onClose={handleClose}>
-        <TextField type={'searchType'} />
-        <TextField type={'default'} />
-        <CheckboxDemo variant={'default'} onChange={() => {}} checked={true} />
-        <Typography variant={'body1'}> Hello There!</Typography>
-        <RadioGroupDemo />
-      </Modal>
+      <Modal
+        title={'hello'}
+        showCloseButton={true}
+        open={open}
+        onClose={handleClose}
+        titleButton={'delete'}
+      ></Modal>
     </>
   )
 }

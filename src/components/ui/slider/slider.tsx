@@ -1,19 +1,18 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
 import * as Slider from '@radix-ui/react-slider'
 
-import { Typography } from '../typography'
-
 import s from './slider.module.scss'
 
+import { Typography } from '@/components/ui'
+
 type SliderPropsType = {
-  minValue: number
-  maxValue: number
+  value: number[]
+  setValue: (value: number[]) => void
+  maxValue?: number
 }
 
-export const SliderDemo: FC<SliderPropsType> = ({ minValue = 0, maxValue = 100 }) => {
-  const [value, setValue] = useState<number[]>([minValue, maxValue])
-
+export const SliderDemo: FC<SliderPropsType> = ({ value, setValue, maxValue = 10 }) => {
   return (
     <div className={s.sliderBlock}>
       <div className={s.countBlock}>
@@ -22,7 +21,7 @@ export const SliderDemo: FC<SliderPropsType> = ({ minValue = 0, maxValue = 100 }
       <Slider.Root
         className={s.sliderRoot}
         onValueChange={setValue}
-        defaultValue={value}
+        value={value}
         max={maxValue}
         step={1}
       >

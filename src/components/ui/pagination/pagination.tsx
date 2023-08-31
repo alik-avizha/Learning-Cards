@@ -2,11 +2,10 @@ import { FC } from 'react'
 
 import { clsx } from 'clsx'
 
-import { ArrowLeft, ArrowRight } from '../../../assets/icons'
-import { SelectDemo } from '../select'
-
 import s from './pagination.module.scss'
-import { usePagination } from './usePagination'
+
+import { ArrowLeft, ArrowRight } from '@/assets'
+import { usePagination } from '@/components/ui/pagination/usePagination.tsx'
 
 type PaginationConditionals =
   | {
@@ -15,18 +14,18 @@ type PaginationConditionals =
       onPerPageChange?: never
     }
   | {
-      perPage: any
-      perPageOptions: any[]
+      perPage: number
+      perPageOptions: number[]
       onPerPageChange: (itemPerPage: number) => void
     }
 
 export type PaginationProps = {
-  count: number
+  count?: number
   page: number
   onChange: (page: number) => void
   siblings?: number
-  perPage?: any
-  perPageOptions?: any[]
+  perPage?: number
+  perPageOptions?: number[]
   onPerPageChange?: (itemPerPage: number) => void
 } & PaginationConditionals
 
@@ -43,15 +42,7 @@ const classNames = {
   },
 }
 
-export const Pagination: FC<PaginationProps> = ({
-  onChange,
-  count,
-  page = 1,
-  perPage = null,
-  perPageOptions,
-  onPerPageChange,
-  siblings,
-}) => {
+export const Pagination: FC<PaginationProps> = ({ onChange, count = 10, page = 1, siblings }) => {
   const {
     paginationRange,
     isLastPage,
@@ -66,8 +57,6 @@ export const Pagination: FC<PaginationProps> = ({
     siblings,
   })
 
-  const showPerPageSelect = !!perPage && !!perPageOptions && !!onPerPageChange
-
   return (
     <div className={classNames.root}>
       <div className={classNames.container}>
@@ -81,16 +70,6 @@ export const Pagination: FC<PaginationProps> = ({
 
         <NextButton onClick={handleNextPageClicked} disabled={isLastPage} />
       </div>
-
-      {showPerPageSelect && (
-        <PerPageSelect
-          {...{
-            perPage,
-            perPageOptions,
-            onPerPageChange,
-          }}
-        />
-      )}
     </div>
   )
 }
@@ -121,7 +100,12 @@ const PageButton: FC<PageButtonProps> = ({ onClick, disabled, selected, page }) 
 }
 const PrevButton: FC<NavigationButtonProps> = ({ onClick, disabled }) => {
   return (
-    <button className={classNames.item} onClick={onClick} disabled={disabled}>
+    <button
+      aria-label="change-page-left"
+      className={classNames.item}
+      onClick={onClick}
+      disabled={disabled}
+    >
       <ArrowLeft className={classNames.icon} />
     </button>
   )
@@ -129,7 +113,12 @@ const PrevButton: FC<NavigationButtonProps> = ({ onClick, disabled }) => {
 
 const NextButton: FC<NavigationButtonProps> = ({ onClick, disabled }) => {
   return (
-    <button className={classNames.item} onClick={onClick} disabled={disabled}>
+    <button
+      aria-label="change-page-right"
+      className={classNames.item}
+      onClick={onClick}
+      disabled={disabled}
+    >
       <ArrowRight className={classNames.icon} />
     </button>
   )
@@ -158,35 +147,5 @@ const MainPaginationButtons: FC<MainPaginationButtonsProps> = ({
         return <PageButton key={index} page={page} selected={isSelected} onClick={onClick(page)} />
       })}
     </>
-  )
-}
-
-export type PerPageSelectProps = {
-  perPage: number
-  perPageOptions: any[]
-  onPerPageChange: (itemPerPage: number) => void
-}
-
-export const PerPageSelect: FC<PerPageSelectProps> = ({
-  perPageOptions,
-  perPage,
-  onPerPageChange,
-}) => {
-  const selectOptions = perPageOptions.map(value => ({
-    label: value.value,
-    value: value.value,
-  }))
-
-  return (
-    <div className={classNames.selectBox}>
-      Показать
-      <SelectDemo
-        className={classNames.select}
-        value={perPage}
-        options={selectOptions}
-        onChangeOption={onPerPageChange}
-      />
-      на странице
-    </div>
   )
 }

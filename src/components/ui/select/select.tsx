@@ -1,46 +1,74 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 
-import { Listbox } from '@headlessui/react'
+import * as Label from '@radix-ui/react-label'
+import * as Select from '@radix-ui/react-select'
 
-import { SelectArrow } from '../../../assets/icons'
 import { Typography } from '../typography'
 
 import s from './select.module.scss'
 
-type PropsType = {
-  options?: any[]
-  onChangeOption?: (option: any) => void
-  className?: string
-  isDisabled?: boolean
-  value: any
+import { SelectArrow } from '@/assets'
+
+export type SelectPropsType = {
+  label?: string
+  placeholder?: ReactNode
+  value?: string
+  onValueChange?: (value: any) => void
+  defaultValue?: any
+  options: any[]
+  disabled?: boolean
+  required?: boolean
+  classname?: string
 }
 
-export const SelectDemo: FC<PropsType> = ({
-  className,
-  isDisabled,
-  onChangeOption,
-  options,
+export const SuperSelect: FC<SelectPropsType> = ({
+  label,
+  placeholder,
   value,
-}) => {
-  return (
-    <Listbox disabled={isDisabled} value={value} onChange={onChangeOption}>
-      <div className={`${s.listBox} ${className}`}>
-        <Listbox.Button className={isDisabled ? s.disabledTrigger : s.trigger}>
-          <Typography variant={'body1'}>{value.value}</Typography>
-          <SelectArrow className={isDisabled ? s.disabledArrow : s.arrow} />
-        </Listbox.Button>
-        <Listbox.Options className={s.optionList}>
-          {options?.map(o => (
-            <Listbox.Option className={s.list} key={o.id} value={o}>
-              {({ disabled }) => (
-                <Typography className={`${disabled ? s.listItemDisabled : s.listItem}`}>
-                  {o.value}
-                </Typography>
-              )}
-            </Listbox.Option>
-          ))}
-        </Listbox.Options>
-      </div>
-    </Listbox>
-  )
-}
+  onValueChange,
+  defaultValue,
+  options,
+  disabled,
+  required,
+  classname,
+}) => (
+  <Label.Root>
+    <Typography
+      variant={'body2'}
+      as={'label'}
+      className={`${s.label} ${disabled && s.labelDisabled}`}
+    >
+      {label}
+    </Typography>
+    <Select.Root
+      defaultValue={defaultValue}
+      value={value}
+      onValueChange={onValueChange}
+      disabled={disabled}
+      required={required}
+    >
+      <Select.Trigger
+        className={`${disabled ? s.triggerDisabled : s.trigger} ${classname}`}
+        asChild
+        aria-label={'select'}
+        tabIndex={1}
+      >
+        <div>
+          <Select.Value placeholder={placeholder} />
+          <SelectArrow className={disabled ? s.iconDisabled : s.icon} />
+        </div>
+      </Select.Trigger>
+      <Select.Portal>
+        <Select.Content position={'popper'} className={s.content} sideOffset={-1}>
+          <Select.Viewport>
+            {options.map(el => (
+              <Select.Item key={el.value} value={el.value} className={s.item}>
+                <Select.ItemText>{el.value}</Select.ItemText>
+              </Select.Item>
+            ))}
+          </Select.Viewport>
+        </Select.Content>
+      </Select.Portal>
+    </Select.Root>
+  </Label.Root>
+)

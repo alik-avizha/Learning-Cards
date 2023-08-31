@@ -1,44 +1,74 @@
 .headerBlock {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-
   height: 3.75rem;
-  padding: 0 8.5rem;
-
   background: var(--color-dark-700);
 
-  & svg {
-    width: 9.75rem;
-    height: 2.25rem;
-  }
-
-  .avatar_menu {
+  .contentHeader {
     display: flex;
-    gap: 0.88rem;
+    flex-wrap: wrap;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
 
-    .menu_name {
-      cursor: pointer;
-      position: relative;
+    width: 80rem;
+    margin: 0 auto;
 
-      &::after {
-        content: '';
+    .logo {
+      padding: 0;
 
-        position: absolute;
-        bottom: 0;
-        left: 0;
+      &:focus,
+      &:active,
+      &:hover {
+        outline: none;
+      }
 
-        width: 100%;
-
-        border-bottom: 1px dotted;
+      & svg {
+        width: 9.75rem;
+        height: 2.25rem;
       }
     }
 
-    & svg {
-      width: 2.25rem;
+    .avatar_menu {
+      display: flex;
+      gap: 0.88rem;
+      align-items: center;
+      justify-content: flex-end;
+
+      .link {
+        text-decoration: none;
+      }
+
+      .menu_name {
+        cursor: pointer;
+        position: relative;
+
+        &::after {
+          content: '';
+
+          position: absolute;
+          bottom: 0;
+          left: 0;
+
+          width: 100%;
+
+          border-bottom: 1px dotted;
+        }
+      }
+
+      & svg {
+        width: 2.25rem;
+      }
     }
+  }
+}
+
+.buttonDrop {
+  padding: 0;
+  color: var(--color-light-100);
+
+  &:focus,
+  &:active,
+  &:hover {
+    color: var(--color-light-100);
+    outline: none;
   }
 }

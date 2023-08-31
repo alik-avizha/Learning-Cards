@@ -1,0 +1,74 @@
+.learnPackPage {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding-top: 1.05rem;
+
+  .backButton {
+    margin-bottom: 2.06rem;
+    padding: 0;
+    color: var(--color-light-100);
+
+    &:focus,
+    &:active,
+    &:hover {
+      color: var(--color-light-100);
+      outline: none;
+    }
+  }
+
+  .cardBlock {
+    display: flex;
+    flex-direction: column;
+
+    width: 26.25rem;
+    margin: 0 auto;
+    padding: 2.06rem 2.25rem 3rem;
+
+    .title {
+      margin-bottom: 2.81rem;
+      text-align: center;
+    }
+
+    .question {
+      display: inline-block;
+      margin-bottom: 0.5rem;
+    }
+
+    .questionImg {
+      width: 18rem;
+      height: 13rem;
+      object-fit: contain;
+    }
+
+    .info {
+      margin-bottom: 2.56rem;
+      color: var(--color-dark-100);
+    }
+
+    .answerBlock {
+      display: flex;
+      flex-direction: column;
+
+      .title {
+        margin-bottom: 0.75rem;
+        text-align: start;
+      }
+
+      .answer {
+        display: inline-block;
+      }
+
+      .grade {
+        margin-bottom: 0.81rem;
+      }
+
+      .radio {
+        margin-bottom: 1.81rem;
+      }
+    }
+  }
+
+  .error {
+    text-align: center;
+  }
+}

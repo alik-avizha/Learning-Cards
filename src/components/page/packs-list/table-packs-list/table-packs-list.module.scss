@@ -1,0 +1,31 @@
+.icons {
+  display: flex;
+  gap: 0.62rem;
+  justify-content: end;
+
+  .icon {
+    display: flex;
+    align-items: center;
+    transition: transform 0.2s ease-in-out;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+}
+
+.nameOfDeckButton {
+  display: flex;
+  justify-content: flex-start;
+  padding: 0;
+
+  &:focus {
+    outline: none;
+  }
+
+  .nameImg {
+    width: 7.4rem;
+    height: 3rem;
+    border: 0.5px solid var(--color-dark-500);
+  }
+}

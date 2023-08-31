@@ -1,0 +1,11 @@
+.infoBlock {
+  display: flex;
+  gap: 0.38rem;
+  align-items: center;
+
+  .info {
+    .email {
+      color: var(--color-dark-100);
+    }
+  }
+}

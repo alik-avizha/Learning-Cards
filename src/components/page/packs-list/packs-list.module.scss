@@ -1,0 +1,46 @@
+.packListBlock {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 2.06rem 0;
+
+  .headBlock {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 0.5rem;
+  }
+
+  .settingsBlock {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+
+    margin-bottom: 2.25rem;
+
+    .textField {
+      width: 18.6875rem;
+    }
+
+    .titleSettings {
+      margin-bottom: 0.31rem;
+    }
+
+    .switcher {
+      width: 7.25rem;
+    }
+  }
+
+  .pagination {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    margin-top: 1rem;
+
+    .selectPagination {
+      width: 70px;
+    }
+  }
+}

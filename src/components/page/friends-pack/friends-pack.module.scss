@@ -1,0 +1,71 @@
+.friendsPackBlock {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding-top: 2.06rem;
+
+  .backButton {
+    margin-bottom: 2.25rem;
+    padding: 0;
+    color: var(--color-light-100);
+
+    &:focus,
+    &:active,
+    &:hover {
+      color: var(--color-light-100);
+      outline: none;
+    }
+  }
+
+  .headBlock {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    justify-content: space-between;
+
+    margin-bottom: 1.5rem;
+  }
+
+  .titleAndCover {
+    .titleMenu {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+
+      text-align: center;
+    }
+
+    .cover {
+      width: 10.625rem;
+      height: 6.6875rem;
+      border: 0.5px solid var(--color-dark-500);
+    }
+  }
+
+  .textField {
+    margin-bottom: 1.5rem;
+  }
+
+  .pagination {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    margin-top: 1rem;
+
+    .selectPagination {
+      width: 70px;
+    }
+  }
+}
+
+.buttonDrop {
+  padding: 0;
+  color: var(--color-light-100);
+
+  &:focus,
+  &:active,
+  &:hover {
+    color: var(--color-light-100);
+    outline: none;
+  }
+}
