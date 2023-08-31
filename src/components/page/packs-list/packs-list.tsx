@@ -86,6 +86,7 @@ export const PacksList = () => {
     setActiveTab(value)
     if (value === 'My Cards') {
       setUserId(meData!.id)
+      dispatch(deckSlice.actions.setCurrentPage({ value: 'packList', newCurrentPage: 1 }))
     } else {
       setUserId('')
     }
