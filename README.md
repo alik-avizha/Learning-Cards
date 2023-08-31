@@ -4,7 +4,7 @@
 
 https://flaskcards-project.vercel.app/
 
-Below you can see a bit of information about authorisation flow
+Below you can see a bit of information about authorisation flow.
 ![](src/assets/images/signInPage.png)
 ![](src/assets/images/signUpPage.png)
 ![](src/assets/images/forgotPasswordPage.png)
@@ -18,12 +18,12 @@ Here you can select the deck you would like to learn, delete or edit. You can al
 ![](src/assets/images/learnPageFirst.png)
 ![](src/assets/images/learnPageSecond.png)
 
-Also going to the deck page, you can add question and answer cards. As well as the necessary interaction functions (add, edit, delete)
+Also going to the deck page, you can add question and answer cards. As well as the necessary interaction functions (add, edit, delete).
 ![](src/assets/images/deckPage.png)
 ![](src/assets/images/addNewCard.png)
 
 In this project has a profile page where you can update your photo or change your nickname
-![](src/assets/images/personalInfoPage.png)
+![](src/assets/images/personalInfoPage.png).
 
 The project is under development. Some features may be unavailable.
 If you have questions or want to know something, you can write to [me](https://www.linkedin.com/in/aleksandr-avizha/).
