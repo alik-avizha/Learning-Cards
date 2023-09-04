@@ -9,6 +9,7 @@ import {
   DialogTitle,
 } from '@radix-ui/react-dialog'
 import { motion } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 
 import s from './modal.module.scss'
 
@@ -38,6 +39,8 @@ export const Modal: FC<PropsType> = ({
   showCloseButton = true,
   callBack,
 }) => {
+  const { t } = useTranslation()
+
   function handleModalClosed() {
     onClose?.()
   }
@@ -68,7 +71,7 @@ export const Modal: FC<PropsType> = ({
               <div className={s.contentBox}>{children}</div>
               <div className={s.buttonBottom}>
                 <Button onClick={() => onClose?.()} variant={'secondary'}>
-                  Cancel
+                  {t('modal.cancel')}
                 </Button>
                 <Button variant={'primary'} onClick={callBack}>
                   {titleButton}

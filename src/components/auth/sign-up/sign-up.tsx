@@ -1,6 +1,6 @@
-import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 
@@ -25,6 +25,7 @@ type SignInFormShem = z.infer<typeof sigInSchema>
 export const SignUp = () => {
   const navigate = useNavigate()
   const hookWithToast = useMutationWithToast()
+  const { t } = useTranslation()
   const { control, handleSubmit } = useForm<SignInFormShem>({
     resolver: zodResolver(sigInSchema),
   })
@@ -38,7 +39,7 @@ export const SignUp = () => {
         password: data.password,
         sendConfirmationEmail: false,
       }),
-      'Спасибо за регистрацию'
+      t('sign-up.toast')
     )
 
     if (result?.success) {
@@ -49,43 +50,42 @@ export const SignUp = () => {
   return (
     <Card className={s.signBlock}>
       <Typography className={s.title} variant={'large'}>
-        Sign Up
+        {t('sign-up.title')}
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <DevTool control={control} />
         <ControlledTextField
           name={'email'}
-          label={'Email'}
+          label={t('sign-up.emailLabel')}
           type={'default'}
-          placeholder={'enter your email'}
+          placeholder={t('sign-up.emailPlaceholder')}
           control={control}
           className={s.email}
         />
         <ControlledTextField
           name={'password'}
-          label={'Password'}
+          label={t('sign-up.passwordLabel')}
           type={'password'}
-          placeholder={'enter your password'}
+          placeholder={t('sign-up.passwordPlaceholder')}
           control={control}
           className={s.password}
         />
         <ControlledTextField
           name={'confirmPassword'}
-          label={'Confirm password'}
+          label={t('sign-up.confirmPasswordLabel')}
           type={'password'}
-          placeholder={'enter your password'}
+          placeholder={t('sign-up.confirmPasswordPlaceholder')}
           control={control}
           className={s.confirmPassword}
         />
         <Button fullWidth={true} className={s.submit} type="submit">
-          Sign Up
+          {t('sign-up.signUpButton')}
         </Button>
       </form>
       <Typography variant={'body2'} className={s.question}>
-        Already have an account?
+        {t('sign-up.haveAccount')}
       </Typography>
       <Button as={Link} to="/login" variant={'link'} className={s.signIn}>
-        Sign In
+        {t('sign-up.signInButton')}
       </Button>
     </Card>
   )

@@ -1,5 +1,7 @@
 import { ChangeEvent, FC } from 'react'
 
+import { useTranslation } from 'react-i18next'
+
 import imgDeck from '../../../../../assets/icons/imgDeck.jpg'
 
 import s from './add-edit-pack-modal.module.scss'
@@ -18,6 +20,7 @@ export const AddEditPackModal: FC<PropsType> = props => {
   const open = useAppSelector(selectOpen)
   const { packName, privatePack, img, editImg } = useAppSelector(selectPackSettings)
   const dispatch = useAppDispatch()
+  const { t } = useTranslation()
 
   const setClose = () => {
     dispatch(modalActions.setCloseModal({}))
@@ -30,13 +33,13 @@ export const AddEditPackModal: FC<PropsType> = props => {
 
   if (open === 'addPack') {
     openModal = open === 'addPack'
-    title = 'Add New Pack'
-    titleButton = 'Add New Pack'
+    title = t('add-edit-pack-modal.titleAddPack')
+    titleButton = t('add-edit-pack-modal.titleAddPackButton')
     packImg = img ? URL.createObjectURL(img) : imgDeck
   } else if (open === 'editPack') {
     openModal = open === 'editPack'
-    title = 'Edit Pack'
-    titleButton = 'Save Changes'
+    title = t('add-edit-pack-modal.titleEditPack')
+    titleButton = t('add-edit-pack-modal.titleEditPackButton')
     packImg = img ? URL.createObjectURL(img) : editImg || imgDeck
   }
   const setPackName = (value: string) => {
@@ -65,7 +68,7 @@ export const AddEditPackModal: FC<PropsType> = props => {
         <img src={packImg} className={s.packImg} alt={'pack img'} />
         <label htmlFor="packImg" className={s.labelBlock}>
           <Button as={'a'} variant={'secondary'} className={s.changeButton}>
-            <ChangeImgDeck /> Change Cover
+            <ChangeImgDeck /> {t('add-edit-pack-modal.changeCover')}
           </Button>
           <div>
             <input type={'file'} id="packImg" onChange={handleChangeCover} className={s.input} />
@@ -76,14 +79,14 @@ export const AddEditPackModal: FC<PropsType> = props => {
         type={'default'}
         value={packName}
         onChangeText={e => setPackName(e)}
-        label={'Name Pack'}
-        placeholder={'Type name pack'}
+        label={t('add-edit-pack-modal.inputLabel')}
+        placeholder={t('add-edit-pack-modal.inputPlaceholder')}
       />
       <CheckboxDemo
         variant={'withText'}
         checked={privatePack}
         onChange={() => setPrivatePack(!privatePack)}
-        checkBoxText={'Private Pack'}
+        checkBoxText={t('add-edit-pack-modal.privatePack')}
       />
     </Modal>
   )

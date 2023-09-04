@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import s from './empty-pack.module.scss'
@@ -17,6 +18,7 @@ export const EmptyPack = () => {
   const { question, answer, questionImg, answerImg } = useAppSelector(selectCardSettings)
   const hookWithToast = useMutationWithToast()
   const dispatch = useAppDispatch()
+  const { t } = useTranslation()
 
   const [createCard] = useCreateCardMutation()
   const setOpen = () => {
@@ -32,7 +34,7 @@ export const EmptyPack = () => {
 
     const result = await hookWithToast(
       createCard({ id: params.id, formData }),
-      'Карта успешно добавлена'
+      t('empty-pack.toast')
     )
 
     if (result?.success) {
@@ -48,17 +50,17 @@ export const EmptyPack = () => {
     <div className={s.emptyPackBlock}>
       <Button as={Link} to="/" variant={'link'} className={s.backButton}>
         <Back />
-        Back to Packs List
+        {t('empty-pack.back')}
       </Button>
       <Typography variant={'large'} className={s.title}>
         {params.name}
       </Typography>
       <Typography variant={'body1'} className={s.description}>
-        This pack is empty. Click add new card to fill this pack
+        {t('empty-pack.thisPackIsEmpty')}
       </Typography>
       <div className={s.addNewPackButton}>
         <Button variant={'primary'} onClick={setOpen}>
-          Add New Card
+          {t('empty-pack.addNewCard')}
         </Button>
       </div>
       <AddEditCardModal onSubmit={addCardHandler} />

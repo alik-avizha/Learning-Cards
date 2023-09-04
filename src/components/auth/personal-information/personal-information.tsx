@@ -2,6 +2,7 @@ import { ChangeEvent, FC, useState } from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { z } from 'zod'
@@ -47,6 +48,7 @@ export const PersonalInformation: FC<PropsType> = ({
   const [resendVerEmail] = useResendVerificationEmailMutation()
   const hookWithToast = useMutationWithToast()
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const { control, handleSubmit } = useForm<SignInFormShem>({
     resolver: zodResolver(sigInSchema),
@@ -55,7 +57,7 @@ export const PersonalInformation: FC<PropsType> = ({
     if (event.target.files && event.target.files.length) {
       const formData = new FormData()
 
-      await hookWithToast(updatePhoto(formData), 'Фото успешно обновлено')
+      await hookWithToast(updatePhoto(formData), t('personal-information.toastPhoto'))
     }
   }
   const onSubmit = (data: SignInFormShem) => {
@@ -64,11 +66,11 @@ export const PersonalInformation: FC<PropsType> = ({
 
   const logoutHandler = async () => {
     if (!navigator.onLine) {
-      toast.error("Can't perform logout while offline")
+      toast.error(t('personal-information.toast-error'))
 
       return
     }
-    const result = await hookWithToast(logout(), 'Всего хорошего')
+    const result = await hookWithToast(logout(), t('personal-information.toast'))
 
     if (result?.success) {
       navigate('/login')
@@ -81,7 +83,7 @@ export const PersonalInformation: FC<PropsType> = ({
         userId,
         html: `<h1>Hi, ##name##</h1><p>Click <a href="https://flaskcards-project.vercel.app/confirm-email/##token##">here</a> to verify your password</p>`,
       }),
-      `Сообщение отправлено по адресу ${email}`
+      `${t('personal-information.verifyToast')} ${email}`
     )
   }
 
@@ -89,11 +91,11 @@ export const PersonalInformation: FC<PropsType> = ({
     <div className={s.personalInfoBlock}>
       <Button as={Link} to="/" variant={'link'} className={s.backButton}>
         <Back />
-        Back to Packs List
+        {t('personal-information.backToPackList')}
       </Button>
       <Card className={s.block}>
         <Typography className={s.title} variant={'large'}>
-          Personal Information
+          {t('personal-information.personalInformation')}
         </Typography>
         <div className={s.avatarBlock}>
           <div className={s.avatar}>
@@ -119,12 +121,12 @@ export const PersonalInformation: FC<PropsType> = ({
           <form onSubmit={handleSubmit(onSubmit)}>
             <ControlledTextField
               name={'name'}
-              label={'Name'}
+              label={t('personal-information.name')}
               defaultValue={name}
               type={'default'}
               control={control}
               className={s.editNickName}
-              placeholder={'Name'}
+              placeholder={t('personal-information.placeholder')}
             />
             <Button
               fullWidth={true}
@@ -136,7 +138,7 @@ export const PersonalInformation: FC<PropsType> = ({
                 }, 0)
               }
             >
-              Save Changes
+              {t('personal-information.saveChanges')}
             </Button>
           </form>
         ) : (
@@ -158,14 +160,14 @@ export const PersonalInformation: FC<PropsType> = ({
               </Typography>
               {!isEmailVer && (
                 <Button className={s.verify} variant={'primary'} onClick={verifyEmail}>
-                  Verify email
+                  {t('personal-information.verifyEmail')}
                 </Button>
               )}
             </div>
 
             <Button variant={'secondary'} className={s.logout} onClick={logoutHandler}>
               <Logout />
-              <Typography variant={'subtitle2'}>Logout</Typography>
+              <Typography variant={'subtitle2'}>{t('personal-information.logout')}</Typography>
             </Button>
           </div>
         )}

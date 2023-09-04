@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 
+import { useTranslation } from 'react-i18next'
 import { Link, useParams } from 'react-router-dom'
 
 import s from './friends-pack.module.scss'
@@ -21,6 +22,7 @@ export const FriendsPack = () => {
   const options = useAppSelector(state => state.deckSlice.paginationOptions)
   const currentPage = useAppSelector(state => state.deckSlice.currentPage.friendsPack)
   const dispatch = useAppDispatch()
+  const { t } = useTranslation()
 
   const [search, setSearch] = useState('')
   const [sort, setSort] = useState<Sort>({ key: 'updated', direction: 'desc' })
@@ -55,7 +57,7 @@ export const FriendsPack = () => {
     <div className={s.friendsPackBlock}>
       <Button as={Link} to="/" variant={'link'} className={s.backButton}>
         <Back />
-        Back to Packs List
+        {t('friends-pack.back')}
       </Button>
       <div className={s.headBlock}>
         <div className={s.titleAndCover}>
@@ -65,12 +67,12 @@ export const FriendsPack = () => {
           {data?.cover && <img src={data.cover} alt="cover" className={s.cover} />}
         </div>
         <Button as={Link} to={`/learn-pack/${params.id}`} variant={'primary'}>
-          Learn to Pack
+          {t('friends-pack.learnPack')}
         </Button>
       </div>
       <TextField
         value={search}
-        placeholder={'Type to find...'}
+        placeholder={t('friends-pack.inputPlaceholder')}
         onChangeText={e => setSearch(e)}
         onSearchClear={() => setSearch('')}
         type={'searchType'}
@@ -83,14 +85,14 @@ export const FriendsPack = () => {
           page={currentPage}
           onChange={setNewCurrentPage}
         />
-        <Typography variant={'body2'}>Показать</Typography>
+        <Typography variant={'body2'}>{t('friends-pack.show')}</Typography>
         <SuperSelect
           options={options}
           defaultValue={itemsPerPage.value}
           onValueChange={setNewPerPage}
           classname={s.selectPagination}
         />
-        <Typography variant={'body2'}>На странице</Typography>
+        <Typography variant={'body2'}>{t('friends-pack.onThePage')}</Typography>
       </div>
     </div>
   )

@@ -1,6 +1,6 @@
-import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 import { z } from 'zod'
 
@@ -19,6 +19,7 @@ export const CreateNewPassword = () => {
   const params = useParams<{ token: string }>()
   const navigate = useNavigate()
   const hookWithToast = useMutationWithToast()
+  const { t } = useTranslation()
   const { control, handleSubmit } = useForm<SignInFormShem>({
     resolver: zodResolver(sigInSchema),
   })
@@ -27,7 +28,7 @@ export const CreateNewPassword = () => {
   const onSubmit = async (data: SignInFormShem) => {
     const result = await hookWithToast(
       setNewPassword({ password: data.password, token: params.token }),
-      'Пароль успешно обновлен'
+      t('create-new-password.toast')
     )
 
     if (result?.success) {
@@ -38,23 +39,22 @@ export const CreateNewPassword = () => {
   return (
     <Card className={s.createPasswordBlock}>
       <Typography className={s.title} variant={'large'}>
-        Create new password
+        {t('create-new-password.title')}
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <DevTool control={control} />
         <ControlledTextField
           name={'password'}
-          label={'Password'}
+          label={t('create-new-password.passwordLabel')}
           type={'password'}
-          placeholder={'enter your password'}
+          placeholder={t('create-new-password.passwordPlaceholder')}
           control={control}
           className={s.password}
         />
         <Typography variant={'body2'} className={s.description}>
-          Create new password and we will send you further instructions to email
+          {t('create-new-password.text')}
         </Typography>
         <Button fullWidth={true} className={s.submit} type="submit">
-          Create New Password
+          {t('create-new-password.createNewPassword')}
         </Button>
       </form>
     </Card>

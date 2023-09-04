@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+import { useTranslation } from 'react-i18next'
+
 import s from './packs-list.module.scss'
 
 import { Trash } from '@/assets'
@@ -41,6 +43,7 @@ export const PacksList = () => {
   const hookWithToast = useMutationWithToast()
   const [activeTab, setActiveTab] = useState(tabSwitcherOptions[1].value)
   const dispatch = useAppDispatch()
+  const { t } = useTranslation()
 
   const {
     cardId,
@@ -106,7 +109,7 @@ export const PacksList = () => {
       formData.append('isPrivate', String(privatePack))
       img && formData.append('cover', img)
 
-      await hookWithToast(createDeck(formData), 'Колода успешно добавлена')
+      await hookWithToast(createDeck(formData), t('pack-list.toastSuccessAddDeck'))
     } else if (open === 'editPack') {
       const formData = new FormData()
 
@@ -114,13 +117,13 @@ export const PacksList = () => {
       formData.append('isPrivate', String(privatePack))
       img && formData.append('cover', img)
 
-      await hookWithToast(editDeck({ id: cardId, formData }), 'Колода успешно обновлена')
+      await hookWithToast(editDeck({ id: cardId, formData }), t('pack-list.toastSuccessEditDeck'))
     }
     dispatch(modalActions.setCloseModal({}))
     dispatch(modalActions.setClearState({}))
   }
   const deletePack = async () => {
-    await hookWithToast(deleteDeck({ id: cardId }), 'Колода успешно удалена')
+    await hookWithToast(deleteDeck({ id: cardId }), t('pack-list.toastSuccessEditDelete'))
 
     dispatch(modalActions.setCloseModal({}))
     dispatch(modalActions.setClearState({}))
@@ -132,15 +135,15 @@ export const PacksList = () => {
   return (
     <div className={s.packListBlock}>
       <div className={s.headBlock}>
-        <Typography variant={'large'}>Packs list</Typography>
+        <Typography variant={'large'}>{t('pack-list.title')}</Typography>
         <Button variant={'primary'} onClick={setOpen}>
-          Add New Pack
+          {t('pack-list.addNewPack')}
         </Button>
       </div>
       <div className={s.settingsBlock}>
         <TextField
           value={initialName}
-          placeholder={'Type to find...'}
+          placeholder={t('pack-list.inputPlaceholder')}
           type={'searchType'}
           className={s.textField}
           onChangeText={event => setSearchByName(event)}
@@ -148,7 +151,7 @@ export const PacksList = () => {
         />
         <div>
           <Typography variant={'body2'} className={s.titleSettings}>
-            Show packs cards
+            {t('pack-list.showPacksCards')}
           </Typography>
           <TabSwitcher
             onChangeCallback={value => handleTabSort(value)}
@@ -159,7 +162,7 @@ export const PacksList = () => {
         </div>
         <div>
           <Typography variant={'body2'} className={s.titleSettings}>
-            Number of cards
+            {t('pack-list.numberOfCards')}
           </Typography>
           <SliderDemo
             value={valueSlider}
@@ -169,7 +172,7 @@ export const PacksList = () => {
         </div>
         <Button variant={'secondary'} onClick={clearFilterData}>
           <Trash />
-          Clear Filter
+          {t('pack-list.clearFilter')}
         </Button>
       </div>
       <TablePacksList
@@ -186,14 +189,14 @@ export const PacksList = () => {
           page={currentPage}
           onChange={setNewCurrentPage}
         />
-        <Typography variant={'body2'}>Показать</Typography>
+        <Typography variant={'body2'}>{t('pack-list.show')}</Typography>
         <SuperSelect
           options={options}
           defaultValue={itemsPerPage.value}
           onValueChange={setNewPerPage}
           classname={s.selectPagination}
         />
-        <Typography variant={'body2'}>На странице</Typography>
+        <Typography variant={'body2'}>{t('pack-list.onThePage')}</Typography>
       </div>
       <AddEditPackModal onSubmit={addOrEditPack} />
       <DeletePackCardModal onSubmit={deletePack} />

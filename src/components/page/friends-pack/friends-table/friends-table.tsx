@@ -1,5 +1,7 @@
 import { FC } from 'react'
 
+import { useTranslation } from 'react-i18next'
+
 import { TableElement } from '@/components/ui'
 import { Grade } from '@/components/ui/grade'
 import { HeaderTable } from '@/components/ui/table/header-table.tsx'
@@ -17,30 +19,32 @@ export type Column = {
   sortable?: boolean
 }
 
-const columns: Array<Column> = [
-  {
-    key: 'question',
-    title: 'Question',
-    sortable: true,
-  },
-  {
-    key: 'answer',
-    title: 'Answer',
-    sortable: true,
-  },
-  {
-    key: 'updated',
-    title: 'Last Updated',
-    sortable: true,
-  },
-  {
-    key: 'grade',
-    title: 'Grade',
-    sortable: true,
-  },
-]
-
 export const FriendsTable: FC<PropsType> = ({ sort, setSort, dataCards }) => {
+  const { t } = useTranslation()
+
+  const columns: Array<Column> = [
+    {
+      key: 'question',
+      title: t('friends-pack.question'),
+      sortable: true,
+    },
+    {
+      key: 'answer',
+      title: t('friends-pack.answer'),
+      sortable: true,
+    },
+    {
+      key: 'updated',
+      title: t('friends-pack.lastUpdated'),
+      sortable: true,
+    },
+    {
+      key: 'grade',
+      title: t('friends-pack.grade'),
+      sortable: true,
+    },
+  ]
+
   return (
     <TableElement.Root>
       <HeaderTable columns={columns} sort={sort} onSort={setSort} />

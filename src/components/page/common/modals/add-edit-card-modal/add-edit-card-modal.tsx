@@ -1,5 +1,7 @@
 import { ChangeEvent, FC } from 'react'
 
+import { useTranslation } from 'react-i18next'
+
 import s from './add-edit-card-modal.module.scss'
 
 import { ChangeImgDeck } from '@/assets'
@@ -15,6 +17,7 @@ export const AddEditCardModal: FC<PropsType> = ({ onSubmit }) => {
   const { question, answer, questionImg, answerImg, questionEditImg, answerEditImg } =
     useAppSelector(selectCardSettings)
   const dispatch = useAppDispatch()
+  const { t } = useTranslation()
   const setClose = () => {
     dispatch(modalActions.setCloseModal({}))
     dispatch(modalActions.setClearState({}))
@@ -28,14 +31,14 @@ export const AddEditCardModal: FC<PropsType> = ({ onSubmit }) => {
 
   if (open === 'addCard') {
     openModal = open === 'addCard'
-    title = 'Add New Card'
-    titleButton = 'Add New Card'
+    title = t('add-edit-card-modal.titleAddCard')
+    titleButton = t('add-edit-card-modal.titleAddCard')
     questionImage = questionImg && URL.createObjectURL(questionImg)
     answerImage = answerImg && URL.createObjectURL(answerImg)
   } else if (open === 'editCard') {
     openModal = open === 'editCard'
-    title = 'Edit Card'
-    titleButton = 'Save Changes'
+    title = t('add-edit-card-modal.titleEditCard')
+    titleButton = t('add-edit-card-modal.titleEditButton')
     questionImage = questionImg ? URL.createObjectURL(questionImg) : questionEditImg || ''
     answerImage = answerImg ? URL.createObjectURL(answerImg) : answerEditImg || ''
   }
@@ -69,15 +72,15 @@ export const AddEditCardModal: FC<PropsType> = ({ onSubmit }) => {
       <TextField
         type={'default'}
         value={question}
-        label={'Question'}
-        placeholder={'Question'}
+        label={t('add-edit-card-modal.inputQuestionLabel')}
+        placeholder={t('add-edit-card-modal.inputQuestionPlaceholder')}
         onChangeText={e => setQuestion(e)}
       />
       <div>
         {questionImage && <img src={questionImage} className={s.packImg} alt={'pack img'} />}
         <label htmlFor="questionImg" className={s.labelBlock}>
           <Button as={'a'} variant={'secondary'} className={s.changeButton}>
-            <ChangeImgDeck /> Change Cover
+            <ChangeImgDeck /> {t('add-edit-card-modal.changeCover')}
           </Button>
           <div>
             <input
@@ -92,15 +95,15 @@ export const AddEditCardModal: FC<PropsType> = ({ onSubmit }) => {
       <TextField
         type={'default'}
         value={answer}
-        label={'Answer'}
-        placeholder={'Answer'}
+        label={t('add-edit-card-modal.inputAnswerLabel')}
+        placeholder={t('add-edit-card-modal.inputAnswerPlaceholder')}
         onChangeText={e => setAnswer(e)}
       />
       <div>
         {answerImage && <img src={answerImage} className={s.packImg} alt={'pack img'} />}
         <label htmlFor="answerImg" className={s.labelBlock}>
           <Button as={'a'} variant={'secondary'} className={s.changeButton}>
-            <ChangeImgDeck /> Change Cover
+            <ChangeImgDeck /> {t('add-edit-card-modal.changeCover')}
           </Button>
           <div>
             <input

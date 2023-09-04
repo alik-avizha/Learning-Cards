@@ -12,18 +12,23 @@
     width: 80rem;
     margin: 0 auto;
 
-    .logo {
-      padding: 0;
+    .logoBlock {
+      display: flex;
+      gap: 20px;
 
-      &:focus,
-      &:active,
-      &:hover {
-        outline: none;
-      }
+      .logo {
+        padding: 0;
 
-      & svg {
-        width: 9.75rem;
-        height: 2.25rem;
+        &:focus,
+        &:active,
+        &:hover {
+          outline: none;
+        }
+
+        & svg {
+          width: 9.75rem;
+          height: 2.25rem;
+        }
       }
     }
 
@@ -52,10 +57,6 @@
 
           border-bottom: 1px dotted;
         }
-      }
-
-      & svg {
-        width: 2.25rem;
       }
     }
   }

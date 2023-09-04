@@ -1,5 +1,6 @@
 import { FC, useState } from 'react'
 
+import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import s from './learn-pack.module.scss'
@@ -11,6 +12,7 @@ import { useGetDeckQuery, useLearnDeckQuery, useUpdateGradeCardMutation } from '
 export const LearnPack = () => {
   const params = useParams<{ id: string }>()
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const [showAnswer, setShowAnswer] = useState(false)
 
@@ -35,14 +37,14 @@ export const LearnPack = () => {
         className={s.backButton}
       >
         <Back />
-        Back
+        {t('learn-pack.back')}
       </Button>
       <Card className={s.cardBlock}>
         <Typography variant={'large'} className={s.title}>
-          Learn &quot;{deck?.name}&quot;
+          {t('learn-pack.learn')} &quot;{deck?.name}&quot;
         </Typography>
         <Typography variant={'subtitle1'}>
-          Question:{' '}
+          {t('learn-pack.question')}:{' '}
           <Typography variant={'body1'} className={s.question}>
             {randomCard?.question}
           </Typography>
@@ -50,16 +52,16 @@ export const LearnPack = () => {
             <img
               src={randomCard?.questionImg}
               className={s.questionImg}
-              alt={'картинка для вопроса'}
+              alt={t('learn-pack.imgQuestion')}
             />
           )}
         </Typography>
         <Typography variant={'body2'} className={s.info}>
-          Количество попыток ответов на вопрос: {randomCard?.shots}
+          {t('learn-pack.count')} {randomCard?.shots}
         </Typography>
         {!showAnswer ? (
           <Button variant={'primary'} onClick={() => setShowAnswer(!showAnswer)}>
-            Show Answer
+            {t('learn-pack.showAnswer')}
           </Button>
         ) : (
           <AnswerPage
@@ -80,12 +82,13 @@ type PropsType = {
 }
 const AnswerPage: FC<PropsType> = ({ answer, setNewQuestion, answerImg }) => {
   const [value, setValue] = useState(1)
+  const { t } = useTranslation()
   const options = [
-    { id: 1, value: 'Did not know' },
-    { id: 2, value: 'Forgot' },
-    { id: 3, value: 'A lot of though' },
-    { id: 4, value: 'Confused' },
-    { id: 5, value: 'Knew the answer' },
+    { id: 1, value: t('learn-pack.didNotKnow') },
+    { id: 2, value: t('learn-pack.forgot') },
+    { id: 3, value: t('learn-pack.aLotOfThough') },
+    { id: 4, value: t('learn-pack.confused') },
+    { id: 5, value: t('learn-pack.knewTheAnswer') },
   ]
   const onClickHandler = () => {
     setNewQuestion(value)
@@ -94,17 +97,19 @@ const AnswerPage: FC<PropsType> = ({ answer, setNewQuestion, answerImg }) => {
   return (
     <div className={s.answerBlock}>
       <Typography variant={'subtitle1'} className={s.title}>
-        Answer:{' '}
+        {t('learn-pack.answer')}:{' '}
         <Typography variant={'body1'} className={s.answer}>
           {answer}
         </Typography>
-        {answerImg && <img src={answerImg} className={s.questionImg} alt={'картинка для ответа'} />}
+        {answerImg && (
+          <img src={answerImg} className={s.questionImg} alt={t('learn-pack.imgAnswer')} />
+        )}
       </Typography>
       <Typography variant={'subtitle1'} className={s.grade}>
-        Rate yourself:
+        {t('learn-pack.rateYourself')}
       </Typography>
       <RadioGroupDemo options={options} classname={s.radio} onChangeOption={setValue} />
-      <Button onClick={onClickHandler}>Next Question</Button>
+      <Button onClick={onClickHandler}>{t('learn-pack.nextQuestion')}</Button>
     </div>
   )
 }
