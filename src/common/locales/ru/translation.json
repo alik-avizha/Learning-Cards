@@ -1,0 +1,176 @@
+{
+  "translation": {
+    "sign-in": {
+      "title": "Вход",
+      "emailLabel": "Электронная почта",
+      "emailPlaceholder": "введите адрес электрнной почты",
+      "passwordLabel": "Пароль",
+      "passwordPlaceholder": "введите пароль",
+      "rememberMe": "Запомнить меня",
+      "forgotPassword": "Забыл пароль",
+      "signInButton": "Войти",
+      "noAccount": "Нету аккаунта?",
+      "signUpButton": "Регистрация",
+      "toast": "Успешный вход"
+    },
+    "sign-up": {
+      "title": "Регистрация",
+      "emailLabel": "Электронная почта",
+      "emailPlaceholder": "введите адрес электрнной почты",
+      "passwordLabel": "Пароль",
+      "passwordPlaceholder": "введите пароль",
+      "confirmPasswordLabel": "Подтвердите пароль",
+      "confirmPasswordPlaceholder": "введите пароль",
+      "signUpButton": "Регистрация",
+      "haveAccount": "У вас уже есть аккаунт?",
+      "signInButton": "Вход",
+      "toast": "Спасибо за регистрация"
+    },
+    "forgot-password": {
+      "title": "Забыли пароль?",
+      "emailLabel": "Электронная почта",
+      "emailPlaceholder": "введите адрес электрнной почты",
+      "text": "Введите свой адрес электронной почты и мы вышлем вам дальнейшие инструкции",
+      "sendInstructions": "Отправить инструкции",
+      "didYouRememberPassword": "Вы помните свой пароль?",
+      "tryLoggingIn": "Попробуйте войти",
+      "toast": "Пароль успешно сброшен"
+    },
+    "check-email": {
+      "title": "Проверить электронную почту",
+      "address": "Мы отправили электронное письмо с инструкциями на",
+      "backToSignIn": "Вернуться к входу"
+    },
+    "create-new-password": {
+      "title": "Создать новый пароль",
+      "passwordLabel": "Пароль",
+      "passwordPlaceholder": "введите пароль",
+      "text": "Создайте новый пароль, и мы вышлем вам дальнейшие инструкции на электронную почту",
+      "createNewPassword": "Создать новый пароль",
+      "toast": "Пароль успешно обновлен"
+    },
+    "header-drop-down": {
+      "myProfile": "Мой профиль",
+      "signOut": "Выйти",
+      "toast": "Всего хорошего.",
+      "toast-error": "Невозможно выполнить выход из системы в автономном режиме",
+      "signIn": "Войти"
+    },
+    "personal-information": {
+      "backToPackList": "Вернуться к списку колод",
+      "personalInformation": "Персональная информация",
+      "name": "Имя",
+      "placeholder": "Имя",
+      "saveChanges": "Сохранить изменения",
+      "logout": "Выйти",
+      "verifyEmail": "Верификация электронной почты",
+      "toast": "Всего хорошего.",
+      "toastPhoto": "Фото успешно обновлено",
+      "toast-error": "Невозможно выполнить выход из системы в автономном режиме",
+      "verifyToast": "Сообщение было отправлено по адресу"
+    },
+    "pack-list": {
+      "title": "Список колод",
+      "addNewPack": "Добавить новую колоду",
+      "inputPlaceholder": "Введите, чтобы найти...",
+      "showPacksCards": "Показать карты",
+      "numberOfCards": "Количество карт",
+      "clearFilter": "Очистить фильтр",
+      "show": "Показать",
+      "onThePage": "На странице",
+      "toastSuccessAddDeck": "Колода успешно добавлена",
+      "toastSuccessEditDeck": "Колода успешно обновлена",
+      "toastSuccessEditDelete": "Колода успешно удалена"
+    },
+    "table-pack-list": {
+      "name": "Имя",
+      "cardsCount": "Количество карт",
+      "lastUpdated": "Последнее обновление",
+      "createdBy": "Создано",
+      "noCard": "Нету карт"
+    },
+    "modal": {
+      "cancel": "Закрыть"
+    },
+    "add-edit-pack-modal": {
+      "titleAddPack": "Добавить новую колоду",
+      "titleEditPack": "Редактировать колоду",
+      "titleAddPackButton": "Добавить новую колоду",
+      "titleEditPackButton": "Сохранить изменения",
+      "changeCover": "Изменить обложку",
+      "inputLabel": "Имя колоды",
+      "inputPlaceholder": "Введите имя колоды",
+      "privatePack": "Приватная колода"
+    },
+    "add-edit-card-modal": {
+      "titleAddCard": "Добавить новую карту",
+      "titleEditCard": "Обновить карту",
+      "titleAddCardButton": "Добавить новую карту",
+      "titleEditButton": "Сохранить изменения",
+      "changeCover": "Изменить обложку",
+      "inputQuestionLabel": "Вопрос",
+      "inputQuestionPlaceholder": "Вопрос",
+      "inputAnswerLabel": "Ответ",
+      "inputAnswerPlaceholder": "Ответ"
+    },
+    "delete-pack-card-modal": {
+      "titlePack": "Удалить колоду",
+      "titleCard": "Удалить карту",
+      "question": "Действительно ли вы хотите удалить",
+      "allCards": "Все карты будут удалены."
+    },
+    "empty-pack": {
+      "back": "Вернуться к списку колод",
+      "thisPackIsEmpty": "Эта колода пуста. Нажмите кнопку добавить новую карту, чтобы заполнить эту колоду",
+      "addNewCard": "Добавить новую карту",
+      "toast": "Карта успешно добавлена"
+    },
+    "friends-pack": {
+      "back": "Вернуться к списку колод",
+      "learnPack": "Учить колоду",
+      "inputPlaceholder": "Введите, чтобы найти...",
+      "question": "Вопрос",
+      "answer": "Ответ",
+      "lastUpdated": "Последнее обновление",
+      "grade": "Рейтинг",
+      "show": "Показать",
+      "onThePage": "На странице"
+    },
+    "my-pack": {
+      "back": "Вернуться к списку колод",
+      "addNewCard": "Добавит новую карту",
+      "inputPlaceholder": "Введите, чтобы найти...",
+      "learnDropDownMenu": "Учить",
+      "editDropDownMenu": "Редактировать",
+      "deleteDropDownMenu": "Удалить",
+      "question": "Вопрос",
+      "answer": "Ответ",
+      "lastUpdated": "Последнее обновление",
+      "grade": "Рейтинг",
+      "show": "Показать",
+      "onThePage": "На странице",
+      "toastSuccessAddCard": "Карта успешно добавлена",
+      "toastSuccessEditCard": "Карта успешно обновлена",
+      "toastSuccessDeleteCard": "Карта успешно удалена",
+      "toastSuccessEditDeck": "Колода успешно обновлена",
+      "toastSuccessDeleteDeck": "Колода успешно удалена"
+    },
+    "learn-pack": {
+      "back": "Назад",
+      "learn": "Учить",
+      "question": "Вопрос",
+      "imgQuestion": "Картинка для вопроса",
+      "imgAnswer": "Картинка для ответа",
+      "count": "Количество попыток ответов на вопрос:",
+      "showAnswer": "Показать ответ",
+      "answer": "Ответ",
+      "rateYourself": "Оцените себя:",
+      "didNotKnow": "Не знал",
+      "forgot": "Забыл",
+      "aLotOfThough": "Много размышлял",
+      "confused": "В замешательстве",
+      "knewTheAnswer": "Знал ответ",
+      "nextQuestion": "Следующий вопрос"
+    }
+  }
+}

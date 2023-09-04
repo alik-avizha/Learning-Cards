@@ -1,0 +1,176 @@
+{
+  "translation": {
+    "sign-in": {
+      "title": "Sign In",
+      "emailLabel": "Email",
+      "emailPlaceholder": "enter your email",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "enter your password",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot Password",
+      "signInButton": "Sign In",
+      "noAccount": "Don't have an account?",
+      "signUpButton": "Sign Up",
+      "toast": "Success"
+    },
+    "sign-up": {
+      "title": "SIGN-UP",
+      "emailLabel": "Email",
+      "emailPlaceholder": "enter your email",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "enter your password",
+      "confirmPasswordLabel": "Confirm Password",
+      "confirmPasswordPlaceholder": "enter your password",
+      "signUpButton": "Sign Up",
+      "haveAccount": "Already have an account?",
+      "signInButton": "Sign In",
+      "toast": "Thank you for registering"
+    },
+    "forgot-password": {
+      "title": "Forgot your password?",
+      "emailLabel": "Email",
+      "emailPlaceholder": "enter your email",
+      "text": "Enter your email address and we will send you further instructions",
+      "sendInstructions": "Send Instructions",
+      "didYouRememberPassword": "Did you remember your password?",
+      "tryLoggingIn": "Try logging in",
+      "toast": "Password successfully reset"
+    },
+    "check-email": {
+      "title": "Create new password",
+      "address": "We’ve sent an Email with instructions to",
+      "backToSignIn": "Back to Sign In"
+    },
+    "create-new-password": {
+      "title": "Create new password",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "enter your password",
+      "text": "Create new password and we will send you further instructions to email",
+      "createNewPassword": "Create New Password",
+      "toast": "Password updated successfully"
+    },
+    "header-drop-down": {
+      "myProfile": "My Profile",
+      "signOut": "Sign Out",
+      "toast": "Have a nice day.",
+      "toast-error": "Can't perform logout while offline",
+      "signIn": "Sign In"
+    },
+    "personal-information": {
+      "backToPackList": "Back to Packs List",
+      "personalInformation": "Personal Information",
+      "name": "Name",
+      "placeholder": "Name",
+      "saveChanges": "Save Changes",
+      "logout": "Logout",
+      "verifyEmail": "Verify email",
+      "toast": "Have a nice day.",
+      "toastPhoto": "Photo has been successfully updated",
+      "toast-error": "Can't perform logout while offline",
+      "verifyToast": "The message has been sent to"
+    },
+    "pack-list": {
+      "title": "Packs list",
+      "addNewPack": "Add New Pack",
+      "inputPlaceholder": "Type to find...",
+      "showPacksCards": "Show packs cards",
+      "numberOfCards": "Number of cards",
+      "clearFilter": "Clear Filter",
+      "show": "Show",
+      "onThePage": "On the page",
+      "toastSuccessAddDeck": "The deck has been successfully added",
+      "toastSuccessEditDeck": "The deck has been successfully updated",
+      "toastSuccessEditDelete": "The deck has been successfully removed"
+    },
+    "table-pack-list": {
+      "name": "Name",
+      "cardsCount": "Cards",
+      "lastUpdated": "Last Updated",
+      "createdBy": "Created by",
+      "noCard": "No cart"
+    },
+    "modal": {
+      "cancel": "Cancel"
+    },
+    "add-edit-pack-modal": {
+      "titleAddPack": "Add New Pack",
+      "titleEditPack": "Edit Pack",
+      "titleAddPackButton": "Add New Pack",
+      "titleEditPackButton": "Save Changes",
+      "changeCover": "Change Cover",
+      "inputLabel": "Name Pack",
+      "inputPlaceholder": "Type name pack",
+      "privatePack": "Private Pack"
+    },
+    "add-edit-card-modal": {
+      "titleAddCard": "Add New Card",
+      "titleEditCard": "Edit Card",
+      "titleAddCardButton": "Add New Card",
+      "titleEditButton": "Save Changes",
+      "changeCover": "Change Cover",
+      "inputQuestionLabel": "Question",
+      "inputQuestionPlaceholder": "Question",
+      "inputAnswerLabel": "Answer",
+      "inputAnswerPlaceholder": "Answer"
+    },
+    "delete-pack-card-modal": {
+      "titlePack": "Delete Pack",
+      "titleCard": "Delete Card",
+      "question": "Do you really want to remove",
+      "allCards": "All cards will be deleted."
+    },
+    "empty-pack": {
+      "back": "Back to Packs List",
+      "thisPackIsEmpty": "This pack is empty. Click add new card to fill this pack",
+      "addNewCard": "Add New Card",
+      "toast": "Card successfully added"
+    },
+    "friends-pack": {
+      "back": "Back to Packs List",
+      "learnPack": "Learn to Pack",
+      "inputPlaceholder": "Type to find...",
+      "question": "Question",
+      "answer": "Answer",
+      "lastUpdated": "Last Updated",
+      "grade": "Grade",
+      "show": "Show",
+      "onThePage": "On the page"
+    },
+    "my-pack": {
+      "back": "Back to Packs List",
+      "addNewCard": "Add New Card",
+      "inputPlaceholder": "Type to find...",
+      "learnDropDownMenu": "Learn",
+      "editDropDownMenu": "Edit",
+      "deleteDropDownMenu": "Delete",
+      "question": "Question",
+      "answer": "Answer",
+      "lastUpdated": "Last Updated",
+      "grade": "Grade",
+      "show": "Show",
+      "onThePage": "On the page",
+      "toastSuccessAddCard": "The card has been successfully added",
+      "toastSuccessEditCard": "The card has been successfully updated",
+      "toastSuccessDeleteCard": "The card has been successfully deleted",
+      "toastSuccessEditDeck": "The deck has been successfully updated",
+      "toastSuccessDeleteDeck": "The deck has been successfully deleted"
+    },
+    "learn-pack": {
+      "back": "Back",
+      "learn": "Learn",
+      "question": "Question",
+      "imgQuestion": "Image for question",
+      "imgAnswer": "Image for answer",
+      "count": "Number of attempts to answer the question:",
+      "showAnswer": "Show answer",
+      "answer": "Answer",
+      "rateYourself": "Rate yourself:",
+      "didNotKnow": "Did not know",
+      "forgot": "Forgot",
+      "aLotOfThough": "A lot of though",
+      "confused": "Confused",
+      "knewTheAnswer": "Knew the answer",
+      "nextQuestion": "Next Question"
+    }
+  }
+}

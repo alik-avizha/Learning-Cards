@@ -1,6 +1,6 @@
-import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 
@@ -22,6 +22,7 @@ export const ForgotPassword = () => {
   const navigate = useNavigate()
   const hookWithToast = useMutationWithToast()
   const [forgotPassword] = useForgotPasswordMutation()
+  const { t } = useTranslation()
 
   const onSubmit = async (data: SignInFormShem) => {
     const result = await hookWithToast(
@@ -29,7 +30,7 @@ export const ForgotPassword = () => {
         ...data,
         html: `<h1>Hi, ##name##</h1><p>Click <a href="https://flaskcards-project.vercel.app/recover-password/##token##">here</a> to recover your password</p>`,
       }),
-      'Пароль успешно cброшен'
+      t('forgot-password.toast')
     )
 
     if (result?.success) {
@@ -40,30 +41,29 @@ export const ForgotPassword = () => {
   return (
     <Card className={s.forgotPasswordBlock}>
       <Typography className={s.title} variant={'large'}>
-        Forgot your password?
+        {t('forgot-password.title')}
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <DevTool control={control} />
         <ControlledTextField
           name={'email'}
-          label={'Email'}
+          label={t('forgot-password.emailLabel')}
           type={'default'}
-          placeholder={'enter your email'}
+          placeholder={t('forgot-password.emailPlaceholder')}
           control={control}
           className={s.email}
         />
         <Typography variant={'body2'} className={s.description}>
-          Enter your email address and we will send you further instructions
+          {t('forgot-password.text')}
         </Typography>
         <Button fullWidth={true} className={s.submit} type="submit">
-          Send Instructions
+          {t('forgot-password.sendInstructions')}
         </Button>
       </form>
       <Typography variant={'body2'} className={s.question}>
-        Did you remember your password?
+        {t('forgot-password.didYouRememberPassword')}
       </Typography>
       <Button as={Link} to="/login" variant={'link'} className={s.signUp}>
-        Try logging in
+        {t('forgot-password.tryLoggingIn')}
       </Button>
     </Card>
   )

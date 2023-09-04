@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 
+import { useTranslation } from 'react-i18next'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import s from './my-pack.module.scss'
@@ -51,6 +52,7 @@ export const MyPack = () => {
   const open = useAppSelector(selectOpen)
   const hookWithToast = useMutationWithToast()
   const dispatch = useAppDispatch()
+  const { t } = useTranslation()
 
   const [cardId, setCardId] = useState<string>('')
   const [search, setSearch] = useState('')
@@ -102,7 +104,7 @@ export const MyPack = () => {
       questionImg && formData.append('questionImg', questionImg)
       answerImg && formData.append('answerImg', answerImg)
 
-      await hookWithToast(createCard({ id: params.id, formData }), 'Карта успешно добавлена')
+      await hookWithToast(createCard({ id: params.id, formData }), t('my-pack.toastSuccessAddCard'))
     } else if (open === 'editCard') {
       const formData = new FormData()
 
@@ -111,16 +113,19 @@ export const MyPack = () => {
       questionImg && formData.append('questionImg', questionImg)
       answerImg && formData.append('answerImg', answerImg)
 
-      await hookWithToast(editItem({ id: cardId, formData }), 'Карта успешно обновлена')
+      await hookWithToast(editItem({ id: cardId, formData }), t('my-pack.toastSuccessEditCard'))
     }
     dispatch(modalActions.setCloseModal({}))
     dispatch(modalActions.setClearState({}))
   }
   const deleteCardOrPack = async () => {
     if (open === 'deleteCard') {
-      await hookWithToast(deleteItem({ id: cardId }), 'Карта успешно удалена')
+      await hookWithToast(deleteItem({ id: cardId }), t('my-pack.toastSuccessDeleteCard'))
     } else if (open === 'deletePack') {
-      const result = await hookWithToast(deleteDeck({ id: cardId }), 'Колода успешно удалена')
+      const result = await hookWithToast(
+        deleteDeck({ id: cardId }),
+        t('my-pack.toastSuccessDeleteCard')
+      )
 
       if (result?.success) {
         navigate('/')
@@ -136,7 +141,7 @@ export const MyPack = () => {
     formData.append('isPrivate', String(privatePack))
     img && formData.append('cover', img)
 
-    await hookWithToast(editDeck({ id: cardId, formData }), 'Колода успешно обновлена')
+    await hookWithToast(editDeck({ id: cardId, formData }), t('my-pack.toastSuccessEditDeck'))
 
     dispatch(modalActions.setCloseModal({}))
     dispatch(modalActions.setClearState({}))
@@ -148,7 +153,7 @@ export const MyPack = () => {
       component: (
         <Button as={Link} to={`/learn-pack/${params.id}`} variant={'link'} className={s.buttonDrop}>
           <Play />
-          <Typography variant={'caption'}>Learn</Typography>
+          <Typography variant={'caption'}>{t('my-pack.learnDropDownMenu')}</Typography>
         </Button>
       ),
     },
@@ -157,7 +162,7 @@ export const MyPack = () => {
       component: (
         <Button variant={'link'} className={s.buttonDrop} onClick={() => openPackModal('editPack')}>
           <Edit />
-          <Typography variant={'caption'}>Edit</Typography>
+          <Typography variant={'caption'}>{t('my-pack.editDropDownMenu')}</Typography>
         </Button>
       ),
     },
@@ -170,7 +175,7 @@ export const MyPack = () => {
           onClick={() => openPackModal('deletePack')}
         >
           <Trash />
-          <Typography variant={'caption'}>Delete</Typography>
+          <Typography variant={'caption'}>{t('my-pack.deleteDropDownMenu')}</Typography>
         </Button>
       ),
     },
@@ -182,7 +187,7 @@ export const MyPack = () => {
     <div className={s.myPackBlock}>
       <Button as={Link} to="/" variant={'link'} className={s.backButton}>
         <Back />
-        Back to Packs List
+        {t('my-pack.back')}
       </Button>
       <div className={s.headBlock}>
         <div className={s.titleAndCover}>
@@ -193,12 +198,12 @@ export const MyPack = () => {
           {data?.cover && <img src={data.cover} alt="cover" className={s.cover} />}
         </div>
         <Button variant={'primary'} onClick={addCardModalHandler}>
-          Add New Card
+          {t('my-pack.addNewCard')}
         </Button>
       </div>
       <TextField
         value={search}
-        placeholder={'Type to find...'}
+        placeholder={t('my-pack.inputPlaceholder')}
         onChangeText={event => setSearch(event)}
         onSearchClear={() => setSearch('')}
         type={'searchType'}
@@ -214,14 +219,14 @@ export const MyPack = () => {
           page={currentPage}
           onChange={setNewCurrentPage}
         />
-        <Typography variant={'body2'}>Показать</Typography>
+        <Typography variant={'body2'}>{t('my-pack.show')}</Typography>
         <SuperSelect
           options={options}
           defaultValue={itemsPerPage.value}
           onValueChange={setNewPerPage}
           classname={s.selectPagination}
         />
-        <Typography variant={'body2'}>На странице</Typography>
+        <Typography variant={'body2'}>{t('my-pack.onThePage')}</Typography>
       </div>
     </div>
   )

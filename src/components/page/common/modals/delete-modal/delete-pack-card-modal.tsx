@@ -1,5 +1,7 @@
 import { FC } from 'react'
 
+import { useTranslation } from 'react-i18next'
+
 import s from './delete-pack-card-modal.module.scss'
 
 import { Modal, Typography } from '@/components/ui'
@@ -14,6 +16,7 @@ export const DeletePackCardModal: FC<PropsType> = ({ onSubmit }) => {
   const { packName } = useAppSelector(selectPackSettings)
   const { question } = useAppSelector(selectCardSettings)
   const dispatch = useAppDispatch()
+  const { t } = useTranslation()
 
   const setClose = () => {
     dispatch(modalActions.setCloseModal({}))
@@ -24,12 +27,12 @@ export const DeletePackCardModal: FC<PropsType> = ({ onSubmit }) => {
 
   if (open === 'deletePack') {
     openModal = open === 'deletePack'
-    titleButton = 'Delete Pack'
-    title = 'Delete Pack'
+    titleButton = t('delete-pack-card-modal.titlePack')
+    title = t('delete-pack-card-modal.titlePack')
   } else if (open === 'deleteCard') {
     openModal = open === 'deleteCard'
-    titleButton = 'Delete Card'
-    title = 'Delete Card'
+    titleButton = t('delete-pack-card-modal.titleCard')
+    title = t('delete-pack-card-modal.titleCard')
   }
 
   return (
@@ -42,12 +45,12 @@ export const DeletePackCardModal: FC<PropsType> = ({ onSubmit }) => {
       callBack={onSubmit}
     >
       <Typography variant={'body1'}>
-        Do you really want to remove{' '}
+        {t('delete-pack-card-modal.question')}{' '}
         <Typography variant={'subtitle1'} className={s.packName}>
           {open === 'deletePack' ? packName : question}?
         </Typography>
         <br />
-        All cards will be deleted.
+        {open === 'deletePack' ? t('delete-pack-card-modal.allCards') : ''}
       </Typography>
     </Modal>
   )

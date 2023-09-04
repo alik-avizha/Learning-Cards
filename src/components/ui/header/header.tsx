@@ -1,5 +1,6 @@
 import { FC } from 'react'
 
+import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
@@ -10,6 +11,7 @@ import { useMutationWithToast } from '@/common'
 import { Button, DropDownMenuDemo, Typography } from '@/components/ui'
 import { AvatarDemo } from '@/components/ui/avatar'
 import { ProfileBlock } from '@/components/ui/header/profile-block'
+import { LanguageTheme } from '@/components/ui/language-theme/language-theme.tsx'
 import { ResponseUserType, useLogoutMutation } from '@/services/auth'
 
 type HeaderProps = {
@@ -19,14 +21,15 @@ export const Header: FC<HeaderProps> = ({ data }) => {
   const [logout] = useLogoutMutation()
   const hookWithToast = useMutationWithToast()
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const logoutHandler = async () => {
     if (!navigator.onLine) {
-      toast.error("Can't perform logout while offline")
+      toast.error(t('header-drop-down.toast-error'))
 
       return
     }
-    const result = await hookWithToast(logout(), 'Всего хорошего')
+    const result = await hookWithToast(logout(), t('header-drop-down.toast'))
 
     if (result?.success) {
       navigate('/login')
@@ -40,7 +43,7 @@ export const Header: FC<HeaderProps> = ({ data }) => {
       component: (
         <Button as={Link} to={'/profile'} variant={'link'} className={s.buttonDrop}>
           <Profile />
-          <Typography variant={'caption'}>My Profile</Typography>
+          <Typography variant={'caption'}>{t('header-drop-down.myProfile')}</Typography>
         </Button>
       ),
     },
@@ -49,7 +52,7 @@ export const Header: FC<HeaderProps> = ({ data }) => {
       component: (
         <Button variant={'link'} className={s.buttonDrop} onClick={logoutHandler}>
           <Logout />
-          <Typography variant={'caption'}>Sign Out</Typography>
+          <Typography variant={'caption'}>{t('header-drop-down.signOut')}</Typography>
         </Button>
       ),
     },
@@ -58,10 +61,13 @@ export const Header: FC<HeaderProps> = ({ data }) => {
   return (
     <div className={s.headerBlock}>
       <div className={s.contentHeader}>
-        <Button aria-label={'to-main-page'} as={Link} to="/" variant={'link'} className={s.logo}>
-          <Logo />
-        </Button>
-        {!data && <Button variant={'primary'}>Sign In</Button>}
+        <div className={s.logoBlock}>
+          <Button aria-label={'to-main-page'} as={Link} to="/" variant={'link'} className={s.logo}>
+            <Logo />
+          </Button>
+          <LanguageTheme />
+        </div>
+        {!data && <Button variant={'primary'}>{t('header-drop-down.signIn')}</Button>}
         {data && (
           <div className={s.avatar_menu}>
             <Link to={`/profile`} className={s.link}>

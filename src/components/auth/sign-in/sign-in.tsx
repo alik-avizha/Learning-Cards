@@ -2,6 +2,7 @@ import { FC } from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { z } from 'zod'
 
@@ -21,6 +22,7 @@ type PropsType = {
   onSubmit: (data: SignInFormShem) => void
 }
 export const SignIn: FC<PropsType> = ({ onSubmit }) => {
+  const { t } = useTranslation()
   const { control, handleSubmit } = useForm<SignInFormShem>({
     defaultValues: {
       email: '',
@@ -34,22 +36,22 @@ export const SignIn: FC<PropsType> = ({ onSubmit }) => {
   return (
     <Card className={s.signBlock}>
       <Typography className={s.title} variant={'large'}>
-        Sign In
+        {t('sign-in.title')}
       </Typography>
       <form onSubmit={handleSubmitForm}>
         <ControlledTextField
           name={'email'}
-          label={'Email'}
+          label={t('sign-in.emailLabel')}
           type={'default'}
-          placeholder={'enter your email'}
+          placeholder={t('sign-in.emailPlaceholder')}
           control={control}
           className={s.email}
         />
         <ControlledTextField
           name={'password'}
-          label={'Password'}
+          label={t('sign-in.passwordLabel')}
           type={'password'}
-          placeholder={'enter your password'}
+          placeholder={t('sign-in.passwordPlaceholder')}
           control={control}
           className={s.password}
           autoComplete={'on'}
@@ -58,22 +60,22 @@ export const SignIn: FC<PropsType> = ({ onSubmit }) => {
           control={control}
           name={'rememberMe'}
           variant={'withText'}
-          checkBoxText={'Remember me'}
+          checkBoxText={t('sign-in.rememberMe')}
         />
         <div className={s.forgotWrapper}>
           <Button as={Link} to="/forgot-password" variant={'link'} className={s.forgotPassword}>
-            <Typography variant={'body2'}>Forgot Password?</Typography>
+            <Typography variant={'body2'}>{t('sign-in.forgotPassword')}</Typography>
           </Button>
         </div>
         <Button fullWidth={true} className={s.submit} type="submit">
-          Sign In
+          {t('sign-in.signInButton')}
         </Button>
       </form>
       <Typography variant={'body2'} className={s.question}>
-        Don&apos;t have an account?
+        {t('sign-in.noAccount')}
       </Typography>
       <Button as={Link} to="/sign-up" variant={'link'} className={s.signUp}>
-        Sign Up
+        {t('sign-in.signUpButton')}
       </Button>
     </Card>
   )

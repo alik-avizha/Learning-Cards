@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { Navigate } from 'react-router-dom'
 
 import { useMutationWithToast } from '@/common'
@@ -7,11 +8,12 @@ import { useLoginMutation, useMeQuery } from '@/services/auth'
 
 export const Login = () => {
   const [login] = useLoginMutation()
+  const { t } = useTranslation()
   const { data, isLoading } = useMeQuery()
   const hookWithToast = useMutationWithToast()
 
   const loginHandler = async (data: any) => {
-    await hookWithToast(login(data), 'Успешный вход')
+    await hookWithToast(login(data), t('sign-in.toast'))
   }
 
   if (isLoading) return <Loader />

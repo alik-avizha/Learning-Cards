@@ -1,5 +1,7 @@
 import { FC } from 'react'
 
+import { useTranslation } from 'react-i18next'
+
 import s from './my-pack-table.module.scss'
 
 import { Edit, Trash } from '@/assets'
@@ -22,36 +24,36 @@ export type Column = {
   title: string
   sortable?: boolean
 }
-
-const columns: Array<Column> = [
-  {
-    key: 'question',
-    title: 'Question',
-    sortable: true,
-  },
-  {
-    key: 'answer',
-    title: 'Answer',
-    sortable: true,
-  },
-  {
-    key: 'updated',
-    title: 'Last Updated',
-    sortable: true,
-  },
-  {
-    key: 'grade',
-    title: 'Grade',
-    sortable: true,
-  },
-  {
-    key: 'activity',
-    title: '',
-  },
-]
-
 export const MyPackTable: FC<PropsType> = ({ dataCards, setCardId, sort, setSort }) => {
   const dispatch = useAppDispatch()
+  const { t } = useTranslation()
+
+  const columns: Array<Column> = [
+    {
+      key: 'question',
+      title: t('my-pack.question'),
+      sortable: true,
+    },
+    {
+      key: 'answer',
+      title: t('my-pack.answer'),
+      sortable: true,
+    },
+    {
+      key: 'updated',
+      title: t('my-pack.lastUpdated'),
+      sortable: true,
+    },
+    {
+      key: 'grade',
+      title: t('my-pack.grade'),
+      sortable: true,
+    },
+    {
+      key: 'activity',
+      title: '',
+    },
+  ]
   const onEditHandler = (
     question: string,
     answer: string,

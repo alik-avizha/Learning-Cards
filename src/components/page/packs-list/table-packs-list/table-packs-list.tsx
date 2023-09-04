@@ -1,5 +1,6 @@
 import { FC } from 'react'
 
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
@@ -19,33 +20,6 @@ export type Column = {
   title: string
   sortable?: boolean
 }
-
-const columns: Array<Column> = [
-  {
-    key: 'name',
-    title: 'Name',
-    sortable: true,
-  },
-  {
-    key: 'cardsCount',
-    title: 'Cards',
-    sortable: true,
-  },
-  {
-    key: 'updated',
-    title: 'Last Updated',
-    sortable: true,
-  },
-  {
-    key: 'created',
-    title: 'Created by',
-    sortable: true,
-  },
-  {
-    key: 'activity',
-    title: '',
-  },
-]
 
 type PropsType = {
   data: DecksResponse | undefined
@@ -67,7 +41,34 @@ export const TablePacksList: FC<PropsType> = ({
   const onClickNameDeckHandler = (authorId: string) => {
     setIsMyPackHandler(authorId === authData?.id)
   }
+  const { t } = useTranslation()
 
+  const columns: Array<Column> = [
+    {
+      key: 'name',
+      title: t('table-pack-list.name'),
+      sortable: true,
+    },
+    {
+      key: 'cardsCount',
+      title: t('table-pack-list.cardsCount'),
+      sortable: true,
+    },
+    {
+      key: 'updated',
+      title: t('table-pack-list.lastUpdated'),
+      sortable: true,
+    },
+    {
+      key: 'created',
+      title: t('table-pack-list.createdBy'),
+      sortable: true,
+    },
+    {
+      key: 'activity',
+      title: '',
+    },
+  ]
   const onEditHandler = (
     name: string,
     cardId: string,
@@ -126,7 +127,10 @@ export const TablePacksList: FC<PropsType> = ({
                       <Play className={s.icon} />
                     </Link>
                   ) : (
-                    <Play className={s.icon} onClick={() => toast.error('No cart')} />
+                    <Play
+                      className={s.icon}
+                      onClick={() => toast.error(t('table-pack-list.noCard'))}
+                    />
                   )}
                   {el.author.id === authData?.id && (
                     <>
