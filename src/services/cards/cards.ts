@@ -1,5 +1,5 @@
 import { baseApi } from '@/services/base-api.ts'
-import { CardsResponse, GetRequestType } from '@/services/cards/types.ts'
+import { CardsResponse, GetRequestType, RootObjectItems } from '@/services/cards/types.ts'
 
 const cardsApi = baseApi.injectEndpoints({
   endpoints: builder => {
@@ -12,7 +12,7 @@ const cardsApi = baseApi.injectEndpoints({
         }),
         providesTags: ['Cards'],
       }),
-      createCard: builder.mutation<any, any>({
+      createCard: builder.mutation<RootObjectItems, { id: string; formData: FormData }>({
         query: ({ id, formData }) => ({
           url: `v1/decks/${id}/cards`,
           method: 'POST',
@@ -20,7 +20,7 @@ const cardsApi = baseApi.injectEndpoints({
         }),
         invalidatesTags: ['Cards', 'Decks'],
       }),
-      editCard: builder.mutation<any, { id: string; formData: FormData }>({
+      editCard: builder.mutation<RootObjectItems, { id: string; formData: FormData }>({
         query: ({ id, formData }) => ({
           url: `v1/cards/${id}`,
           method: 'PATCH',
@@ -28,7 +28,7 @@ const cardsApi = baseApi.injectEndpoints({
         }),
         invalidatesTags: ['Cards'],
       }),
-      deleteCard: builder.mutation<any, { id: string }>({
+      deleteCard: builder.mutation<void, { id: string }>({
         query: ({ id }) => ({
           url: `v1/cards/${id}`,
           method: 'DELETE',
@@ -45,13 +45,3 @@ export const {
   useDeleteCardMutation,
   useEditCardMutation,
 } = cardsApi
-
-/*type CreateEditArguments = {
-  id: string
-  questionImg?: string
-  answerImg?: string
-  question?: string
-  answer?: string
-  questionVideo?: string
-  answerVideo?: string
-}*/
