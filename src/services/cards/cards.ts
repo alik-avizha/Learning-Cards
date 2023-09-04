@@ -12,14 +12,16 @@ const cardsApi = baseApi.injectEndpoints({
         }),
         providesTags: ['Cards'],
       }),
-      createCard: builder.mutation<RootObjectItems, { id: string; formData: FormData }>({
-        query: ({ id, formData }) => ({
-          url: `v1/decks/${id}/cards`,
-          method: 'POST',
-          body: formData,
-        }),
-        invalidatesTags: ['Cards', 'Decks'],
-      }),
+      createCard: builder.mutation<RootObjectItems, { id: string | undefined; formData: FormData }>(
+        {
+          query: ({ id, formData }) => ({
+            url: `v1/decks/${id}/cards`,
+            method: 'POST',
+            body: formData,
+          }),
+          invalidatesTags: ['Cards', 'Decks'],
+        }
+      ),
       editCard: builder.mutation<RootObjectItems, { id: string; formData: FormData }>({
         query: ({ id, formData }) => ({
           url: `v1/cards/${id}`,
