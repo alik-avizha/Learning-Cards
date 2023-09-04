@@ -12,9 +12,10 @@ export type DecksResponse = PaginatedEntity<Deck> & {
   maxCardsCount: number
 }
 
-export type CreateGetDeckArgs = {
+export type CreateDeckArgs = {
   name: string
   isPrivate?: boolean
+  cover: string
 }
 
 export type Author = {
