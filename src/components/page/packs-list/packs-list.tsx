@@ -96,8 +96,8 @@ export const PacksList = () => {
   }
   const clearFilterData = () => {
     setSearchByName('')
-    handleTabSort('All Cards')
-    setActiveTab('All Cards')
+    handleTabSort(t('pack-list.allCards'))
+    setActiveTab(t('pack-list.allCards'))
     setValueSlider([sliderValues.minValue, sliderValues.maxValue])
     setSort({ key: 'updated', direction: 'asc' })
   }
