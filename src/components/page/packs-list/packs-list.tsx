@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
 import { useTranslation } from 'react-i18next'
 
@@ -132,6 +132,19 @@ export const PacksList = () => {
     dispatch(modalActions.setOpenModal('addPack'))
   }
 
+  const changeOptionTabSwitcher = useMemo(() => {
+    return tabSwitcherOptions.map(el => {
+      if (el.id === 1) {
+        return { ...el, value: t('pack-list.myCards') }
+      }
+      if (el.id === 2) {
+        return { ...el, value: t('pack-list.allCards') }
+      }
+
+      return el
+    })
+  }, [tabSwitcherOptions, t])
+
   return (
     <div className={s.packListBlock}>
       <div className={s.headBlock}>
@@ -155,7 +168,7 @@ export const PacksList = () => {
           </Typography>
           <TabSwitcher
             onChangeCallback={value => handleTabSort(value)}
-            options={tabSwitcherOptions}
+            options={changeOptionTabSwitcher}
             classname={s.switcher}
             activeTab={activeTab}
           />

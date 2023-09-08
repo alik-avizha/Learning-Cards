@@ -27,6 +27,10 @@ export const LearnPack = () => {
     setShowAnswer(false)
   }
 
+  if (deck?.cardsCount === 0) {
+    navigate(-1)
+  }
+
   return (
     <div className={s.learnPackPage}>
       <Button
