@@ -80,7 +80,9 @@
       "onThePage": "На странице",
       "toastSuccessAddDeck": "Колода успешно добавлена",
       "toastSuccessEditDeck": "Колода успешно обновлена",
-      "toastSuccessEditDelete": "Колода успешно удалена"
+      "toastSuccessEditDelete": "Колода успешно удалена",
+      "myCards": "Мои карты",
+      "allCards": "Все карты"
     },
     "table-pack-list": {
       "name": "Имя",

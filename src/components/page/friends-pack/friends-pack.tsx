@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react'
 
 import { useTranslation } from 'react-i18next'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import s from './friends-pack.module.scss'
 import { FriendsTable } from './friends-table'
@@ -17,6 +18,7 @@ import { useAppDispatch, useAppSelector } from '@/services/store.ts'
 
 export const FriendsPack = () => {
   const params = useParams<{ id: string }>()
+  const navigate = useNavigate()
 
   const itemsPerPage = useAppSelector(state => state.deckSlice.currentPerPage.friendsPack)
   const options = useAppSelector(state => state.deckSlice.paginationOptions)
@@ -51,6 +53,14 @@ export const FriendsPack = () => {
     dispatch(deckSlice.actions.setItemsPerPage({ value: 'friendsPack', newCurrentPage: value }))
   }
 
+  const onLearnHandler = () => {
+    if (data?.cardsCount === 0) {
+      toast.error(t('table-pack-list.noCard'))
+    } else {
+      navigate(`/learn-pack/${params.id}`)
+    }
+  }
+
   if (isLoading) return <Loader />
 
   return (
@@ -66,7 +76,7 @@ export const FriendsPack = () => {
           </div>
           {data?.cover && <img src={data.cover} alt="cover" className={s.cover} />}
         </div>
-        <Button as={Link} to={`/learn-pack/${params.id}`} variant={'primary'}>
+        <Button onClick={onLearnHandler} variant={'primary'}>
           {t('friends-pack.learnPack')}
         </Button>
       </div>

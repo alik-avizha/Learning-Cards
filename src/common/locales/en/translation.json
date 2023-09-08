@@ -80,7 +80,9 @@
       "onThePage": "On the page",
       "toastSuccessAddDeck": "The deck has been successfully added",
       "toastSuccessEditDeck": "The deck has been successfully updated",
-      "toastSuccessEditDelete": "The deck has been successfully removed"
+      "toastSuccessEditDelete": "The deck has been successfully removed",
+      "myCards": "My Cards",
+      "allCards": "All Cards"
     },
     "table-pack-list": {
       "name": "Name",
