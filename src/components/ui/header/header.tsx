@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 
 import s from './header.module.scss'
 
-import { Logo, Logout, Profile } from '@/assets'
+import { Logout, Profile } from '@/assets'
 import { useMutationWithToast } from '@/common'
 import { Button, DropDownMenuDemo, Typography } from '@/components/ui'
 import { AvatarDemo } from '@/components/ui/avatar'
@@ -63,7 +63,7 @@ export const Header: FC<HeaderProps> = ({ data }) => {
       <div className={s.contentHeader}>
         <div className={s.logoBlock}>
           <Button aria-label={'to-main-page'} as={Link} to="/" variant={'link'} className={s.logo}>
-            <Logo />
+            <Typography variant={'large'}>{t('learning-cards')}</Typography>
           </Button>
           <LanguageTheme />
         </div>

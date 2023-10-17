@@ -9,7 +9,7 @@ Below you can see a bit of information about authorisation flow.
 ![](src/assets/images/signUpPage.png)
 ![](src/assets/images/forgotPasswordPage.png)
 ![](src/assets/images/checkEmailPage.png)
-![](src/assets/images/createNewPasswordPage.png)
+![](src/assets/images/checkEmailPage.png)
 
 Here you can select the deck you would like to learn, delete or edit. You can also set up filters to search for the deck you want to learn
 ![](src/assets/images/mainPage.png)
@@ -20,7 +20,7 @@ Here you can select the deck you would like to learn, delete or edit. You can al
 
 Also going to the deck page, you can add question and answer cards. As well as the necessary interaction functions (add, edit, delete).
 ![](src/assets/images/deckPage.png)
-![](src/assets/images/addNewCard.png)
+![](src/assets/images/editDeck.png)
 
 In this project has a profile page where you can update your photo or change your nickname
 ![](src/assets/images/personalInfoPage.png).
