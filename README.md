@@ -9,7 +9,6 @@ Below you can see a bit of information about authorisation flow.
 ![](src/assets/images/signUpPage.png)
 ![](src/assets/images/forgotPasswordPage.png)
 ![](src/assets/images/checkEmailPage.png)
-![](src/assets/images/checkEmailPage.png)
 
 Here you can select the deck you would like to learn, delete or edit. You can also set up filters to search for the deck you want to learn
 ![](src/assets/images/mainPage.png)
